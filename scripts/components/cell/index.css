@@ -1,0 +1,15 @@
+:local .main {
+  width: 50px;
+  height: 50px;
+  border: 1px solid green;
+  float: left;
+  display: block;
+}
+
+:local .first {
+  clear: left;
+}
+
+:local .enabled {
+  background: blue;
+}
