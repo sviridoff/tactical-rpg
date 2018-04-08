@@ -7,24 +7,41 @@ const initialState = new Grid({
   height: 15,
 });
 
-function grid(state = initialState, action) {
-  if (action.type === 'ENABLE_CELL') {
-    const clonedState = clone(state);
+function grid(state = initialState, { data, type }) {
+  switch (type) {
+    case 'ENABLE_CELL': {
+      const clonedState = clone(state, false);
+      const { x, y } = data.cell;
 
-    const { x, y } = action.data.cell;
-    clonedState[x][y].isEnabled = true;
+      clonedState[x][y].isMoveArea = true;
 
-    return clonedState;
-  } else if (action.type === 'DISABLE_CELL') {
-    const clonedState = clone(state);
+      return clonedState;
+    }
+    case 'DISABLE_CELL': {
+      const clonedState = clone(state, false);
+      const { x, y } = data.cell;
 
-    const { x, y } = action.data.cell;
-    clonedState[x][y].isEnabled = false;
+      clonedState[x][y].isMoveArea = false;
 
-    return clonedState;
+      return clonedState;
+    }
+    case 'SQUARE_CELL': {
+      const clonedState = clone(state, false);
+      const { x, y } = data.cell;
+
+      const squareGrid = Grid.getSquare({ x, y, size: 2 });
+
+      return Grid.enabling(clonedState, squareGrid);
+    }
+    case 'DISABLE_ALL_CELLS': {
+      const clonedState = clone(state, false);
+
+      return Grid.disableAll(clonedState);
+    }
+    default: {
+      return state;
+    }
   }
-
-  return state;
 }
 
 export default grid;

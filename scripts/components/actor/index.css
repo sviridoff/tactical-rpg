@@ -1,0 +1,8 @@
+:local .main {
+  display: block;
+  width: 62px;
+  height: 62px;
+  background: brown;
+  position: absolute;
+  transition: all 0.2s ease-out;
+}
