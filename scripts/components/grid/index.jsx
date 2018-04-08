@@ -3,18 +3,23 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import Cell from '../cell';
-import { updateActorPosition } from '../../actions';
+import {
+  updateActorCurrentPosition,
+  updatePlayerSelectedActorId,
+  updatePlayerViewActorId,
+  disableAllCells,
+} from '../../actions';
 
-const Grid = ({ grid, player, dispatch }) => {
-  const { selectedActorId } = player;
+const Grid = ({
+  grid, player, actors, dispatch,
+}) => {
+  const { selectedActorId, viewActorId } = player;
 
   return (
     <React.Fragment>
       {grid.map(row =>
         row.map((cell, index) => {
-          const {
-            x, y, id, isMoveArea,
-          } = cell;
+          const { id, isMoveArea } = cell;
 
           return (
             <Cell
@@ -24,11 +29,30 @@ const Grid = ({ grid, player, dispatch }) => {
                   return;
                 }
 
+                const actor = actors[selectedActorId];
+
                 if (!isMoveArea) {
+                  const { x, y } = actor.original;
+
+                  dispatch(updatePlayerSelectedActorId({ id: null }));
+                  dispatch(updatePlayerViewActorId({ id: null }));
+                  dispatch(disableAllCells());
+                  dispatch(updateActorCurrentPosition({
+                      id: selectedActorId,
+                      x,
+                      y,
+                    }));
+
                   return;
                 }
 
-                dispatch(updateActorPosition({
+                const { x, y } = cell;
+
+                if (selectedActorId !== viewActorId) {
+                  dispatch(updatePlayerViewActorId({ id: selectedActorId }));
+                }
+
+                dispatch(updateActorCurrentPosition({
                     id: selectedActorId,
                     x,
                     y,
@@ -46,9 +70,10 @@ const Grid = ({ grid, player, dispatch }) => {
 Grid.propTypes = {
   grid: PropTypes.arrayOf(PropTypes.array).isRequired,
   player: PropTypes.object.isRequired,
+  actors: PropTypes.object.isRequired,
   dispatch: PropTypes.func.isRequired,
 };
 
-const ConnectedGrid = connect(({ grid, player }) => ({ grid, player }))(Grid);
+const ConnectedGrid = connect(({ grid, player, actors }) => ({ grid, player, actors }))(Grid);
 
 export default ConnectedGrid;

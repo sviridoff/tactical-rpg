@@ -25,7 +25,7 @@ function grid(state = initialState, { data, type }) {
 
       return clonedState;
     }
-    case 'SQUARE_CELL': {
+    case 'SHOW_ACTOR_AREA': {
       const clonedState = clone(state, false);
       const { x, y } = data.cell;
 

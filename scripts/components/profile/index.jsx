@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 const Profile = ({ player }) => (
   <div>
-    <h1>My profile: {player.selectedActorId}</h1>
+    <h1>Profile: {player.viewActorId}</h1>
   </div>
 );
 

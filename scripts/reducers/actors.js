@@ -6,11 +6,13 @@ const initialState = {};
 
 times(3, () => {
   const id = uuidv4();
+  const x = random(0, 14);
+  const y = random(0, 14);
 
   const actor = {
     id,
-    x: random(0, 14),
-    y: random(0, 14),
+    original: { x, y },
+    current: { x, y },
   };
 
   initialState[id] = actor;
@@ -18,11 +20,25 @@ times(3, () => {
 
 function actors(state = initialState, action) {
   switch (action.type) {
-    case 'UPDATE_ACTOR_POSITION': {
+    case 'UPDATE_ACTOR_CURRENT_POSITION': {
       const stateClone = clone(state);
       const { id, x, y } = action.data;
 
-      stateClone[id] = { ...stateClone[id], x, y };
+      stateClone[id] = {
+        ...stateClone[id],
+        current: { x, y },
+      };
+
+      return stateClone;
+    }
+    case 'UPDATE_ACTOR_ORIGINAL_POSITION': {
+      const stateClone = clone(state);
+      const { id, x, y } = action.data;
+
+      stateClone[id] = {
+        ...stateClone[id],
+        original: { x, y },
+      };
 
       return stateClone;
     }

@@ -3,30 +3,47 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import Actor from '../actor';
-import { updatePlayerSelectedActorId, squareCell, disableAllCells } from '../../actions';
+import {
+  updatePlayerSelectedActorId,
+  updatePlayerViewActorId,
+  showActorArea,
+  disableAllCells,
+  updateActorOriginalPosition,
+} from '../../actions';
 
 const Actors = ({
   actors, player, grid, dispatch,
 }) => (
   <React.Fragment>
     {Object.values(actors).map((actor) => {
-      const { id, x, y } = actor;
+      const { id } = actor;
+      const { x, y } = actor.current;
       const cell = grid[y][x];
-      const { selectedActorId } = player;
+      const { selectedActorId, viewActorId } = player;
 
       return (
         <Actor
           key={id}
           actor={actor}
           onClick={() => {
-            dispatch(disableAllCells());
-
-            if (selectedActorId === id) {
-              dispatch(updatePlayerSelectedActorId({ id: null }));
-            } else {
+            if (!selectedActorId) {
               dispatch(updatePlayerSelectedActorId({ id }));
-              dispatch(squareCell({ cell }));
+              dispatch(updatePlayerViewActorId({ id }));
+              dispatch(showActorArea({ cell }));
+
+              return;
             }
+
+            if (selectedActorId !== id || viewActorId !== id) {
+              dispatch(updatePlayerViewActorId({ id }));
+
+              return;
+            }
+
+            dispatch(disableAllCells());
+            dispatch(updateActorOriginalPosition({ id, x, y }));
+            dispatch(updatePlayerSelectedActorId({ id: null }));
+            dispatch(updatePlayerViewActorId({ id: null }));
           }}
         />
       );

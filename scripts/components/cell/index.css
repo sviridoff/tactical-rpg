@@ -10,6 +10,8 @@
   clear: left;
 }
 
-:local .enabled {
+:local .moveArea {
   background: blue;
+  width: 100%;
+  height: 100%;
 }

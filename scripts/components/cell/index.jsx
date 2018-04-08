@@ -6,13 +6,11 @@ import style from './index.css';
 const Cell = ({ cell, onClick, isFirst }) => {
   const { isMoveArea } = cell;
   const firstClass = isFirst ? style.first : '';
-  const enabledClass = isMoveArea ? style.enabled : '';
 
   return (
-    <div
-      onClick={onClick}
-      className={[style.main, firstClass, enabledClass].join(' ')}
-    />
+    <div onClick={onClick} className={[style.main, firstClass].join(' ')}>
+      {isMoveArea && <div className={style.moveArea} />}
+    </div>
   );
 };
 

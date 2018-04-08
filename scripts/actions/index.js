@@ -12,9 +12,9 @@ export function disableCell({ cell }) {
   };
 }
 
-export function squareCell({ cell }) {
+export function showActorArea({ cell }) {
   return {
-    type: 'SQUARE_CELL',
+    type: 'SHOW_ACTOR_AREA',
     data: { cell },
   };
 }
@@ -25,16 +25,30 @@ export function disableAllCells() {
   };
 }
 
-export function updateActorPosition({ x, y, id }) {
+export function updateActorCurrentPosition({ x, y, id }) {
   return {
-    type: 'UPDATE_ACTOR_POSITION',
+    type: 'UPDATE_ACTOR_CURRENT_POSITION',
+    data: { x, y, id },
+  };
+}
+
+export function updateActorOriginalPosition({ x, y, id }) {
+  return {
+    type: 'UPDATE_ACTOR_ORIGINAL_POSITION',
     data: { x, y, id },
   };
 }
 
 export function updatePlayerSelectedActorId({ id }) {
   return {
-    type: 'UPDATE_PLAYER_ACTOR_ID',
+    type: 'UPDATE_PLAYER_SELECTED_ACTOR_ID',
+    data: { id },
+  };
+}
+
+export function updatePlayerViewActorId({ id }) {
+  return {
+    type: 'UPDATE_PLAYER_VIEW_ACTOR_ID',
     data: { id },
   };
 }
