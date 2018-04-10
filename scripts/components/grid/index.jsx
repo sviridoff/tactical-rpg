@@ -7,7 +7,7 @@ import {
   updateActorCurrentPosition,
   updatePlayerSelectedActorId,
   updatePlayerViewActorId,
-  disableAllCells,
+  hideActorArea,
 } from '../../actions';
 
 const Grid = ({
@@ -25,18 +25,20 @@ const Grid = ({
             <Cell
               key={id}
               onClick={() => {
+                // Actor is not selected.
                 if (!selectedActorId) {
                   return;
                 }
 
                 const actor = actors[selectedActorId];
 
+                // If NOT is move area, set current position to the original.
                 if (!isMoveArea) {
                   const { x, y } = actor.original;
 
                   dispatch(updatePlayerSelectedActorId({ id: null }));
                   dispatch(updatePlayerViewActorId({ id: null }));
-                  dispatch(disableAllCells());
+                  dispatch(hideActorArea());
                   dispatch(updateActorCurrentPosition({
                       id: selectedActorId,
                       x,
@@ -48,10 +50,12 @@ const Grid = ({
 
                 const { x, y } = cell;
 
+                // If selected actor is NOT viewed, view it,
                 if (selectedActorId !== viewActorId) {
                   dispatch(updatePlayerViewActorId({ id: selectedActorId }));
                 }
 
+                // Update current position.
                 dispatch(updateActorCurrentPosition({
                     id: selectedActorId,
                     x,

@@ -1,21 +1,19 @@
 import uuidv4 from 'uuid/v4';
-import { times, random } from 'lodash';
+import { times } from 'lodash';
 import clone from 'clone';
 
 const initialState = {};
+const positions = [[2, 2], [3, 3], [5, 5]];
 
-times(3, () => {
+times(3, (index) => {
   const id = uuidv4();
-  const x = random(0, 14);
-  const y = random(0, 14);
+  const [x, y] = positions[index];
 
-  const actor = {
+  initialState[id] = {
     id,
     original: { x, y },
     current: { x, y },
   };
-
-  initialState[id] = actor;
 });
 
 function actors(state = initialState, action) {

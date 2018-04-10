@@ -1,6 +1,5 @@
-import { times, get } from 'lodash';
+import { times, remove } from 'lodash';
 import uuidv4 from 'uuid/v4';
-import clone from 'clone';
 
 class Grid {
   constructor({ width, height }) {
@@ -15,6 +14,9 @@ class Grid {
           x,
           y,
           isMoveArea: false,
+          isAttackArea: false,
+          isActorArea: false,
+          isSelectedArea: false,
         };
 
         row.push(cell);
@@ -26,49 +28,75 @@ class Grid {
     return grid;
   }
 
-  static getSquare({ x, y, size }) {
-    const grid = [];
+  static addMoveArea({
+    grid, x, y, size,
+  }) {
+    const cells = Grid.getSquareCells({ x, y, size });
+    return Grid.applyArea({ grid, cells }, { isMoveArea: true });
+  }
+
+  static addAttackArea({
+    grid, x, y, size,
+  }) {
+    const cells = Grid.getSquareCells({ x, y, size });
+    return Grid.applyArea({ grid, cells }, { isAttackArea: true });
+  }
+
+  static addActorArea({
+    grid, cells, x, y,
+  }) {
+    remove(cells, cell => cell.x === x && cell.y === y);
+
+    return Grid.applyArea({ grid, cells }, { isActorArea: true });
+  }
+
+  static addSelectedArea({ grid, x, y }) {
+    return Grid.applyArea({ grid, cells: [{ x, y }] }, { isSelectedArea: true });
+  }
+
+  static removeAllAreas({ grid }) {
+    return grid.map(row =>
+      row.map(cell => ({
+        ...cell,
+        isMoveArea: false,
+        isAttackArea: false,
+        isActorArea: false,
+        isSelectedArea: false,
+      })));
+  }
+
+  static getSquareCells({ x, y, size }) {
+    const cells = [];
     const width = size * 2 + 1;
     const height = size * 2 + 1;
 
     times(height, (yy) => {
-      const row = [];
-
       times(width, (xx) => {
         const cell = {
-          id: uuidv4(),
           x: xx - size + x,
           y: yy - size + y,
         };
 
-        row.push(cell);
-      });
-
-      grid.push(row);
-    });
-
-    return grid;
-  }
-
-  static enabling(grid1, grid2) {
-    const grid1Clone = clone(grid1, false);
-
-    grid2.forEach((row) => {
-      row.forEach(({ x, y }) => {
-        const cell = get(grid1Clone, `[${y}][${x}]`);
-
-        if (cell) {
-          cell.isMoveArea = true;
-        }
+        cells.push(cell);
       });
     });
 
-    return grid1Clone;
+    return cells;
   }
 
-  static disableAll(grid) {
-    return grid.map(row =>
-      row.map(cell => ({ ...cell, isMoveArea: false })));
+  static applyArea({ grid, cells }, params) {
+    const gridClone = grid.slice();
+
+    cells.forEach((cell) => {
+      if (grid[cell.y] && grid[cell.y][cell.x]) {
+        gridClone[cell.y][cell.x] = {
+          ...grid[cell.y][cell.x],
+          ...params,
+        };
+      }
+    });
+
+    return gridClone;
   }
 }
 

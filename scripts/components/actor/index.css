@@ -1,8 +1,18 @@
 :local .main {
-  display: block;
-  width: 62px;
-  height: 62px;
-  background: brown;
   position: absolute;
-  transition: all 0.2s ease-out;
+  width: 30px;
+  height: 30px;
+  margin: 15px;
+  background: yellow;
+  transition: all 1s;
+  z-index: 2;
+}
+
+:local .selectedArea {
+  position: absolute;
+  background: purple;
+  width: 40px;
+  height: 40px;
+  margin: 10px;
+  z-index: 1;
 }

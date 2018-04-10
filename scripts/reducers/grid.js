@@ -1,5 +1,3 @@
-import clone from 'clone';
-
 import Grid from '../models/Grid';
 
 const initialState = new Grid({
@@ -9,34 +7,30 @@ const initialState = new Grid({
 
 function grid(state = initialState, { data, type }) {
   switch (type) {
-    case 'ENABLE_CELL': {
-      const clonedState = clone(state, false);
-      const { x, y } = data.cell;
-
-      clonedState[x][y].isMoveArea = true;
-
-      return clonedState;
-    }
-    case 'DISABLE_CELL': {
-      const clonedState = clone(state, false);
-      const { x, y } = data.cell;
-
-      clonedState[x][y].isMoveArea = false;
-
-      return clonedState;
-    }
     case 'SHOW_ACTOR_AREA': {
-      const clonedState = clone(state, false);
-      const { x, y } = data.cell;
+      const { cells, cell } = data;
+      const { x, y } = cell;
 
-      const squareGrid = Grid.getSquare({ x, y, size: 2 });
+      let newState = Grid.addMoveArea({
+        grid: state, x, y, size: 2,
+      });
 
-      return Grid.enabling(clonedState, squareGrid);
+      newState = Grid.addAttackArea({
+        grid: newState, x, y, size: 3,
+      });
+
+      newState = Grid.addActorArea({
+        grid: newState, cells, x, y,
+      });
+
+      newState = Grid.addSelectedArea({
+        grid: newState, x, y,
+      });
+
+      return newState;
     }
-    case 'DISABLE_ALL_CELLS': {
-      const clonedState = clone(state, false);
-
-      return Grid.disableAll(clonedState);
+    case 'HIDE_ACTOR_AREA': {
+      return Grid.removeAllAreas({ grid: state });
     }
     default: {
       return state;

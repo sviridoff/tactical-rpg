@@ -4,12 +4,21 @@ import PropTypes from 'prop-types';
 import style from './index.css';
 
 const Cell = ({ cell, onClick, isFirst }) => {
-  const { isMoveArea } = cell;
-  const firstClass = isFirst ? style.first : '';
+  const { isMoveArea, isAttackArea, isActorArea } = cell;
+
+  let area;
+
+  if (isActorArea) {
+    area = <div className={style.actorArea} />;
+  } else if (isMoveArea) {
+    area = <div className={style.moveArea} />;
+  } else if (isAttackArea) {
+    area = <div className={style.attackArea} />;
+  }
 
   return (
-    <div onClick={onClick} className={[style.main, firstClass].join(' ')}>
-      {isMoveArea && <div className={style.moveArea} />}
+    <div onClick={onClick} className={[style.main, isFirst && style.first].join(' ')}>
+      {area}
     </div>
   );
 };

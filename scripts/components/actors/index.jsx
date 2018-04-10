@@ -7,7 +7,7 @@ import {
   updatePlayerSelectedActorId,
   updatePlayerViewActorId,
   showActorArea,
-  disableAllCells,
+  hideActorArea,
   updateActorOriginalPosition,
 } from '../../actions';
 
@@ -25,22 +25,31 @@ const Actors = ({
         <Actor
           key={id}
           actor={actor}
+          isSelectedArea={selectedActorId === id}
           onClick={() => {
+            // Is actor NOT selected.
             if (!selectedActorId) {
+              const cells = Object.values(actors).map(({ original }) => ({
+                x: original.x,
+                y: original.y,
+              }));
+
               dispatch(updatePlayerSelectedActorId({ id }));
               dispatch(updatePlayerViewActorId({ id }));
-              dispatch(showActorArea({ cell }));
+              dispatch(showActorArea({ cell, cells }));
 
               return;
             }
 
+            // Is another actor selected or viewed.
             if (selectedActorId !== id || viewActorId !== id) {
               dispatch(updatePlayerViewActorId({ id }));
 
               return;
             }
 
-            dispatch(disableAllCells());
+            // Is selected, we update the original position.
+            dispatch(hideActorArea());
             dispatch(updateActorOriginalPosition({ id, x, y }));
             dispatch(updatePlayerSelectedActorId({ id: null }));
             dispatch(updatePlayerViewActorId({ id: null }));

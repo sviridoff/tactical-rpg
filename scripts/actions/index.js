@@ -1,27 +1,13 @@
-export function enableCell({ cell }) {
-  return {
-    type: 'ENABLE_CELL',
-    data: { cell },
-  };
-}
-
-export function disableCell({ cell }) {
-  return {
-    type: 'DISABLE_CELL',
-    data: { cell },
-  };
-}
-
-export function showActorArea({ cell }) {
+export function showActorArea({ cell, cells }) {
   return {
     type: 'SHOW_ACTOR_AREA',
-    data: { cell },
+    data: { cell, cells },
   };
 }
 
-export function disableAllCells() {
+export function hideActorArea() {
   return {
-    type: 'DISABLE_ALL_CELLS',
+    type: 'HIDE_ACTOR_AREA',
   };
 }
 
