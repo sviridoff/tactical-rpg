@@ -4,6 +4,7 @@ module.exports = {
   output: {
     filename: 'bundle.js',
   },
+  devtool: 'source-map',
   resolve: { extensions: ['.js', '.jsx', '.ts', '.tsx'] },
   module: {
     rules: [
@@ -20,6 +21,11 @@ module.exports = {
       {
         test: /\.css$/,
         use: ['style-loader', 'css-loader'],
+      },
+      {
+        enforce: 'pre',
+        test: /\.js$/,
+        use: ['source-map-loader'],
       },
     ],
   },
