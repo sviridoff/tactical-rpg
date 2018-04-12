@@ -1,4 +1,4 @@
-import { times, remove } from 'lodash';
+import { times, remove, range } from 'lodash';
 import uuidv4 from 'uuid/v4';
 
 class Grid {
@@ -29,16 +29,16 @@ class Grid {
   }
 
   static addMoveArea({
-    grid, x, y, size,
+    grid, x, y, radius,
   }) {
-    const cells = Grid.getSquareCells({ x, y, size });
+    const cells = Grid.getDiamondCells({ x, y, radius });
     return Grid.applyArea({ grid, cells }, { isMoveArea: true });
   }
 
   static addAttackArea({
-    grid, x, y, size,
+    grid, x, y, radius,
   }) {
-    const cells = Grid.getSquareCells({ x, y, size });
+    const cells = Grid.getDiamondCells({ x, y, radius });
     return Grid.applyArea({ grid, cells }, { isAttackArea: true });
   }
 
@@ -78,6 +78,28 @@ class Grid {
         };
 
         cells.push(cell);
+      });
+    });
+
+    return cells;
+  }
+
+  static getDiamondCells({ x, y, radius }) {
+    const cells = [];
+    const diameter = radius * 2 + 1;
+
+    times(diameter, (xx) => {
+      times(diameter, (yy) => {
+        const distance = Math.abs(xx - radius) + Math.abs(yy - radius) < radius;
+
+        if (distance) {
+          const cell = {
+            x: xx + x - radius,
+            y: yy + y - radius,
+          };
+
+          cells.push(cell);
+        }
       });
     });
 

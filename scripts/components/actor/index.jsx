@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import style from './index.css';
 
 const Actor = ({ actor, onClick, isSelectedArea }) => {
+  const { id } = actor;
   const { x, y } = actor.current;
   const position = {
     top: y * 60,
@@ -12,7 +13,7 @@ const Actor = ({ actor, onClick, isSelectedArea }) => {
 
   return (
     <React.Fragment>
-      <div className={style.main} style={position} onClick={onClick} />
+      <div data-id={id} className={style.main} style={position} onClick={onClick} />
       {isSelectedArea && <div className={style.selectedArea} style={position} />}
     </React.Fragment>
   );

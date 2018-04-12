@@ -11,6 +11,8 @@ import reducer from './reducers';
 
 const store = createStore(reducer, applyMiddleware(logger));
 
+window.store = store;
+
 const App = () => {
   const style = {
     position: 'relative',

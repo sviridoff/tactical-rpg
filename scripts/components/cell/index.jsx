@@ -4,7 +4,9 @@ import PropTypes from 'prop-types';
 import style from './index.css';
 
 const Cell = ({ cell, onClick, isFirst }) => {
-  const { isMoveArea, isAttackArea, isActorArea } = cell;
+  const {
+    isMoveArea, isAttackArea, isActorArea, x, y,
+  } = cell;
 
   let area;
 
@@ -17,7 +19,11 @@ const Cell = ({ cell, onClick, isFirst }) => {
   }
 
   return (
-    <div onClick={onClick} className={[style.main, isFirst && style.first].join(' ')}>
+    <div
+      onClick={onClick}
+      data-id={`${x}_${y}`}
+      className={[style.main, isFirst && style.first].join(' ')}
+    >
       {area}
     </div>
   );

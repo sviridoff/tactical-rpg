@@ -12,11 +12,11 @@ function grid(state = initialState, { data, type }) {
       const { x, y } = cell;
 
       let newState = Grid.addMoveArea({
-        grid: state, x, y, size: 2,
+        grid: state, x, y, radius: 3,
       });
 
       newState = Grid.addAttackArea({
-        grid: newState, x, y, size: 3,
+        grid: newState, x, y, radius: 4,
       });
 
       newState = Grid.addActorArea({
