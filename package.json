@@ -32,7 +32,6 @@
     "react-redux": "^5.0.7",
     "redux": "^3.7.2",
     "redux-logger": "^3.0.6",
-    "source-map-loader": "^0.2.3",
     "style-loader": "^0.20.3",
     "typescript": "^2.8.1",
     "uuid": "^3.2.1",
