@@ -78,6 +78,6 @@ Grid.propTypes = {
   dispatch: PropTypes.func.isRequired,
 };
 
-const ConnectedGrid = connect(({ grid, player, actors }) => ({ grid, player, actors }))(Grid);
+const ConnectedGrid = connect(store => store)(Grid);
 
 export default ConnectedGrid;

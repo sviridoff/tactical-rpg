@@ -67,4 +67,4 @@ Actors.propTypes = {
   dispatch: PropTypes.func.isRequired,
 };
 
-export default connect(({ actors, player, grid }) => ({ actors, player, grid }))(Actors);
+export default connect(store => store)(Actors);

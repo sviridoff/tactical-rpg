@@ -3,7 +3,7 @@ import { times } from 'lodash';
 import clone from 'clone';
 
 const initialState = {};
-const positions = [[2, 2], [3, 3], [5, 5]];
+const positions = [[2, 2], [3, 3], [6, 6]];
 
 times(3, (index) => {
   const id = uuidv4();

@@ -21,6 +21,7 @@ const Actor = ({ actor, onClick, isSelectedArea }) => {
 Actor.propTypes = {
   onClick: PropTypes.func.isRequired,
   actor: PropTypes.object.isRequired,
+  isSelectedArea: PropTypes.bool.isRequired,
 };
 
 export default Actor;
