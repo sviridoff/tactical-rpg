@@ -1,12 +1,15 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 
-import style from './index.css';
+const style = require('./index.css');
 
-const Cell = ({ cell, onClick, isFirst }) => {
-  const {
-    isMoveArea, isAttackArea, isActorArea, x, y,
-  } = cell;
+interface TileProps {
+  tile: TTile;
+  onClick: () => void;
+  isFirst: boolean;
+}
+
+export const Tile = ({ tile, onClick, isFirst }: TileProps) => {
+  const { isMoveArea, isAttackArea, isActorArea, x, y } = tile;
 
   let area;
 
@@ -28,11 +31,3 @@ const Cell = ({ cell, onClick, isFirst }) => {
     </div>
   );
 };
-
-Cell.propTypes = {
-  cell: PropTypes.object.isRequired,
-  onClick: PropTypes.func.isRequired,
-  isFirst: PropTypes.bool.isRequired,
-};
-
-export default Cell;

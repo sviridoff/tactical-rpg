@@ -1,14 +1,26 @@
 import { times, remove, range } from 'lodash';
-import uuidv4 from 'uuid/v4';
+import { v4 as uuidv4 } from 'uuid';
 
-class Grid {
-  constructor({ width, height }) {
-    const grid = [];
+type TTileGrid = TTile[][];
+type TTileRow = TTile[];
 
-    times(height, (y) => {
-      const row = [];
+type TCell = {
+  x: number;
+  y: number;
+};
+type TGrid = TCell[][];
+type TRow = TCell[];
 
-      times(width, (x) => {
+export default class Grid {
+  grid: TTileGrid
+
+  constructor({ width, height }: { width: number; height: number }) {
+    const grid: TTileGrid = [];
+
+    times(height, y => {
+      const row: TTileRow = [];
+
+      times(width, x => {
         const cell = {
           id: uuidv4(),
           x,
@@ -25,36 +37,64 @@ class Grid {
       grid.push(row);
     });
 
-    return grid;
+    this.grid = grid;
+  }
+
+  get(): TTileGrid {
+    return this.grid;
   }
 
   static addMoveArea({
-    grid, x, y, radius,
+    grid,
+    x,
+    y,
+    radius,
+  }: {
+    grid: TTileGrid;
+    x: number;
+    y: number;
+    radius: number;
   }) {
     const cells = Grid.getDiamondCells({ x, y, radius });
     return Grid.applyArea({ grid, cells }, { isMoveArea: true });
   }
 
   static addAttackArea({
-    grid, x, y, radius,
+    grid,
+    x,
+    y,
+    radius,
+  }: {
+    grid: TTileGrid;
+    x: number;
+    y: number;
+    radius: number;
   }) {
     const cells = Grid.getDiamondCells({ x, y, radius });
     return Grid.applyArea({ grid, cells }, { isAttackArea: true });
   }
 
   static addActorArea({
-    grid, cells, x, y,
+    grid,
+    cells,
+    x,
+    y,
+  }: {
+    grid: TTileGrid;
+    x: number;
+    y: number;
+    cells: TTileRow;
   }) {
     remove(cells, cell => cell.x === x && cell.y === y);
 
     return Grid.applyArea({ grid, cells }, { isActorArea: true });
   }
 
-  static addSelectedArea({ grid, x, y }) {
+  static addSelectedArea({ grid, x, y }: { grid: TTileGrid; x: number; y: number }) {
     return Grid.applyArea({ grid, cells: [{ x, y }] }, { isSelectedArea: true });
   }
 
-  static removeAllAreas({ grid }) {
+  static removeAllAreas({ grid }: { grid: TTileGrid }) {
     return grid.map(row =>
       row.map(cell => ({
         ...cell,
@@ -62,16 +102,17 @@ class Grid {
         isAttackArea: false,
         isActorArea: false,
         isSelectedArea: false,
-      })));
+      })),
+    );
   }
 
-  static getSquareCells({ x, y, size }) {
-    const cells = [];
+  static getSquareCells({ x, y, size }: { x: number; y: number; size: number }) {
+    const cells: TRow = [];
     const width = size * 2 + 1;
     const height = size * 2 + 1;
 
-    times(height, (yy) => {
-      times(width, (xx) => {
+    times(height, yy => {
+      times(width, xx => {
         const cell = {
           x: xx - size + x,
           y: yy - size + y,
@@ -84,12 +125,12 @@ class Grid {
     return cells;
   }
 
-  static getDiamondCells({ x, y, radius }) {
-    const cells = [];
+  static getDiamondCells({ x, y, radius }: { x: number; y: number; radius: number }) {
+    const cells: TRow = [];
     const diameter = radius * 2 + 1;
 
-    times(diameter, (xx) => {
-      times(diameter, (yy) => {
+    times(diameter, xx => {
+      times(diameter, yy => {
         const distance = Math.abs(xx - radius) + Math.abs(yy - radius) < radius;
 
         if (distance) {
@@ -106,10 +147,19 @@ class Grid {
     return cells;
   }
 
-  static applyArea({ grid, cells }, params) {
+  static applyArea(
+    {
+      grid,
+      cells,
+    }: {
+      grid: TTileGrid;
+      cells: TRow;
+    },
+    params: any,
+  ) {
     const gridClone = grid.slice();
 
-    cells.forEach((cell) => {
+    cells.forEach(cell => {
       if (grid[cell.y] && grid[cell.y][cell.x]) {
         gridClone[cell.y][cell.x] = {
           ...grid[cell.y][cell.x],
@@ -121,5 +171,3 @@ class Grid {
     return gridClone;
   }
 }
-
-export default Grid;

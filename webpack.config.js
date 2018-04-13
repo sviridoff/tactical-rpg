@@ -3,9 +3,12 @@ module.exports = {
   mode: 'development',
   output: {
     filename: 'bundle.js',
+    path: `${__dirname}/dist`,
   },
   devtool: 'source-map',
-  resolve: { extensions: ['.js', '.jsx', '.ts', '.tsx'] },
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js', '.json'],
+  },
   module: {
     rules: [
       {
@@ -14,14 +17,13 @@ module.exports = {
         use: ['awesome-typescript-loader'],
       },
       {
-        test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
-        use: ['babel-loader'],
-      },
-      {
         test: /\.css$/,
         use: ['style-loader', 'css-loader'],
       },
     ],
+  },
+  externals: {
+    react: 'React',
+    'react-dom': 'ReactDOM',
   },
 };

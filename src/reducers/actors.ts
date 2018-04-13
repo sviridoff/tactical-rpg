@@ -1,22 +1,22 @@
-import uuidv4 from 'uuid/v4';
+import { v4 as uuidv4 } from 'uuid';
 import { times } from 'lodash';
-import clone from 'clone';
+import * as clone from 'clone';
 
-const initialState = {};
+const initialState: TActors = {};
 const positions = [[2, 2], [3, 3], [6, 6]];
 
-times(3, (index) => {
+times(3, index => {
   const id = uuidv4();
   const [x, y] = positions[index];
 
   initialState[id] = {
     id,
-    original: { x, y },
-    current: { x, y },
+    originalPosition: { x, y },
+    currentPosition: { x, y },
   };
 });
 
-function actors(state = initialState, action) {
+export function actors(state = initialState, action: any) {
   switch (action.type) {
     case 'UPDATE_ACTOR_CURRENT_POSITION': {
       const stateClone = clone(state);
@@ -24,7 +24,7 @@ function actors(state = initialState, action) {
 
       stateClone[id] = {
         ...stateClone[id],
-        current: { x, y },
+        currentPosition: { x, y },
       };
 
       return stateClone;
@@ -35,7 +35,7 @@ function actors(state = initialState, action) {
 
       stateClone[id] = {
         ...stateClone[id],
-        original: { x, y },
+        originalPosition: { x, y },
       };
 
       return stateClone;
@@ -45,5 +45,3 @@ function actors(state = initialState, action) {
     }
   }
 }
-
-export default actors;
