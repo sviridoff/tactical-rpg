@@ -5,7 +5,7 @@ const styles = require("./index.css");
 interface IActorProps {
   actor: TActor;
   isSelectedArea: boolean;
-  updateActor: (param: { actor: TActor }) => void;
+  updateActor: (actor: TActor) => void;
 }
 
 function getPosition(x: number, y: number) {
@@ -19,7 +19,7 @@ export const Actor = (props: IActorProps) => {
   const { actor, isSelectedArea, updateActor } = props;
   const { id, currentPosition: { x, y } } = actor;
   const position = getPosition(x, y);
-  const onClick = () => updateActor({ actor });
+  const onClick = () => updateActor(actor);
 
   return (
     <React.Fragment>

@@ -4,13 +4,14 @@ const styles = require("./index.css");
 
 interface ITileProps {
   tile: TTile;
-  onClick: () => void;
   isFirst: boolean;
+  updateTile: (tile: TTile) => any;
 }
 
 export const Tile = (props: ITileProps) => {
-  const { tile, onClick, isFirst } = props;
+  const { tile, isFirst, updateTile } = props;
   const { isMoveArea, isAttackArea, isActorArea, x, y } = tile;
+  const onClick = () => updateTile(tile);
 
   let area: JSX.Element;
 

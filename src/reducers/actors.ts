@@ -20,12 +20,11 @@ export function actors(state = initialState, action: any) {
   switch (action.type) {
     case "UPDATE_ACTOR_CURRENT_POSITION": {
       const stateClone = clone(state);
-      const { id, x, y } = action.data;
+      const { id } = action.data.actor;
+      const { x, y } = action.data.tile;
+      const actor = stateClone[id];
 
-      stateClone[id] = {
-        ...stateClone[id],
-        currentPosition: { x, y },
-      };
+      actor.currentPosition = { x, y };
 
       return stateClone;
     }

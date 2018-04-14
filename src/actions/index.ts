@@ -11,17 +11,9 @@ export function hideActorArea() {
   };
 }
 
-export function updateActorCurrentPosition({
-  x,
-  y,
-  id,
-}: {
-  x: number;
-  y: number;
-  id: string;
-}) {
+export function updateActorCurrentPosition(actor: TActor, tile: TTile) {
   return {
-    data: { x, y, id },
+    data: { actor, tile },
     type: "UPDATE_ACTOR_CURRENT_POSITION",
   };
 }
@@ -47,7 +39,7 @@ export function updatePlayerViewActorId(actor?: TActor) {
   };
 }
 
-export function updateActor({ actor }: { actor: TActor }) {
+export function updateActor(actor: TActor) {
   return (dispatch: (parmas: any) => void, getState: () => TState): void => {
     const { player, actors, grid } = getState();
     const { selectedActorId, viewActorId } = player;
@@ -75,5 +67,39 @@ export function updateActor({ actor }: { actor: TActor }) {
     dispatch(updateActorOriginalPosition(actor));
     dispatch(updatePlayerSelectedActorId());
     dispatch(updatePlayerViewActorId());
+  };
+}
+
+export function updateTile(tile: TTile) {
+  return (dispatch: (parmas: any) => void, getState: () => TState): void => {
+    const { player, actors, grid } = getState();
+    const { selectedActorId, viewActorId } = player;
+    const { isMoveArea } = tile;
+    const actor = actors[selectedActorId];
+    const { originalPosition: { x, y } } = actor;
+    const actorTile = grid[y][x];
+
+    // Actor is not selected.
+    if (!selectedActorId) {
+      return;
+    }
+
+    // If NOT is move area, set current position to the originalPosition.
+    if (!isMoveArea) {
+      dispatch(updatePlayerSelectedActorId());
+      dispatch(updatePlayerViewActorId());
+      dispatch(hideActorArea());
+      dispatch(updateActorCurrentPosition(actor, actorTile));
+
+      return;
+    }
+
+    // If selected actor is NOT viewed, view it,
+    if (selectedActorId !== viewActorId) {
+      dispatch(updatePlayerViewActorId(actor));
+    }
+
+    // Update current position.
+    dispatch(updateActorCurrentPosition(actor, tile));
   };
 }
