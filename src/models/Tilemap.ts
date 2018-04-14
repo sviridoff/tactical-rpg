@@ -64,7 +64,7 @@ export default class Tilemap {
   }
 
   private setDiamondArea(tile: TTile, radius: number, params: any) {
-    const diameter = radius * 2 + 1;
+    const diameter = radius * 2;
 
     times(diameter, (xx) => {
       times(diameter, (yy) => {

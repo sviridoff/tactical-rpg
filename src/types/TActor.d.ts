@@ -8,4 +8,8 @@ type TActor = {
     x: number;
     y: number;
   };
+  teamName: string;
+  healtPoints: number;
+  totalHealthPoints: number;
+  damage: number;
 };

@@ -1,20 +1,18 @@
 import * as clone from "clone";
-import { times } from "lodash";
-import { v4 as uuidv4 } from "uuid";
 
-const initialState: TActors = {};
-const positions = [[2, 2], [3, 3], [6, 6]];
+import Actor from "../models/Actors";
 
-times(3, (index) => {
-  const id = uuidv4();
-  const [x, y] = positions[index];
-
-  initialState[id] = {
-    currentPosition: { x, y },
-    id,
-    originalPosition: { x, y },
-  };
-});
+const teams: any = [
+  {
+    positions: [[2, 2], [3, 3], [6, 6]],
+    teamName: "A",
+  },
+  {
+    positions: [[2, 4], [5, 2], [5, 7]],
+    teamName: "B",
+  },
+];
+const initialState = new Actor(teams).get();
 
 export function actors(state = initialState, action: any) {
   switch (action.type) {
