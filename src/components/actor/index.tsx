@@ -1,25 +1,37 @@
-import * as React from 'react';
+import * as React from "react";
 
-const styles = require('./index.css');
+const styles = require("./index.css");
 
-interface ActorProps {
-  onClick: () => void;
+interface IActorProps {
   actor: TActor;
   isSelectedArea: boolean;
+  updateActor: (param: { actor: TActor }) => void;
 }
 
-export const Actor = (props: ActorProps) => {
-  const { actor, onClick, isSelectedArea } = props;
-  const { id, currentPosition: { x, y } } = actor;
-  const position = {
-    top: y * 60,
+function getPosition(x: number, y: number) {
+  return {
     left: x * 60,
+    top: y * 60,
   };
+}
+
+export const Actor = (props: IActorProps) => {
+  const { actor, isSelectedArea, updateActor } = props;
+  const { id, currentPosition: { x, y } } = actor;
+  const position = getPosition(x, y);
+  const onClick = () => updateActor({ actor });
 
   return (
     <React.Fragment>
-      <div data-id={id} className={styles.main} style={position} onClick={onClick} />
-      {isSelectedArea && <div className={styles.selectedArea} style={position} />}
+      <div
+        data-id={id}
+        className={styles.main}
+        style={position}
+        onClick={onClick}
+      />
+      {isSelectedArea && (
+        <div className={styles.selectedArea} style={position} />
+      )}
     </React.Fragment>
   );
 };

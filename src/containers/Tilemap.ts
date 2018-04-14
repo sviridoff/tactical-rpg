@@ -1,14 +1,8 @@
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 
-import { Tilemap } from '../components/Tilemap';
-import * as mapDispatchToProps from '../actions';
+import * as mapDispatchToProps from "../actions";
+import { Tilemap } from "../components/Tilemap";
 
-interface State {
-  player: TPlayer;
-  actors: TActors;
-  grid: TTilemap;
-}
-
-const mapStateToProps = (state: State) => state;
+const mapStateToProps = (state: TState) => state;
 
 export default connect(mapStateToProps, mapDispatchToProps)(Tilemap);

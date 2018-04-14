@@ -1,47 +1,47 @@
-import Grid from '../models/Grid';
+import Grid from "../models/Grid";
 
-type TTile = {
-  id: string;
-  x: number;
-  y: number;
-  isMoveArea: boolean;
-  isAttackArea: boolean;
-  isActorArea: boolean;
-  isSelectedArea: boolean;
-};
-type TTileGrid = TTile[][];
-
-const _grid = new Grid({
-  width: 15,
+const grid1 = new Grid({
   height: 15,
+  width: 15,
 });
 
-const initialState: TTileGrid = _grid.get();
+const initialState: TTilemap = grid1.get();
+
+function getActorsTiles(actors: TActors, tilemap: TTilemap) {
+  return Object.keys(actors).map((key) => {
+    const actor = actors[key];
+    const { originalPosition: { x, y } } = actor;
+
+    return tilemap[y][x];
+  });
+}
 
 export function grid(state = initialState, action: any) {
   switch (action.type) {
-    case 'SHOW_ACTOR_AREA': {
+    case "SHOW_ACTOR_AREA": {
       const { data, type } = action;
-      const { cells, cell } = data;
-      const { x, y } = cell;
+      const { actors, actor } = data;
+      const { x, y } = actor.originalPosition;
+      const cells = getActorsTiles(actors, state);
+      const cell = state[y][x];
 
       let newState = Grid.addMoveArea({
         grid: state,
+        radius: 3,
         x,
         y,
-        radius: 3,
       });
 
       newState = Grid.addAttackArea({
         grid: newState,
+        radius: 4,
         x,
         y,
-        radius: 4,
       });
 
       newState = Grid.addActorArea({
-        grid: newState,
         cells,
+        grid: newState,
         x,
         y,
       });
@@ -54,7 +54,7 @@ export function grid(state = initialState, action: any) {
 
       return newState;
     }
-    case 'HIDE_ACTOR_AREA': {
+    case "HIDE_ACTOR_AREA": {
       return Grid.removeAllAreas({ grid: state });
     }
     default: {

@@ -21,41 +21,20 @@
     "awesome-typescript-loader": "^5.0.0",
     "clone": "^1.0.4",
     "css-loader": "^0.28.11",
-    "eslint": "^4.19.1",
-    "eslint-config-airbnb": "^16.1.0",
-    "eslint-plugin-import": "^2.10.0",
-    "eslint-plugin-jsx-a11y": "^6.0.3",
-    "eslint-plugin-react": "^7.7.0",
     "lodash": "^4.17.5",
     "react": "^16.3.0",
     "react-dom": "^16.3.0",
     "react-redux": "^5.0.7",
     "redux": "^3.7.2",
     "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.2.0",
     "style-loader": "^0.20.3",
+    "tslint": "^5.9.1",
+    "tslint-react": "^3.5.1",
     "typescript": "^2.8.1",
     "uuid": "^3.2.1",
     "webpack": "^4.4.1",
     "webpack-cli": "^2.0.13",
     "webpack-dev-server": "^3.1.1"
-  },
-  "eslintConfig": {
-    "env": {
-      "browser": true
-    },
-    "extends": "airbnb",
-    "rules": {
-      "import/no-extraneous-dependencies": [
-        "error",
-        {
-          "devDependencies": true
-        }
-      ],
-      "jsx-a11y/click-events-have-key-events": "off",
-      "jsx-a11y/no-static-element-interactions": "off",
-      "react/forbid-prop-types": "off",
-      "no-underscore-dangle": "off",
-      "no-mixed-operators": "off"
-    }
   }
 }

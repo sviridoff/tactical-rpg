@@ -1,0 +1,14 @@
+{
+  "extends": [
+    "tslint:latest",
+    "tslint-react"
+  ],
+  "jsRules": {},
+  "rules": {
+    "no-var-requires": false,
+    "no-implicit-dependencies": false,
+    "jsx-no-multiline-js": false,
+    "no-shadowed-variable": false
+  },
+  "rulesDirectory": []
+}

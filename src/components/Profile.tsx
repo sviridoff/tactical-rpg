@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 
 interface IProfileProps {
   player: TPlayer;
@@ -6,9 +6,10 @@ interface IProfileProps {
   grid: TTilemap;
 }
 
-export const Profile = ({ player, actors, grid }: IProfileProps) => {
+export const Profile = (props: IProfileProps) => {
+  const { player, actors, grid } = props;
   const { viewActorId, selectedActorId } = player;
-  let showMyProfile = false;
+  let showMyProfile: boolean = false;
 
   if (viewActorId) {
     const { x, y } = actors[viewActorId].originalPosition;

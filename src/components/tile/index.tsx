@@ -1,31 +1,32 @@
-import * as React from 'react';
+import * as React from "react";
 
-const style = require('./index.css');
+const styles = require("./index.css");
 
-interface TileProps {
+interface ITileProps {
   tile: TTile;
   onClick: () => void;
   isFirst: boolean;
 }
 
-export const Tile = ({ tile, onClick, isFirst }: TileProps) => {
+export const Tile = (props: ITileProps) => {
+  const { tile, onClick, isFirst } = props;
   const { isMoveArea, isAttackArea, isActorArea, x, y } = tile;
 
-  let area;
+  let area: JSX.Element;
 
   if (isActorArea) {
-    area = <div className={style.actorArea} />;
+    area = <div className={styles.actorArea} />;
   } else if (isMoveArea) {
-    area = <div className={style.moveArea} />;
+    area = <div className={styles.moveArea} />;
   } else if (isAttackArea) {
-    area = <div className={style.attackArea} />;
+    area = <div className={styles.attackArea} />;
   }
 
   return (
     <div
       onClick={onClick}
       data-id={`${x}_${y}`}
-      className={[style.main, isFirst && style.first].join(' ')}
+      className={[styles.main, isFirst && styles.first].join(" ")}
     >
       {area}
     </div>

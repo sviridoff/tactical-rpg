@@ -1,40 +1,79 @@
-export function showActorArea({ cell, cells }: { cell: any; cells: any }) {
+export function showActorArea(actor: TActor, actors: TActors) {
   return {
-    type: 'SHOW_ACTOR_AREA',
-    data: { cell, cells },
+    data: { actor, actors },
+    type: "SHOW_ACTOR_AREA",
   };
 }
 
 export function hideActorArea() {
   return {
-    type: 'HIDE_ACTOR_AREA',
+    type: "HIDE_ACTOR_AREA",
   };
 }
 
-export function updateActorCurrentPosition({ x, y, id }: { x: number; y: number; id: string }) {
+export function updateActorCurrentPosition({
+  x,
+  y,
+  id,
+}: {
+  x: number;
+  y: number;
+  id: string;
+}) {
   return {
-    type: 'UPDATE_ACTOR_CURRENT_POSITION',
     data: { x, y, id },
+    type: "UPDATE_ACTOR_CURRENT_POSITION",
   };
 }
 
-export function updateActorOriginalPosition({ x, y, id }: { x: number; y: number; id: string }) {
+export function updateActorOriginalPosition(actor: TActor) {
   return {
-    type: 'UPDATE_ACTOR_ORIGINAL_POSITION',
-    data: { x, y, id },
+    data: { actor },
+    type: "UPDATE_ACTOR_ORIGINAL_POSITION",
   };
 }
 
-export function updatePlayerSelectedActorId({ id }: { id: string }) {
+export function updatePlayerSelectedActorId(actor?: TActor) {
   return {
-    type: 'UPDATE_PLAYER_SELECTED_ACTOR_ID',
-    id,
+    data: { actor },
+    type: "UPDATE_PLAYER_SELECTED_ACTOR_ID",
   };
 }
 
-export function updatePlayerViewActorId({ id }: { id: string }) {
+export function updatePlayerViewActorId(actor?: TActor) {
   return {
-    type: 'UPDATE_PLAYER_VIEW_ACTOR_ID',
-    id,
+    data: { actor },
+    type: "UPDATE_PLAYER_VIEW_ACTOR_ID",
+  };
+}
+
+export function updateActor({ actor }: { actor: TActor }) {
+  return (dispatch: (parmas: any) => void, getState: () => TState): void => {
+    const { player, actors, grid } = getState();
+    const { selectedActorId, viewActorId } = player;
+    const { id, currentPosition: { x, y } } = actor;
+
+    // Is actor NOT selected.
+    if (!selectedActorId) {
+      dispatch(updatePlayerSelectedActorId(actor));
+      dispatch(updatePlayerViewActorId(actor));
+
+      dispatch(showActorArea(actor, actors));
+
+      return;
+    }
+
+    // Is another actor is selected or viewed.
+    if (selectedActorId !== id || viewActorId !== id) {
+      dispatch(updatePlayerViewActorId(actor));
+
+      return;
+    }
+
+    // Is selected, we update the originalPosition position.
+    dispatch(hideActorArea());
+    dispatch(updateActorOriginalPosition(actor));
+    dispatch(updatePlayerSelectedActorId());
+    dispatch(updatePlayerViewActorId());
   };
 }
