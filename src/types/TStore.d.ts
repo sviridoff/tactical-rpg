@@ -1,5 +1,5 @@
 type TState = {
   player: TPlayer;
-  grid: TTilemap;
+  tilemap: TTilemap;
   actors: TActors;
 };

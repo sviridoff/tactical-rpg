@@ -3,15 +3,15 @@ import * as React from "react";
 import Tile from "../containers/Tile";
 
 interface IilemapProps {
-  grid: TTilemap;
+  tilemap: TTilemap;
 }
 
 export const Tilemap = (props: IilemapProps) => {
-  const { grid } = props;
+  const { tilemap } = props;
 
   return (
     <React.Fragment>
-      {grid.map((row) => {
+      {tilemap.map((row) => {
         return row.map((tile, index) => {
           const { id } = tile;
 

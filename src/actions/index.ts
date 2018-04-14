@@ -41,7 +41,7 @@ export function updatePlayerViewActorId(actor?: TActor) {
 
 export function updateActor(actor: TActor) {
   return (dispatch: (parmas: any) => void, getState: () => TState): void => {
-    const { player, actors, grid } = getState();
+    const { player, actors, tilemap } = getState();
     const { selectedActorId, viewActorId } = player;
     const { id, currentPosition: { x, y } } = actor;
 
@@ -72,17 +72,18 @@ export function updateActor(actor: TActor) {
 
 export function updateTile(tile: TTile) {
   return (dispatch: (parmas: any) => void, getState: () => TState): void => {
-    const { player, actors, grid } = getState();
+    const { player, actors, tilemap } = getState();
     const { selectedActorId, viewActorId } = player;
-    const { isMoveArea } = tile;
-    const actor = actors[selectedActorId];
-    const { originalPosition: { x, y } } = actor;
-    const actorTile = grid[y][x];
 
     // Actor is not selected.
     if (!selectedActorId) {
       return;
     }
+
+    const { isMoveArea } = tile;
+    const actor = actors[selectedActorId];
+    const { originalPosition: { x, y } } = actor;
+    const actorTile = tilemap[y][x];
 
     // If NOT is move area, set current position to the originalPosition.
     if (!isMoveArea) {

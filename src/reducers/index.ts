@@ -1,3 +1,3 @@
 export * from "./actors";
-export * from "./grid";
+export * from "./tilemap";
 export * from "./player";

@@ -5,5 +5,4 @@ type TTile = {
   isMoveArea: boolean;
   isAttackArea: boolean;
   isActorArea: boolean;
-  isSelectedArea: boolean;
 };

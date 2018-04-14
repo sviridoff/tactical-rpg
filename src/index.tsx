@@ -8,18 +8,21 @@ import Tilemap from "./containers/Tilemap";
 import store from "./store";
 
 const App = () => {
+  const rootStyle: any = {
+    float: "left",
+  };
   const style: any = {
     position: "relative",
   };
 
   return (
     <Provider store={store}>
-      <div>
-        <Profile />
+      <div style={rootStyle}>
         <div style={style}>
           <Actors />
           <Tilemap />
         </div>
+        <Profile />
       </div>
     </Provider>
   );
