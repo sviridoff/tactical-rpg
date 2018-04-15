@@ -17,7 +17,7 @@ export default class Actors {
         actors[id] = {
           currentPosition: { x, y },
           damage: 2,
-          healtPoints: 10,
+          healthPoints: 10,
           id,
           originalPosition: { x, y },
           teamName,
