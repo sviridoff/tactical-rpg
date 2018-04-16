@@ -28,7 +28,9 @@ export function tilemap(state = initialState, action: any) {
       tm.addAttackArea(tile, 6);
       tm.addActorArea(tiles);
 
-      return tm.get();
+      const tilemap = tm.get();
+
+      return tilemap;
     }
     case "HIDE_ACTOR_AREA": {
       tm.removeAllAreas();

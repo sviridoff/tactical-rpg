@@ -12,7 +12,7 @@ const teams: any = [
     teamName: "B",
   },
 ];
-const initialState = new Actor(teams).get();
+const initialState: TActors = new Actor(teams).get();
 
 export function actors(state = initialState, action: any) {
   switch (action.type) {
@@ -32,6 +32,19 @@ export function actors(state = initialState, action: any) {
       const actor = stateClone[id];
 
       actor.originalPosition = actor.currentPosition;
+
+      return stateClone;
+    }
+    case "ATTACK_ENEMY_ACTOR": {
+      const stateClone = clone(state);
+      const actor = stateClone[action.data.actor.id];
+      const enemyActor = stateClone[action.data.enemyActor.id];
+
+      enemyActor.healthPoints -= actor.damage;
+
+      if (enemyActor.healthPoints <= 0) {
+        enemyActor.isDead = true;
+      }
 
       return stateClone;
     }

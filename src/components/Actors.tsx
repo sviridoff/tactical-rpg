@@ -14,14 +14,16 @@ export const Actors = (props: IActorsProps) => {
     <React.Fragment>
       {Object.keys(actors).map((key) => {
         const actor = actors[key];
-        const { id } = actor;
-        const { selectedActorId } = player;
+
+        if (actor.isDead) {
+          return null;
+        }
 
         return (
           <Actor
-            key={id}
+            key={actor.id}
             actor={actor}
-            isSelectedArea={selectedActorId === id}
+            isSelectedArea={player.activeActorId === actor.id}
           />
         );
       })}
