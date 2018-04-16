@@ -10,7 +10,11 @@ const initialState: TTilemap = tm.get();
 function getActorsTiles(actors: TActors, tilemap: TTilemap) {
   return Object.keys(actors).map((key) => {
     const actor = actors[key];
-    const { originalPosition: { x, y } } = actor;
+    const { originalPosition: { x, y }, isDead } = actor;
+
+    if (isDead) {
+      return;
+    }
 
     return tilemap[y][x];
   });
