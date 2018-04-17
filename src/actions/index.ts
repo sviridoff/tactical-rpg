@@ -103,10 +103,15 @@ export function updateActor(actor: TActor) {
       dispatch(updatePlayerSelectedActorId(actor));
 
       const path = findPathToActor(tilemap, activeActor, actor);
-      const lastPath = path[path.length - 2];
-      const tile = tilemap[lastPath[1]][lastPath[0]];
 
-      dispatch(updateActorCurrentPosition(activeActor, tile));
+      if (path.length >= 2) {
+        const lastPath = path[path.length - 2];
+        const tile = tilemap[lastPath[1]][lastPath[0]];
+        dispatch(updateActorCurrentPosition(activeActor, tile));
+      } else {
+        const tile = tilemap[activeActor.originalPosition.y][activeActor.originalPosition.x];
+        dispatch(updateActorCurrentPosition(activeActor, tile));
+      }
 
       return;
     }
