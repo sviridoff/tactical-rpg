@@ -1,3 +1,5 @@
+import * as Pathfinding from "pathfinding";
+
 export function showActorArea(actor: TActor, actors: TActors) {
   return {
     data: { actor, actors },
@@ -46,6 +48,24 @@ export function attackEnemyActor(actor: TActor, enemyActor: TActor) {
   };
 }
 
+function findPathToActor(tilemap: TTilemap, actor: TActor, enemyActor: TActor) {
+  const actorOriginalPosition = actor.originalPosition;
+  const enemyActorOriginalPosition = enemyActor.originalPosition;
+  const matrix = tilemap.map((tiles) => {
+    return tiles.map((tile) => (tile.isAttackArea ? 0 : 1));
+  });
+  const grid = new Pathfinding.Grid(matrix);
+  const finder = new Pathfinding.AStarFinder();
+
+  return finder.findPath(
+    actorOriginalPosition.x,
+    actorOriginalPosition.y,
+    enemyActorOriginalPosition.x,
+    enemyActorOriginalPosition.y,
+    grid,
+  );
+}
+
 export function updateActor(actor: TActor) {
   return (dispatch: (parmas: any) => void, getState: () => TState): void => {
     const { player, actors, tilemap } = getState();
@@ -67,6 +87,7 @@ export function updateActor(actor: TActor) {
     // And NOT is himself.
     if (actor.id === selectedActorId && activeActorId !== selectedActorId) {
       // Attack.
+      dispatch(updateActorOriginalPosition(activeActor));
       dispatch(attackEnemyActor(activeActor, selectedActor));
 
       // Reset.
@@ -80,6 +101,12 @@ export function updateActor(actor: TActor) {
     // When is selected another Actor.
     if (actor.id !== selectedActorId) {
       dispatch(updatePlayerSelectedActorId(actor));
+
+      const path = findPathToActor(tilemap, activeActor, actor);
+      const lastPath = path[path.length - 2];
+      const tile = tilemap[lastPath[1]][lastPath[0]];
+
+      dispatch(updateActorCurrentPosition(activeActor, tile));
 
       return;
     }
