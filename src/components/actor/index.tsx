@@ -10,8 +10,8 @@ interface IActorProps {
 
 function getPosition(x: number, y: number) {
   return {
-    left: x * 60,
-    top: y * 60,
+    left: x * 22,
+    top: y * 22,
   };
 }
 
