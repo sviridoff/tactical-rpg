@@ -8,27 +8,35 @@ interface IActorProps {
   updateActor: (actor: TActor) => void;
 }
 
-function getPosition(x: number, y: number) {
+function getPosition(actor: TActor) {
   return {
-    left: x * 22,
-    top: y * 22,
+    left: actor.currentPosition.x * 22,
+    top: actor.currentPosition.y * 22,
+  };
+}
+
+function getHealthBarWidth(actor: TActor) {
+  return {
+    width: actor.healthPoints * 100 / actor.totalHealthPoints + "%",
   };
 }
 
 export const Actor = (props: IActorProps) => {
   const { actor, isSelectedArea, updateActor } = props;
-  const { id, currentPosition: { x, y } } = actor;
-  const position = getPosition(x, y);
+  const position = getPosition(actor);
+  const healthBarWidth = getHealthBarWidth(actor);
   const onClick = () => updateActor(actor);
 
   return (
     <React.Fragment>
       <div
-        data-id={id}
+        data-id={actor.id}
         className={styles.main}
         style={position}
         onClick={onClick}
-      />
+      >
+        <div className={styles.healthBar} style={healthBarWidth} />
+      </div>
       {isSelectedArea && (
         <div className={styles.selectedArea} style={position} />
       )}
