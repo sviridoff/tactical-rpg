@@ -48,6 +48,23 @@ export function actors(state = initialState, action: any) {
 
       return stateClone;
     }
+    case "UPDATE_ACTOR_ATTACK_TARGET": {
+      const stateClone = clone(state);
+      const actor = stateClone[action.data.actor.id];
+
+      actor.isAttackTarget = true;
+
+      return stateClone;
+    }
+    case "FLUSH_ACTORS_ATTACK_TARGET": {
+      const stateClone = clone(state);
+
+      Object.keys(stateClone).forEach((key) => {
+        stateClone[key].isAttackTarget = false;
+      });
+
+      return stateClone;
+    }
     default: {
       return state;
     }

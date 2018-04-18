@@ -18,3 +18,13 @@
   bottom: 0;
   position: absolute;
 }
+
+:local .attackTarget {
+  width: 50%;
+  height: 50%;
+  background: crimson;
+  position: relative;
+  left: 25%;
+  top: -25%;
+  border-radius: 50%;
+}

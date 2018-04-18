@@ -36,6 +36,9 @@ export const Actor = (props: IActorProps) => {
         style={{ ...position, ...tileArea }}
         onClick={onClick}
       >
+        {actor.isAttackTarget && (
+          <div className={styles.attackTarget} />
+        )}
         <div className={styles.healthBar} style={healthBarWidth} />
       </div>
       {isSelectedArea && (

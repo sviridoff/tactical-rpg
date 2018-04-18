@@ -48,6 +48,19 @@ export function attackEnemyActor(actor: TActor, enemyActor: TActor) {
   };
 }
 
+export function updateActorAttackTarget(actor: TActor) {
+  return {
+    data: { actor },
+    type: "UPDATE_ACTOR_ATTACK_TARGET",
+  };
+}
+
+export function flushActorsAttackTarget() {
+  return {
+    type: "FLUSH_ACTORS_ATTACK_TARGET",
+  };
+}
+
 function findPathToActor(tilemap: TTilemap, actor: TActor, enemyActor: TActor) {
   const actorOriginalPosition = actor.originalPosition;
   const enemyActorOriginalPosition = enemyActor.originalPosition;
@@ -72,6 +85,8 @@ export function updateActor(actor: TActor) {
     const { activeActorId, selectedActorId } = player;
     const selectedActor = actors[selectedActorId];
     const activeActor = actors[activeActorId];
+
+    dispatch(flushActorsAttackTarget());
 
     // There are NO selected actor.
     if (!activeActorId) {
@@ -108,9 +123,10 @@ export function updateActor(actor: TActor) {
         const lastPath = path[path.length - 2];
         const tile = tilemap[lastPath[1]][lastPath[0]];
         dispatch(updateActorCurrentPosition(activeActor, tile));
+        dispatch(updateActorAttackTarget(actor));
       } else {
-        const tile = tilemap[activeActor.originalPosition.y][activeActor.originalPosition.x];
-        dispatch(updateActorCurrentPosition(activeActor, tile));
+        // const tile = tilemap[activeActor.originalPosition.y][activeActor.originalPosition.x];
+        // dispatch(updateActorCurrentPosition(activeActor, tile));
       }
 
       return;
@@ -144,6 +160,8 @@ export function updateTile(tile: TTile) {
       return;
     }
 
+    dispatch(flushActorsAttackTarget());
+
     const actor = actors[activeActorId];
     const actorTile = getActorTile(actor, tilemap);
 
@@ -162,6 +180,14 @@ export function updateTile(tile: TTile) {
     // If selected actor is NOT active actor, set active actor as selected one,
     if (activeActorId !== selectedActorId) {
       dispatch(updatePlayerSelectedActorId(actor));
+    }
+
+    // If the actor was back to the original position.
+    if (actorTile === tile) {
+      // Reset.
+      dispatch(updatePlayerActiveActorId());
+      dispatch(updatePlayerSelectedActorId());
+      dispatch(hideActorArea());
     }
 
     // Update current position.

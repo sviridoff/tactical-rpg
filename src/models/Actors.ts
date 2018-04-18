@@ -19,6 +19,7 @@ export default class Actors {
           damage: 5,
           healthPoints: 10,
           id,
+          isAttackTarget: false,
           isDead: false,
           originalPosition: { x, y },
           teamName,

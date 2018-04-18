@@ -13,4 +13,5 @@ type TActor = {
   totalHealthPoints: number;
   damage: number;
   isDead: boolean;
+  isAttackTarget: boolean;
 };
