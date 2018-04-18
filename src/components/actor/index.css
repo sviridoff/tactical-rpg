@@ -1,7 +1,5 @@
 :local .main {
   position: absolute;
-  width: 22px;
-  height: 22px;
   background: yellow;
   transition: all .2s;
   z-index: 2;
@@ -10,15 +8,12 @@
 :local .selectedArea {
   position: absolute;
   background: purple;
-  width: 20px;
-  height: 20px;
-  margin: 1px;
   z-index: 1;
 }
 
 :local .healthBar {
   background: crimson;
-  height: 5px;
+  height: 20%;
   width: 100%;
   bottom: 0;
   position: absolute;

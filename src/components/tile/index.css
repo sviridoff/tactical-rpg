@@ -1,6 +1,4 @@
 :local .main {
-  width: 22px;
-  height: 22px;
   outline: 1px solid white;
   background: yellowgreen;
   float: left;
@@ -12,22 +10,22 @@
 }
 
 :local .moveArea {
+  width: 100%;
+  height: 100%;
   background: blue;
-  width: 18px;
-  height: 18px;
-  margin: 2px;
+  opacity: 0.4;
 }
 
 :local .actorArea {
+  width: 100%;
+  height: 100%;
   background: paleturquoise;
-  width: 18px;
-  height: 18px;
-  margin: 2px;
+  opacity: 0.4;
 }
 
 :local .attackArea {
+  width: 100%;
+  height: 100%;
   background: red;
-  width: 18px;
-  height: 18px;
-  margin: 2px;
+  opacity: 0.4;
 }

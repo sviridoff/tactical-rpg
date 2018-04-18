@@ -4,11 +4,11 @@ import Actor from "../models/Actors";
 
 const teams: any = [
   {
-    positions: [[2, 2], [3, 3], [6, 6]],
+    positions: [[2, 2], [3, 3], [5, 1]],
     teamName: "A",
   },
   {
-    positions: [[2, 4], [5, 2], [5, 7]],
+    positions: [[2, 4], [5, 2], [5, 5]],
     teamName: "B",
   },
 ];

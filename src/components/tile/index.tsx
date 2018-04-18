@@ -1,5 +1,6 @@
 import * as React from "react";
 
+import tileArea from "../../library/tileArea";
 const styles = require("./index.css");
 
 interface ITileProps {
@@ -28,6 +29,7 @@ export const Tile = (props: ITileProps) => {
       onClick={onClick}
       data-id={`${x}_${y}`}
       className={[styles.main, isFirst && styles.first].join(" ")}
+      style={tileArea}
     >
       {area}
     </div>

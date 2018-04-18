@@ -126,6 +126,14 @@ export function updateActor(actor: TActor) {
   };
 }
 
+function getActorTile(actor: TActor, tilemap: TTilemap) {
+  const {
+    originalPosition: { x, y },
+  } = actor;
+
+  return tilemap[y][x];
+}
+
 export function updateTile(tile: TTile) {
   return (dispatch: (parmas: any) => void, getState: () => TState): void => {
     const { player, actors, tilemap } = getState();
@@ -136,15 +144,11 @@ export function updateTile(tile: TTile) {
       return;
     }
 
-    const { isMoveArea } = tile;
     const actor = actors[activeActorId];
-    const {
-      originalPosition: { x, y },
-    } = actor;
-    const actorTile = tilemap[y][x];
+    const actorTile = getActorTile(actor, tilemap);
 
     // If NOT is in move area, set current position to the original position.
-    if (!isMoveArea) {
+    if (!tile.isMoveArea) {
       dispatch(updateActorCurrentPosition(actor, actorTile));
 
       // Reset.

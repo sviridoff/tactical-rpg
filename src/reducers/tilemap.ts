@@ -1,8 +1,8 @@
 import Tilemap from "../models/Tilemap";
 
 const tm = new Tilemap({
-  height: 15,
-  width: 15,
+  height: 8,
+  width: 6,
 });
 
 const initialState: TTilemap = tm.get();
@@ -28,8 +28,8 @@ export function tilemap(state = initialState, action: any) {
       const tiles = getActorsTiles(actors, state);
       const tile = state[y][x];
 
-      tm.addMoveArea(tile, 5);
-      tm.addAttackArea(tile, 6);
+      tm.addMoveArea(tile, 3);
+      tm.addAttackArea(tile, 4);
       tm.addActorArea(tiles);
 
       const tilemap = tm.get();
