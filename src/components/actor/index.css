@@ -11,6 +11,10 @@
   z-index: 1;
 }
 
+:local .disable {
+  background: grey;
+}
+
 :local .healthBar {
   background: crimson;
   height: 20%;

@@ -17,6 +17,7 @@ export default class Tilemap {
           isActorArea: false,
           isAttackArea: false,
           isMoveArea: false,
+          isWalkableArea: false,
           x,
           y,
         };

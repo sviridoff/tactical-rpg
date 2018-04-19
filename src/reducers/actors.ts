@@ -65,6 +65,14 @@ export function actors(state = initialState, action: any) {
 
       return stateClone;
     }
+    case "DISABLE_ACTOR": {
+      const stateClone = clone(state);
+      const actor = stateClone[action.data.actor.id];
+
+      actor.isDisable = true;
+
+      return stateClone;
+    }
     default: {
       return state;
     }

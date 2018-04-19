@@ -61,6 +61,13 @@ export function flushActorsAttackTarget() {
   };
 }
 
+export function disableActor(actor: TActor) {
+  return {
+    data: { actor },
+    type: "DISABLE_ACTOR",
+  };
+}
+
 function findPathToActor(tilemap: TTilemap, actor: TActor, enemyActor: TActor) {
   const actorOriginalPosition = actor.originalPosition;
   const enemyActorOriginalPosition = enemyActor.originalPosition;
@@ -86,9 +93,7 @@ export function updateActor(actor: TActor) {
     const selectedActor = actors[selectedActorId];
     const activeActor = actors[activeActorId];
 
-    dispatch(flushActorsAttackTarget());
-
-    // There are NO selected actor.
+    // There are NO selected `Actor`.
     if (!activeActorId) {
       dispatch(updatePlayerActiveActorId(actor));
       dispatch(updatePlayerSelectedActorId(actor));
@@ -98,7 +103,22 @@ export function updateActor(actor: TActor) {
       return;
     }
 
-    // Actor should attack, because the enemy actor clicked twice.
+    // If the active `Actor` is disabled,
+    // we reset and try again update actor with the current `Actor`.
+    if (activeActor.isDisable) {
+      // Reset.
+      dispatch(hideActorArea());
+      dispatch(updatePlayerActiveActorId());
+      dispatch(updatePlayerSelectedActorId());
+
+      dispatch(updateActor(actor));
+
+      return;
+    }
+
+    dispatch(flushActorsAttackTarget());
+
+    // `Actor` should attack, because the enemy `Actor` clicked twice.
     // And NOT is himself.
     if (actor.id === selectedActorId && activeActorId !== selectedActorId) {
       // Attack.
@@ -113,7 +133,7 @@ export function updateActor(actor: TActor) {
       return;
     }
 
-    // When is selected another Actor.
+    // When is selected another `Actor`.
     if (actor.id !== selectedActorId) {
       dispatch(updatePlayerSelectedActorId(actor));
 
@@ -134,6 +154,7 @@ export function updateActor(actor: TActor) {
 
     // Actor should move because was selected twice.
     dispatch(updateActorOriginalPosition(actor));
+    dispatch(disableActor(actor));
 
     // Reset.
     dispatch(hideActorArea());
@@ -155,15 +176,20 @@ export function updateTile(tile: TTile) {
     const { player, actors, tilemap } = getState();
     const { activeActorId, selectedActorId } = player;
 
-    // There are NO active actor.
+    // There are NO active `Actor`.
     if (!activeActorId) {
       return;
     }
 
-    dispatch(flushActorsAttackTarget());
-
     const actor = actors[activeActorId];
     const actorTile = getActorTile(actor, tilemap);
+
+    // If `Actor` is disabled, we do nothing.
+    if (actor.isDisable) {
+      return;
+    }
+
+    dispatch(flushActorsAttackTarget());
 
     // If NOT is in move area, set current position to the original position.
     if (!tile.isMoveArea) {
@@ -177,12 +203,12 @@ export function updateTile(tile: TTile) {
       return;
     }
 
-    // If selected actor is NOT active actor, set active actor as selected one,
+    // If selected `Actor` is NOT active actor, set active `Actor` as selected one,
     if (activeActorId !== selectedActorId) {
       dispatch(updatePlayerSelectedActorId(actor));
     }
 
-    // If the actor was back to the original position.
+    // If the `Actor` was back to the original position.
     if (actorTile === tile) {
       // Reset.
       dispatch(updatePlayerActiveActorId());

@@ -14,4 +14,5 @@ type TActor = {
   damage: number;
   isDead: boolean;
   isAttackTarget: boolean;
+  isDisable: boolean;
 };
