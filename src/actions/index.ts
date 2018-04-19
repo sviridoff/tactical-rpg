@@ -124,6 +124,7 @@ export function updateActor(actor: TActor) {
       // Attack.
       dispatch(updateActorOriginalPosition(activeActor));
       dispatch(attackEnemyActor(activeActor, selectedActor));
+      dispatch(disableActor(activeActor));
 
       // Reset.
       dispatch(hideActorArea());
@@ -186,6 +187,11 @@ export function updateTile(tile: TTile) {
 
     // If `Actor` is disabled, we do nothing.
     if (actor.isDisable) {
+      // Reset.
+      dispatch(updatePlayerActiveActorId());
+      dispatch(updatePlayerSelectedActorId());
+      dispatch(hideActorArea());
+
       return;
     }
 
