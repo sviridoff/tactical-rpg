@@ -18,7 +18,6 @@ export const Profile = (props: IProfileProps) => {
     viewActorElements = (
       <ul className={styles.main}>
         <li>Id: {selectedActorId}</li>
-        <li>Team name: {viewActor.teamName}</li>
         <li>
           HP: {viewActor.healthPoints}/{viewActor.totalHealthPoints}
         </li>
@@ -34,7 +33,6 @@ export const Profile = (props: IProfileProps) => {
     selectedActorElements = (
       <ul className={styles.main}>
         <li>Id: {activeActorId}</li>
-        <li>Team name: {selectedActor.teamName}</li>
         <li>
           HP: {selectedActor.healthPoints}/{selectedActor.totalHealthPoints}
         </li>
@@ -42,10 +40,10 @@ export const Profile = (props: IProfileProps) => {
       </ul>
     );
 
-    const { originalPosition: { x, y } } = actors[selectedActorId];
+    const { originalPosition: { x, y }, isEnemy } = actors[selectedActorId];
     const isNotSameActor = selectedActorId !== activeActorId;
     const { isAttackArea } = tilemap[y][x];
-    showSelectedActor = isAttackArea && isNotSameActor;
+    showSelectedActor = isAttackArea && isNotSameActor && isEnemy;
   }
 
   return (

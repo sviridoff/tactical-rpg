@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 
-import * as mapDispatchToProps from "../actions";
 import { Tile } from "../components/Tile";
+import * as mapDispatchToProps from "../effects/tile";
 
 interface IOwnProps {
   tile: TTile;

@@ -8,11 +8,12 @@ type TActor = {
     x: number;
     y: number;
   };
-  teamName: string;
   healthPoints: number;
   totalHealthPoints: number;
   damage: number;
   isDead: boolean;
-  isAttackTarget: boolean;
+  isGoingToBeAttacked: boolean;
+  isGoingToAttack: boolean;
   isDisable: boolean;
+  isEnemy: boolean;
 };

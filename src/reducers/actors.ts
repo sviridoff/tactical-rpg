@@ -4,12 +4,12 @@ import Actor from "../models/Actors";
 
 const teams: any = [
   {
+    isEnemy: false,
     positions: [[2, 2], [3, 3], [5, 1]],
-    teamName: "A",
   },
   {
+    isEnemy: true,
     positions: [[2, 4], [5, 2], [5, 5]],
-    teamName: "B",
   },
 ];
 const initialState: TActors = new Actor(teams).get();
@@ -51,8 +51,10 @@ export function actors(state = initialState, action: any) {
     case "UPDATE_ACTOR_ATTACK_TARGET": {
       const stateClone = clone(state);
       const actor = stateClone[action.data.actor.id];
+      const enemyActor = stateClone[action.data.enemyActor.id];
 
-      actor.isAttackTarget = true;
+      actor.isGoingToAttack = true;
+      enemyActor.isGoingToBeAttacked = true;
 
       return stateClone;
     }
@@ -60,7 +62,8 @@ export function actors(state = initialState, action: any) {
       const stateClone = clone(state);
 
       Object.keys(stateClone).forEach((key) => {
-        stateClone[key].isAttackTarget = false;
+        stateClone[key].isGoingToBeAttacked = false;
+        stateClone[key].isGoingToAttack = false;
       });
 
       return stateClone;

@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 
-import * as mapDispatchToProps from "../actions";
 import { Actor } from "../components/actor";
+import * as mapDispatchToProps from "../effects/actor";
 
 interface IOwnProps {
   actor: TActor;

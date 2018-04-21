@@ -8,7 +8,7 @@ export default class Actors {
     const actors: TActors = {};
 
     teams.forEach((team: any) => {
-      const { positions, teamName } = team;
+      const { positions, isEnemy } = team;
 
       positions.forEach((position: any) => {
         const id = uuidv4();
@@ -19,11 +19,12 @@ export default class Actors {
           damage: 5,
           healthPoints: 10,
           id,
-          isAttackTarget: false,
           isDead: false,
           isDisable: false,
+          isEnemy,
+          isGoingToAttack: false,
+          isGoingToBeAttacked: false,
           originalPosition: { x, y },
-          teamName,
           totalHealthPoints: 10,
         };
       });

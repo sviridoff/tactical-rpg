@@ -30,6 +30,7 @@ export const Actor = (props: IActorProps) => {
   const onClick = () => updateActor(actor);
   const className = classNames({
     [styles.main]: true,
+    [styles.enemy]: actor.isEnemy,
     [styles.disable]: actor.isDisable,
   });
 
@@ -41,7 +42,7 @@ export const Actor = (props: IActorProps) => {
         style={{ ...position, ...tileArea }}
         onClick={onClick}
       >
-        {actor.isAttackTarget && <div className={styles.attackTarget} />}
+        {actor.isGoingToBeAttacked && <div className={styles.attackTarget} />}
         <div className={styles.healthBar} style={healthBarWidth} />
       </div>
       {isSelectedArea && (
