@@ -17,6 +17,7 @@ export default class Tilemap {
           isActorArea: false,
           isAttackArea: false,
           isMoveArea: false,
+          isPathfindable: false,
           isWalkableArea: false,
           x,
           y,
@@ -33,6 +34,15 @@ export default class Tilemap {
 
   public get(): TTilemap {
     return this.tilemap;
+  }
+
+  public addPathfindableArea() {
+    this.tilemap.forEach((tiles) => {
+      tiles.forEach((tile) => {
+        tile.isPathfindable =
+          tile.isMoveArea && !tile.isActorArea ? true : false;
+      });
+    });
   }
 
   public addMoveArea(tile: TTile, radius: number) {
@@ -55,10 +65,11 @@ export default class Tilemap {
     this.tilemap.forEach((tiles, y) => {
       tiles.forEach((tile, x) => {
         this.tilemap[y][x] = {
-          ...this.tilemap[y][x],
+          ...tile,
           isActorArea: false,
           isAttackArea: false,
           isMoveArea: false,
+          isPathfindable: false,
         };
       });
     });

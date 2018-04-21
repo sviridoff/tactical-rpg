@@ -13,14 +13,20 @@ import {
   updatePlayerSelectedActorId,
 } from "../actions";
 
+const finder = new Pathfinding.AStarFinder();
+
 function findPathToActor(tilemap: TTilemap, actor: TActor, enemyActor: TActor) {
   const actorOriginalPosition = actor.originalPosition;
   const enemyActorOriginalPosition = enemyActor.originalPosition;
+  const actorTile = getActorTile(enemyActor, tilemap);
   const matrix = tilemap.map((tiles) => {
-    return tiles.map((tile) => (tile.isAttackArea ? 0 : 1));
+    return tiles.map((tile) => {
+      return tile.isPathfindable || (actorTile === tile && tile.isAttackArea)
+        ? 0
+        : 1;
+    });
   });
   const grid = new Pathfinding.Grid(matrix);
-  const finder = new Pathfinding.AStarFinder();
 
   return finder.findPath(
     actorOriginalPosition.x,

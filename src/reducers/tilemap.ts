@@ -31,6 +31,7 @@ export function tilemap(state = initialState, action: any) {
       tm.addMoveArea(tile, 3);
       tm.addAttackArea(tile, 4);
       tm.addActorArea(tiles);
+      tm.addPathfindableArea();
 
       const tilemap = tm.get();
 
