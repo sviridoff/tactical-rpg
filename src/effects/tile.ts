@@ -16,7 +16,6 @@ function getActorTile(actor: TActor, tilemap: TTilemap) {
 
 function resetAll(dispatch: TDispatch) {
   dispatch(updatePlayerActiveActorId());
-  dispatch(updatePlayerSelectedActorId());
   dispatch(hideActorArea());
 }
 
