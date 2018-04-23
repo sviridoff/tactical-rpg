@@ -108,6 +108,14 @@ function moveToActor(
   dispatch(updatePlayerSelectedActorId(actor));
   dispatch(flushActorsAttackTarget());
 
+  const actoTile = getActorTile(actor, tilemap);
+  if (actoTile.isAttackRangeArea) {
+    // dispatch(updateActorCurrentPosition(activeActor, tile));
+    dispatch(updateActorAttackTarget(activeActor, actor));
+
+    return;
+  }
+
   const path = findPathToActor(tilemap, activeActor, actor);
 
   if (path.length >= 2) {
@@ -116,9 +124,6 @@ function moveToActor(
     dispatch(updateActorCurrentPosition(activeActor, tile));
     dispatch(updateActorAttackTarget(activeActor, actor));
     dispatch(showSelectedArea(tile));
-  } else {
-    // const tile = tilemap[activeActor.originalPosition.y][activeActor.originalPosition.x];
-    // dispatch(updateActorCurrentPosition(activeActor, tile));
   }
 }
 

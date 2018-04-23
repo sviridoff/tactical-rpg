@@ -53,7 +53,9 @@ export function tilemap(state = initialState, action: any) {
       const { tile } = action.data;
 
       tm.removeAllSelectedAreas();
+      tm.removeAllAttackRangeAreas();
       tm.addSelectedArea(tile);
+      tm.addAttackRangeArea(tile, 2);
 
       return tm.get();
     }

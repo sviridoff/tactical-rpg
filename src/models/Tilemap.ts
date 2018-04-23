@@ -16,6 +16,7 @@ export default class Tilemap {
           id: uuidv4(),
           isActorArea: false,
           isAttackArea: false,
+          isAttackRangeArea: false,
           isMoveArea: false,
           isPathfindable: false,
           isSelectedArea: false,
@@ -54,6 +55,10 @@ export default class Tilemap {
     this.setDiamondArea(tile, radius, { isAttackArea: true });
   }
 
+  public addAttackRangeArea(tile: TTile, radius: number) {
+    this.setDiamondArea(tile, radius, { isAttackRangeArea: true });
+  }
+
   public addActorArea(tiles: TTile[]) {
     tiles.forEach((tile) => {
       const { x, y } = tile;
@@ -75,6 +80,7 @@ export default class Tilemap {
           ...tile,
           isActorArea: false,
           isAttackArea: false,
+          isAttackRangeArea: false,
           isMoveArea: false,
           isPathfindable: false,
           isSelectedArea: false,
@@ -87,6 +93,14 @@ export default class Tilemap {
     this.tilemap.forEach((tiles, y) => {
       tiles.forEach((tile, x) => {
         this.tilemap[y][x].isSelectedArea = false;
+      });
+    });
+  }
+
+  public removeAllAttackRangeAreas() {
+    this.tilemap.forEach((tiles, y) => {
+      tiles.forEach((tile, x) => {
+        this.tilemap[y][x].isAttackRangeArea = false;
       });
     });
   }

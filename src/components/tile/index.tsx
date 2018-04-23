@@ -12,11 +12,19 @@ interface ITileProps {
 
 export const Tile = (props: ITileProps) => {
   const { tile, isFirst, updateTile } = props;
-  const { isMoveArea, isAttackArea, isActorArea, isSelectedArea, x, y } = tile;
+  const {
+    isMoveArea,
+    isAttackArea,
+    isActorArea,
+    isSelectedArea,
+    isAttackRangeArea,
+    x,
+    y,
+  } = tile;
   const onClick = () => updateTile(tile);
   const className = classNames({
-    [styles.main]: true,
     [styles.first]: isFirst,
+    [styles.main]: true,
   });
 
   let area: JSX.Element;

@@ -4,6 +4,7 @@ type TTile = {
   y: number;
   isMoveArea: boolean;
   isAttackArea: boolean;
+  isAttackRangeArea: boolean;
   isActorArea: boolean;
   isWalkableArea: boolean;
   isPathfindable: boolean;
