@@ -6,6 +6,7 @@ import {
   flushActorsAttackTarget,
   hideActorArea,
   showActorArea,
+  showSelectedArea,
   updateActorAttackTarget,
   updateActorCurrentPosition,
   updateActorOriginalPosition,
@@ -114,6 +115,7 @@ function moveToActor(
     const tile = tilemap[lastPath[1]][lastPath[0]];
     dispatch(updateActorCurrentPosition(activeActor, tile));
     dispatch(updateActorAttackTarget(activeActor, actor));
+    dispatch(showSelectedArea(tile));
   } else {
     // const tile = tilemap[activeActor.originalPosition.y][activeActor.originalPosition.x];
     // dispatch(updateActorCurrentPosition(activeActor, tile));
