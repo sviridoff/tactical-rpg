@@ -23,7 +23,6 @@ export const Actors = (props: IActorsProps) => {
           <Actor
             key={actor.id}
             actor={actor}
-            isSelectedArea={player.activeActorId === actor.id}
           />
         );
       })}

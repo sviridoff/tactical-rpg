@@ -5,7 +5,6 @@ import * as mapDispatchToProps from "../effects/actor";
 
 interface IOwnProps {
   actor: TActor;
-  isSelectedArea: boolean;
 }
 
 const mapStateToProps = (state: TState, ownProps: IOwnProps) => ({ ownProps });

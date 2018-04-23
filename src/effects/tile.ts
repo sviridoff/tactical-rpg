@@ -1,6 +1,7 @@
 import {
   flushActorsAttackTarget,
   hideActorArea,
+  showSelectedArea,
   updateActorCurrentPosition,
   updatePlayerActiveActorId,
   updatePlayerSelectedActorId,
@@ -61,5 +62,6 @@ export function updateTile(tile: TTile) {
 
     // Update current position.
     dispatch(updateActorCurrentPosition(activeActor, tile));
+    dispatch(showSelectedArea(tile));
   };
 }

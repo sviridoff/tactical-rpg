@@ -9,12 +9,6 @@
   background: lightskyblue;
 }
 
-:local .selectedArea {
-  position: absolute;
-  background: purple;
-  z-index: 1;
-}
-
 :local .disable {
   background: grey;
 }

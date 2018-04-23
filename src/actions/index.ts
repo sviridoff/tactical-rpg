@@ -65,3 +65,10 @@ export function disableActor(actor: TActor) {
     type: "DISABLE_ACTOR",
   };
 }
+
+export function showSelectedArea(tile: TTile) {
+  return {
+    data: { tile },
+    type: "SHOW_SELECTED_AREA",
+  };
+}

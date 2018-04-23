@@ -1,3 +1,4 @@
+import * as classNames from "classnames";
 import * as React from "react";
 
 import tileArea from "../../library/tileArea";
@@ -11,12 +12,18 @@ interface ITileProps {
 
 export const Tile = (props: ITileProps) => {
   const { tile, isFirst, updateTile } = props;
-  const { isMoveArea, isAttackArea, isActorArea, x, y } = tile;
+  const { isMoveArea, isAttackArea, isActorArea, isSelectedArea, x, y } = tile;
   const onClick = () => updateTile(tile);
+  const className = classNames({
+    [styles.main]: true,
+    [styles.first]: isFirst,
+  });
 
   let area: JSX.Element;
 
-  if (isActorArea) {
+  if (isSelectedArea) {
+    area = <div className={styles.selectedArea} />;
+  } else if (isActorArea) {
     area = <div className={styles.actorArea} />;
   } else if (isMoveArea) {
     area = <div className={styles.moveArea} />;
@@ -28,7 +35,7 @@ export const Tile = (props: ITileProps) => {
     <div
       onClick={onClick}
       data-id={`${x}_${y}`}
-      className={[styles.main, isFirst && styles.first].join(" ")}
+      className={className}
       style={tileArea}
     >
       {area}

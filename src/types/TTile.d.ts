@@ -7,4 +7,5 @@ type TTile = {
   isActorArea: boolean;
   isWalkableArea: boolean;
   isPathfindable: boolean;
+  isSelectedArea: boolean;
 };

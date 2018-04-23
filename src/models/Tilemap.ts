@@ -18,6 +18,7 @@ export default class Tilemap {
           isAttackArea: false,
           isMoveArea: false,
           isPathfindable: false,
+          isSelectedArea: false,
           isWalkableArea: false,
           x,
           y,
@@ -61,6 +62,12 @@ export default class Tilemap {
     });
   }
 
+  public addSelectedArea(tile: TTile) {
+    const { x, y } = tile;
+
+    this.tilemap[y][x].isSelectedArea = true;
+  }
+
   public removeAllAreas() {
     this.tilemap.forEach((tiles, y) => {
       tiles.forEach((tile, x) => {
@@ -70,7 +77,16 @@ export default class Tilemap {
           isAttackArea: false,
           isMoveArea: false,
           isPathfindable: false,
+          isSelectedArea: false,
         };
+      });
+    });
+  }
+
+  public removeAllSelectedAreas() {
+    this.tilemap.forEach((tiles, y) => {
+      tiles.forEach((tile, x) => {
+        this.tilemap[y][x].isSelectedArea = false;
       });
     });
   }

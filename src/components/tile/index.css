@@ -29,3 +29,9 @@
   background: red;
   opacity: 0.4;
 }
+
+:local .selectedArea {
+  width: 100%;
+  height: 100%;
+  background: purple;
+}

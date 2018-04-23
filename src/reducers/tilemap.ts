@@ -20,17 +20,24 @@ function getLiveActorsTiles(actors: TActors, tilemap: TTilemap) {
     });
 }
 
+function getActorTile(actor: TActor, tilemap: TTilemap) {
+  const {
+    originalPosition: { x, y },
+  } = actor;
+
+  return tilemap[y][x];
+}
+
 export function tilemap(state = initialState, action: any) {
   switch (action.type) {
     case "SHOW_ACTOR_AREA": {
       const { actor, actors } = action.data;
-      const { x, y } = actor.originalPosition;
-      const tiles = getLiveActorsTiles(actors, state);
-      const tile = state[y][x];
+      const actorTiles = getLiveActorsTiles(actors, state);
+      const actorTile = getActorTile(actor, state);
 
-      tm.addMoveArea(tile, 3);
-      tm.addAttackArea(tile, 4);
-      tm.addActorArea(tiles);
+      tm.addMoveArea(actorTile, 3);
+      tm.addAttackArea(actorTile, 4);
+      tm.addActorArea(actorTiles);
       tm.addPathfindableArea();
 
       const tilemap = tm.get();
@@ -39,6 +46,14 @@ export function tilemap(state = initialState, action: any) {
     }
     case "HIDE_ACTOR_AREA": {
       tm.removeAllAreas();
+
+      return tm.get();
+    }
+    case "SHOW_SELECTED_AREA": {
+      const { tile } = action.data;
+
+      tm.removeAllSelectedAreas();
+      tm.addSelectedArea(tile);
 
       return tm.get();
     }

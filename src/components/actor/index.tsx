@@ -6,7 +6,6 @@ import tileArea from "../../library/tileArea";
 
 interface IActorProps {
   actor: TActor;
-  isSelectedArea: boolean;
   updateActor: (actor: TActor) => void;
 }
 
@@ -24,7 +23,7 @@ function getHealthBarWidth(actor: TActor) {
 }
 
 export const Actor = (props: IActorProps) => {
-  const { actor, isSelectedArea, updateActor } = props;
+  const { actor, updateActor } = props;
   const position = getPosition(actor, tileArea);
   const healthBarWidth = getHealthBarWidth(actor);
   const onClick = () => updateActor(actor);
@@ -45,12 +44,6 @@ export const Actor = (props: IActorProps) => {
         {actor.isGoingToBeAttacked && <div className={styles.attackTarget} />}
         <div className={styles.healthBar} style={healthBarWidth} />
       </div>
-      {isSelectedArea && (
-        <div
-          className={styles.selectedArea}
-          style={{ ...tileArea, ...position }}
-        />
-      )}
     </React.Fragment>
   );
 };
