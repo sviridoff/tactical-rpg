@@ -5,7 +5,7 @@ import {
   updateActorCurrentPosition,
   updatePlayerActiveActorId,
   updatePlayerSelectedActorId,
-} from "../actions";
+} from "../actions/index";
 
 function getActorTile(actor: TActor, tilemap: TTilemap) {
   const {

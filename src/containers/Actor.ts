@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 
-import { Actor } from "../components/actor";
+import { Actor } from "../components/actor/index";
 import * as mapDispatchToProps from "../effects/actor";
 
 interface IOwnProps {

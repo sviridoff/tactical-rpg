@@ -12,7 +12,7 @@ import {
   updateActorOriginalPosition,
   updatePlayerActiveActorId,
   updatePlayerSelectedActorId,
-} from "../actions";
+} from "../actions/index";
 
 const finder = new Pathfinding.AStarFinder();
 

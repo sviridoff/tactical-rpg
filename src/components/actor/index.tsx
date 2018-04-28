@@ -1,5 +1,5 @@
-import * as classNames from "classnames";
-import * as React from "react";
+import classNames from "classnames";
+import React from "react";
 
 const styles = require("./index.css");
 import tileArea from "../../library/tileArea";
@@ -18,7 +18,7 @@ function getPosition(actor: TActor, tileArea: any) {
 
 function getHealthBarWidth(actor: TActor) {
   return {
-    width: actor.healthPoints * 100 / actor.totalHealthPoints + "%",
+    width: `${actor.healthPoints * 100 / actor.totalHealthPoints}%`,
   };
 }
 

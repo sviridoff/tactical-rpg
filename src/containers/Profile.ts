@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 
-import { Profile } from "../components/profile";
+import { Profile } from "../components/profile/index";
 
 const mapStateToProps = (state: TState) => state;
 

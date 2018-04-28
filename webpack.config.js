@@ -1,29 +1,46 @@
+const webpack = require("webpack");
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
+  .BundleAnalyzerPlugin;
+
+const bundleAnalyzerPlugin = process.env.WEBPACK_BUNDLE_ANALYZER
+  ? new BundleAnalyzerPlugin()
+  : null;
+
 module.exports = {
-  entry: './src/index.tsx',
-  mode: 'development',
+  mode: process.env.NODE_ENV,
+  entry: "./src/index.tsx",
   output: {
-    filename: 'bundle.js',
+    filename: "bundle.js",
     path: `${__dirname}/dist`,
   },
-  devtool: 'source-map',
+  devtool: "source-map",
   resolve: {
-    extensions: ['.ts', '.tsx', '.js', '.json'],
+    extensions: [".ts", ".tsx", ".js", ".json"],
   },
   module: {
     rules: [
       {
         test: /\.tsx?$/,
         exclude: /node_modules/,
-        use: ['awesome-typescript-loader'],
+        use: ["awesome-typescript-loader"],
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
+        use: ["style-loader", "css-loader"],
       },
     ],
   },
-  externals: {
-    react: 'React',
-    'react-dom': 'ReactDOM',
+  plugins: [bundleAnalyzerPlugin].filter(Boolean),
+  optimization: {
+    minimizer: [
+      new UglifyJsPlugin({
+        uglifyOptions: {
+          compress: {
+            inline: 1, // Avoid assignment to constant variable error on compress.
+          },
+        },
+      }),
+    ],
   },
 };
