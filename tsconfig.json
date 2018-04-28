@@ -3,7 +3,7 @@
     "outDir": "./dist/",
     "sourceMap": true,
     "noImplicitAny": true,
-    "target": "es6",
+    "target": "esnext",
     "jsx": "react",
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true
