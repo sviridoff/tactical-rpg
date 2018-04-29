@@ -3,16 +3,18 @@ import thunk from "redux-thunk";
 
 import * as reducers from "./reducers/index";
 
-let middleware = [thunk];
+let middlewares;
+
 if (process.env.NODE_ENV !== "production") {
   const { default: logger } = require("redux-logger");
-  middleware = [...middleware, logger];
+  const { composeWithDevTools } = require("redux-devtools-extension");
+
+  middlewares = composeWithDevTools(applyMiddleware(thunk, logger));
+} else {
+  middlewares = applyMiddleware(thunk);
 }
 
-const store = createStore(
-  combineReducers(reducers),
-  applyMiddleware(...middleware),
-);
+const store = createStore(combineReducers(reducers), middlewares);
 
 (window as any).store = store;
 
