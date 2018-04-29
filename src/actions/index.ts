@@ -72,3 +72,7 @@ export function showSelectedArea(tile: TTile) {
     type: "SHOW_SELECTED_AREA",
   };
 }
+
+export function disablePlayerIsPlayerTurn() {
+  return { type: "DISABLE_PLAYER_IS_PLAYER_TURN" };
+}

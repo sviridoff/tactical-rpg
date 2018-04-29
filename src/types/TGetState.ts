@@ -1,0 +1,1 @@
+type TGetState = () => TState;

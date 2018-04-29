@@ -21,9 +21,13 @@ function resetAll(dispatch: TDispatch) {
 }
 
 export function updateTile(tile: TTile) {
-  return (dispatch: TDispatch, getState: () => TState): void => {
+  return (dispatch: TDispatch, getState: TGetState): void => {
     const { player, actors, tilemap } = getState();
     const { activeActorId, selectedActorId } = player;
+
+    if (!player.isPlayerTurn) {
+      return;
+    }
 
     // There are NO active `Actor`.
     if (!activeActorId) {

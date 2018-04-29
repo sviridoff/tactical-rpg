@@ -2,6 +2,7 @@ import { get } from "lodash-es";
 
 const initialState: TPlayer = {
   activeActorId: null,
+  isPlayerTurn: true,
   selectedActorId: null,
 };
 
@@ -16,6 +17,9 @@ export function player(state = initialState, action: any) {
       const selectedActorId = get(action, "data.actor.id");
 
       return { ...state, selectedActorId };
+    }
+    case "DISABLE_PLAYER_IS_PLAYER_TURN": {
+      return { ...state, isPlayerTurn: false };
     }
     default: {
       return state;

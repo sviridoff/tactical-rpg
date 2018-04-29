@@ -3,6 +3,7 @@ import * as Pathfinding from "pathfinding";
 import {
   attackEnemyActor,
   disableActor,
+  disablePlayerIsPlayerTurn,
   flushActorsAttackTarget,
   hideActorArea,
   showActorArea,
@@ -77,10 +78,15 @@ function resetActor(dispatch: TDispatch) {
   dispatch(updatePlayerSelectedActorId());
 }
 
-function attackEnemy(dispatch: TDispatch, activeActor: TActor, actor: TActor) {
+function attackEnemy(
+  dispatch: TDispatch,
+  getState: TGetState,
+  activeActor: TActor,
+  actor: TActor,
+) {
   dispatch(updateActorOriginalPosition(activeActor));
   dispatch(attackEnemyActor(activeActor, actor));
-  dispatch(disableActor(activeActor));
+  checkDisableActors(dispatch, getState, activeActor);
 }
 
 function selectActor(dispatch: TDispatch, actor: TActor, actors: TActors) {
@@ -95,8 +101,25 @@ function shouldMoveToActor(actor: TActor, tilemap: TTilemap) {
   return Boolean(actor.isEnemy && actorTile.isAttackArea);
 }
 
-function shouldDisableActor(actor: TActor, activeActor: TActor) {
+function shouldEndMoveActor(actor: TActor, activeActor: TActor) {
   return Boolean(actor.id === activeActor.id);
+}
+
+function checkDisableActors(
+  dispatch: TDispatch,
+  getState: TGetState,
+  actor: TActor,
+) {
+  dispatch(disableActor(actor));
+
+  const { actors } = getState();
+  const areAllActorsDisabled = Object.values(actors)
+    .filter((a) => !a.isEnemy)
+    .every((a) => a.isDisable);
+
+  if (areAllActorsDisabled) {
+    dispatch(disablePlayerIsPlayerTurn());
+  }
 }
 
 function moveToActor(
@@ -110,7 +133,6 @@ function moveToActor(
 
   const actoTile = getActorTile(actor, tilemap);
   if (actoTile.isAttackRangeArea) {
-    // dispatch(updateActorCurrentPosition(activeActor, tile));
     dispatch(updateActorAttackTarget(activeActor, actor));
 
     return;
@@ -128,11 +150,15 @@ function moveToActor(
 }
 
 export function updateActor(actor: TActor) {
-  return (dispatch: TDispatch, getState: () => TState): void => {
+  return (dispatch: TDispatch, getState: TGetState): void => {
     const { player, actors, tilemap } = getState();
     const { activeActorId, selectedActorId } = player;
     const selectedActor = actors[selectedActorId];
     const activeActor = actors[activeActorId];
+
+    if (!player.isPlayerTurn) {
+      return;
+    }
 
     if (!activeActorId) {
       selectActor(dispatch, actor, actors);
@@ -166,7 +192,7 @@ export function updateActor(actor: TActor) {
     }
 
     if (shouldAttackEnemyActor(actor, activeActor, selectedActor, tilemap)) {
-      attackEnemy(dispatch, activeActor, actor);
+      attackEnemy(dispatch, getState, activeActor, actor);
       resetActor(dispatch);
 
       return;
@@ -185,9 +211,9 @@ export function updateActor(actor: TActor) {
       return;
     }
 
-    if (shouldDisableActor(actor, activeActor)) {
+    if (shouldEndMoveActor(actor, activeActor)) {
       dispatch(updateActorOriginalPosition(actor));
-      dispatch(disableActor(actor));
+      checkDisableActors(dispatch, getState, actor);
       resetActor(dispatch);
 
       return;
