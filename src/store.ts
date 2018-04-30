@@ -15,6 +15,8 @@ if (process.env.NODE_ENV !== "production") {
 
 const store = createStore(combineReducers(reducers), middlewares);
 
-(window as any).store = store;
+if (process.env.NODE_ENV !== "production") {
+  (window as any).store = store;
+}
 
 export default store;

@@ -4,6 +4,7 @@ const initialState: TPlayer = {
   activeActorId: null,
   isPlayerTurn: true,
   selectedActorId: null,
+  showTurnBanner: false,
 };
 
 export function player(state = initialState, action: any) {
@@ -23,6 +24,12 @@ export function player(state = initialState, action: any) {
     }
     case "ENABLE_PLAYER_IS_PLAYER_TURN": {
       return { ...state, isPlayerTurn: true };
+    }
+    case "SHOW_PLAYER_TURN_BANNER": {
+      return { ...state, showTurnBanner: true };
+    }
+    case "HIDE_PLAYER_TURN_BANNER": {
+      return { ...state, showTurnBanner: false };
     }
     default: {
       return state;

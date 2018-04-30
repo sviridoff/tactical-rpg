@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 import Actors from "./containers/Actors";
 import Profile from "./containers/Profile";
 import Tilemap from "./containers/Tilemap";
+import TurnBanner from "./containers/TurnBanner";
 import store from "./store";
 
 const App = () => {
@@ -12,6 +13,7 @@ const App = () => {
     float: "left",
   };
   const style: any = {
+    float: "left",
     position: "relative",
   };
 
@@ -21,6 +23,7 @@ const App = () => {
         <div style={style}>
           <Actors />
           <Tilemap />
+          <TurnBanner />
         </div>
         <Profile />
       </div>

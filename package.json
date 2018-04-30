@@ -22,6 +22,7 @@
     "@types/react-dom": "^16.0.5",
     "@types/react-redux": "^5.0.16",
     "@types/uuid": "^3.4.3",
+    "await-timeout": "^0.2.0",
     "awesome-typescript-loader": "^5.0.0",
     "classnames": "^2.2.5",
     "clone": "^1.0.4",

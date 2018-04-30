@@ -84,3 +84,11 @@ export function enablePlayerIsPlayerTurn() {
 export function enableAllActors() {
   return { type: "ENABLE_ALL_ACTORS" };
 }
+
+export function hidePlayerTurnBanner() {
+  return { type: "HIDE_PLAYER_TURN_BANNER" };
+}
+
+export function showPlayerTurnBanner() {
+  return { type: "SHOW_PLAYER_TURN_BANNER" };
+}
