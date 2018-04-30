@@ -6,10 +6,9 @@ import * as reducers from "./reducers/index";
 let middlewares;
 
 if (process.env.NODE_ENV !== "production") {
-  const { default: logger } = require("redux-logger");
   const { composeWithDevTools } = require("redux-devtools-extension");
 
-  middlewares = composeWithDevTools(applyMiddleware(thunk, logger));
+  middlewares = composeWithDevTools(applyMiddleware(thunk));
 } else {
   middlewares = applyMiddleware(thunk);
 }
