@@ -76,3 +76,11 @@ export function showSelectedArea(tile: TTile) {
 export function disablePlayerIsPlayerTurn() {
   return { type: "DISABLE_PLAYER_IS_PLAYER_TURN" };
 }
+
+export function enablePlayerIsPlayerTurn() {
+  return { type: "ENABLE_PLAYER_IS_PLAYER_TURN" };
+}
+
+export function enableAllActors() {
+  return { type: "ENABLE_ALL_ACTORS" };
+}

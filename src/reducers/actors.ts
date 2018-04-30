@@ -5,11 +5,11 @@ import Actor from "../models/Actors";
 const teams: any = [
   {
     isEnemy: false,
-    positions: [[2, 2], [3, 3], [5, 1]],
+    positions: [[2, 2]],
   },
   {
     isEnemy: true,
-    positions: [[2, 4], [5, 2], [5, 5]],
+    positions: [[5, 2]],
   },
 ];
 const initialState: TActors = new Actor(teams).get();
@@ -73,6 +73,15 @@ export function actors(state = initialState, action: any) {
       const actor = stateClone[action.data.actor.id];
 
       actor.isDisable = true;
+
+      return stateClone;
+    }
+    case "ENABLE_ALL_ACTORS": {
+      const stateClone = clone(state);
+
+      Object.keys(stateClone).forEach((key) => {
+        stateClone[key].isDisable = false;
+      });
 
       return stateClone;
     }

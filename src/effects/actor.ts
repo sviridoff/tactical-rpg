@@ -14,6 +14,7 @@ import {
   updatePlayerActiveActorId,
   updatePlayerSelectedActorId,
 } from "../actions/index";
+import { updateEnemyActor } from "./enemyActor";
 
 const finder = new Pathfinding.AStarFinder();
 
@@ -119,6 +120,7 @@ function checkDisableActors(
 
   if (areAllActorsDisabled) {
     dispatch(disablePlayerIsPlayerTurn());
+    updateEnemyActor(dispatch, getState);
   }
 }
 

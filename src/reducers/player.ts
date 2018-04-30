@@ -21,6 +21,9 @@ export function player(state = initialState, action: any) {
     case "DISABLE_PLAYER_IS_PLAYER_TURN": {
       return { ...state, isPlayerTurn: false };
     }
+    case "ENABLE_PLAYER_IS_PLAYER_TURN": {
+      return { ...state, isPlayerTurn: true };
+    }
     default: {
       return state;
     }
