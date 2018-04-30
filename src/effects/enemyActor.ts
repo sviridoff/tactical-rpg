@@ -6,7 +6,7 @@ import {
   showPlayerTurnBanner,
 } from "../actions/index";
 
-function showTurnBanner(dispatch: TDispatch) {
+export function showTurnBanner(dispatch: TDispatch) {
   const timeout = new Timeout();
 
   return Promise.resolve()
