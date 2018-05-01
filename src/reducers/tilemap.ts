@@ -1,3 +1,4 @@
+import clone from "clone";
 import Tilemap from "../models/Tilemap";
 
 const tm = new Tilemap({
@@ -42,12 +43,12 @@ export function tilemap(state = initialState, action: any) {
 
       const tilemap = tm.get();
 
-      return tilemap;
+      return clone(tilemap, false);
     }
     case "HIDE_ACTOR_AREA": {
       tm.removeAllAreas();
 
-      return tm.get();
+      return clone(tm.get());
     }
     case "SHOW_SELECTED_AREA": {
       const { tile } = action.data;
@@ -57,7 +58,7 @@ export function tilemap(state = initialState, action: any) {
       tm.addSelectedArea(tile);
       tm.addAttackRangeArea(tile, 2);
 
-      return tm.get();
+      return clone(tm.get());
     }
     default: {
       return state;
