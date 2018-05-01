@@ -8,7 +8,7 @@ interface IBattleEndBanner {
 
 export default (props: IBattleEndBanner) => {
   const { player } = props;
-  const title = player.isBattleWon ? "You won" : "You lose";
+  const title = player.isBattleWon ? "You win" : "You lose";
 
   return (
     player.showBattleEndBanner && (
