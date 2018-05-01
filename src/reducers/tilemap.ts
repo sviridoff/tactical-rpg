@@ -36,6 +36,7 @@ export function tilemap(state = initialState, action: any) {
       const actorTiles = getLiveActorsTiles(actors, state);
       const actorTile = getActorTile(actor, state);
 
+      tm.removeAllAreas();
       tm.addMoveArea(actorTile, 3);
       tm.addAttackArea(actorTile, 4);
       tm.addActorArea(actorTiles);
