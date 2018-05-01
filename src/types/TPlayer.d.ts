@@ -3,4 +3,6 @@ type TPlayer = {
   selectedActorId: string;
   isPlayerTurn: boolean;
   showTurnBanner: boolean;
+  showBattleEndBanner: boolean;
+  isBattleWon: boolean;
 };

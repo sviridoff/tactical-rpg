@@ -7,7 +7,7 @@ export function updateEnemyActor(dispatch: TDispatch, getState: TGetState) {
     await showTurnBanner(dispatch);
 
     // Enemy behaviour stuff.
-    await delay(4000);
+    await delay(1000);
 
     dispatch(enablePlayerIsPlayerTurn());
 

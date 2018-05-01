@@ -1,3 +1,4 @@
+import delay from "delay";
 import Pathfinding from "pathfinding";
 
 import {
@@ -6,7 +7,12 @@ import {
   disablePlayerIsPlayerTurn,
   flushActorsAttackTarget,
   hideActorArea,
+  hidePlayerBattleEndBanner,
+  playerLose,
+  playerWin,
+  restartGame,
   showActorArea,
+  showPlayerBattleEndBanner,
   showSelectedArea,
   updateActorAttackTarget,
   updateActorCurrentPosition,
@@ -120,6 +126,42 @@ function checkDisableActors(
 
   if (areAllActorsDisabled) {
     dispatch(disablePlayerIsPlayerTurn());
+  }
+
+  // Check win or lost.
+  const areAllEnemyActorsDead = Object.values(actors)
+    .filter((a) => a.isEnemy)
+    .every((a) => a.isDead);
+
+  if (areAllEnemyActorsDead) {
+    (async () => {
+      dispatch(playerWin());
+      dispatch(showPlayerBattleEndBanner());
+
+      await delay(1500);
+
+      dispatch(hidePlayerBattleEndBanner());
+      dispatch(restartGame());
+    })();
+  }
+
+  const areAllActorsDead = Object.values(actors)
+    .filter((a) => !a.isEnemy)
+    .every((a) => a.isDead);
+
+  if (areAllActorsDead) {
+    (async () => {
+      dispatch(playerLose());
+      dispatch(showPlayerBattleEndBanner());
+
+      await delay(1500);
+
+      dispatch(hidePlayerBattleEndBanner());
+      dispatch(restartGame());
+    })();
+  }
+
+  if (areAllActorsDisabled && !areAllEnemyActorsDead && !areAllActorsDead) {
     updateEnemyActor(dispatch, getState);
   }
 }

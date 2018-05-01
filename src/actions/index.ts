@@ -96,3 +96,19 @@ export function showPlayerTurnBanner() {
 export function restartGame() {
   return { type: "RESTART_GAME" };
 }
+
+export function playerWin() {
+  return { type: "PLAYER_WIN" };
+}
+
+export function playerLose() {
+  return { type: "PLAYER_LOSE" };
+}
+
+export function hidePlayerBattleEndBanner() {
+  return { type: "HIDE_PLAYER_BATTLE_END_BANNER" };
+}
+
+export function showPlayerBattleEndBanner() {
+  return { type: "SHOW_PLAYER_BATTLE_END_BANNER" };
+}

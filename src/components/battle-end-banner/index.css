@@ -1,0 +1,21 @@
+:local .wrapper {
+  width: 100%;
+  min-height: 100%;
+  z-index: 2;
+  position: absolute;
+}
+
+:local .main {
+  background: black;
+  width: 100%;
+  padding: 25px 0;
+  top: 50%;
+  transform: translateY(-50%);
+  position: absolute;
+}
+
+:local .title {
+  color: white;
+  text-align: center;
+  font-size: 1.6rem;
+}
