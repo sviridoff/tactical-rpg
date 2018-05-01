@@ -6,15 +6,15 @@ import Actors from "./containers/Actors";
 import Profile from "./containers/Profile";
 import Tilemap from "./containers/Tilemap";
 import TurnBanner from "./containers/TurnBanner";
-import { showTurnBanner } from "./effects/enemyActor";
+import showTurnBanner from "./effects/showTurnBanner";
 import store from "./store";
 
 class App extends Component {
   public componentDidMount() {
-    // A bit weird way to show initial turn banner.
-    store.dispatch(() => {
-      showTurnBanner(store.dispatch);
-    });
+    // A weird way to show turn banner.
+    (async () => {
+      await showTurnBanner(store.dispatch);
+    })();
   }
 
   public render() {

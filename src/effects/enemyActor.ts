@@ -1,48 +1,18 @@
-import Timeout from "await-timeout";
-import {
-  enableAllActors,
-  enablePlayerIsPlayerTurn,
-  hidePlayerTurnBanner,
-  showPlayerTurnBanner,
-} from "../actions/index";
-
-export function showTurnBanner(dispatch: TDispatch) {
-  const timeout = new Timeout();
-
-  return Promise.resolve()
-    .then(() => {
-      dispatch(showPlayerTurnBanner());
-
-      return timeout.set(1500);
-    })
-    .then(() => {
-      timeout.clear();
-
-      dispatch(hidePlayerTurnBanner());
-    });
-}
+import delay from "delay";
+import { enableAllActors, enablePlayerIsPlayerTurn } from "../actions/index";
+import showTurnBanner from "./showTurnBanner";
 
 export function updateEnemyActor(dispatch: TDispatch, getState: TGetState) {
-  const timeout = new Timeout();
+  (async () => {
+    await showTurnBanner(dispatch);
 
-  Promise.resolve()
-    .then(() => {
-      return showTurnBanner(dispatch);
-    })
-    .then(() => {
-      // enemy stuff
+    // Enemy behaviour stuff.
+    await delay(4000);
 
-      return timeout.set(4000);
-    })
-    .then(() => {
-      timeout.clear();
+    dispatch(enablePlayerIsPlayerTurn());
 
-      dispatch(enablePlayerIsPlayerTurn());
-    })
-    .then(() => {
-      return showTurnBanner(dispatch);
-    })
-    .then(() => {
-      dispatch(enableAllActors());
-    });
+    await showTurnBanner(dispatch);
+
+    dispatch(enableAllActors());
+  })();
 }
