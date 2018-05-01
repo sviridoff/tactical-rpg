@@ -1,4 +1,4 @@
-import * as Pathfinding from "pathfinding";
+import Pathfinding from "pathfinding";
 
 import {
   attackEnemyActor,

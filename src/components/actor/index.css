@@ -1,7 +1,7 @@
 :local .main {
   position: absolute;
   background: pink;
-  transition: all .2s;
+  transition: top .2s, left .2s;
   z-index: 2;
 }
 
