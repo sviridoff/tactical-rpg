@@ -6,7 +6,7 @@ const tm = new Tilemap({
   width: 6,
 });
 
-const initialState: TTilemap = tm.get();
+const initialState: TTilemap = clone(tm.get());
 
 function getLiveActorsTiles(actors: TActors, tilemap: TTilemap) {
   return Object.keys(actors)
@@ -41,9 +41,7 @@ export function tilemap(state = initialState, action: any) {
       tm.addActorArea(actorTiles);
       tm.addPathfindableArea();
 
-      const tilemap = tm.get();
-
-      return clone(tilemap, false);
+      return clone(tm.get());
     }
     case "HIDE_ACTOR_AREA": {
       tm.removeAllAreas();

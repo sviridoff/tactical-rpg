@@ -13,7 +13,17 @@ if (process.env.NODE_ENV !== "production") {
   middlewares = applyMiddleware(thunk);
 }
 
-const store = createStore(combineReducers(reducers), middlewares);
+const appReducer = combineReducers(reducers);
+
+const rootReducer = (state: TState, action: any) => {
+  if (action.type === "RESTART_GAME") {
+    state = undefined;
+  }
+
+  return appReducer(state, action);
+};
+
+const store = createStore(rootReducer, middlewares);
 
 if (process.env.NODE_ENV !== "production") {
   (window as any).store = store;

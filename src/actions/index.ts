@@ -92,3 +92,7 @@ export function hidePlayerTurnBanner() {
 export function showPlayerTurnBanner() {
   return { type: "SHOW_PLAYER_TURN_BANNER" };
 }
+
+export function restartGame() {
+  return { type: "RESTART_GAME" };
+}

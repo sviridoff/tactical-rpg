@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 
 import Actors from "./containers/Actors";
+import GameRestartButton from "./containers/GameRestartButton";
 import Profile from "./containers/Profile";
 import Tilemap from "./containers/Tilemap";
 import TurnBanner from "./containers/TurnBanner";
@@ -34,6 +35,7 @@ class App extends Component {
             <Tilemap />
             <TurnBanner />
           </div>
+          <GameRestartButton />
           <Profile />
         </div>
       </Provider>
