@@ -11,6 +11,12 @@ import TurnBanner from "./containers/TurnBanner";
 import showTurnBanner from "./effects/showTurnBanner";
 import store from "./store";
 
+if (process.env.NODE_ENV !== "production") {
+  // Too many warnings at the moment. It need be refactored farther.
+  // const { whyDidYouUpdate } = require("why-did-you-update");
+  // whyDidYouUpdate(React);
+}
+
 class App extends Component {
   public componentDidMount() {
     // A weird way to show turn banner.

@@ -66,6 +66,8 @@ export function actors(state = initialState, action: any) {
         const actor = draft[action.data.actor.id];
 
         actor.isDisable = true;
+
+        break;
       }
       case "ENABLE_ALL_ACTORS": {
         Object.values(draft).forEach((actor) => {
