@@ -8,6 +8,6 @@ interface IOwnProps {
   isFirst: boolean;
 }
 
-const mapStateToProps = (state: TState, ownProps: IOwnProps) => ({ ...ownProps });
+const mapStateToProps = (state: TState, ownProps: IOwnProps) => ownProps;
 
 export default connect(mapStateToProps, mapDispatchToProps)(Tile);

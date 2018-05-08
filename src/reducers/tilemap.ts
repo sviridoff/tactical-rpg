@@ -13,14 +13,7 @@ const initialState: TTilemap = tm.get();
 function getLiveActorsTiles(actors: TActors, tilemap: TTilemap) {
   return Object.keys(actors)
     .filter((key) => !actors[key].isDead)
-    .map((key) => {
-      const actor = actors[key];
-      const {
-        originalPosition: { x, y },
-      } = actor;
-
-      return tilemap[y][x];
-    });
+    .map((key) => getActorTile(actors[key], tilemap));
 }
 
 export function tilemap(state = initialState, action: any) {
@@ -31,38 +24,26 @@ export function tilemap(state = initialState, action: any) {
         const actorTiles = getLiveActorsTiles(actors, state);
         const actorTile = getActorTile(actor, state);
 
+        tm.removeAllAreas(draft);
         tm.addMoveArea(draft, actorTile, 3);
-
-        /*
-        tm.removeAllAreas();
-        tm.addMoveArea(actorTile, 3);
-        tm.addAttackArea(actorTile, 4);
-        tm.addActorArea(actorTiles);
-        tm.addPathfindableArea();
-
-        return clone(tm.get());
-        */
+        tm.addAttackArea(draft, actorTile, 4);
+        tm.addActorArea(draft, actorTiles);
+        tm.addPathfindableArea(draft);
 
         break;
       }
       case "HIDE_ACTOR_AREA": {
-        // tm.removeAllAreas();
-
-        // return clone(tm.get());
+        tm.removeAllAreas(draft);
 
         break;
       }
       case "SHOW_SELECTED_AREA": {
-        /*
         const { tile } = action.data;
 
-        tm.removeAllSelectedAreas();
-        tm.removeAllAttackRangeAreas();
-        tm.addSelectedArea(tile);
-        tm.addAttackRangeArea(tile, 2);
-
-        return clone(tm.get());
-        */
+        tm.removeAllSelectedAreas(draft);
+        tm.removeAllAttackRangeAreas(draft);
+        tm.addSelectedArea(draft, tile);
+        tm.addAttackRangeArea(draft, tile, 2);
 
         break;
       }

@@ -7,6 +7,6 @@ interface IOwnProps {
   actor: TActor;
 }
 
-const mapStateToProps = (state: TState, ownProps: IOwnProps) => ({ ownProps });
+const mapStateToProps = (state: TState, ownProps: IOwnProps) => ownProps;
 
 export default connect(mapStateToProps, mapDispatchToProps)(Actor);
