@@ -1,5 +1,6 @@
 import delay from "delay";
 import Pathfinding from "pathfinding";
+import getActorTile from "../library/getActorTile";
 
 import {
   attackEnemyActor,
@@ -44,14 +45,6 @@ function findPathToActor(tilemap: TTilemap, actor: TActor, enemyActor: TActor) {
     enemyActorOriginalPosition.y,
     grid,
   );
-}
-
-function getActorTile(actor: TActor, tilemap: TTilemap) {
-  const {
-    originalPosition: { x, y },
-  } = actor;
-
-  return tilemap[y][x];
 }
 
 function shouldAttackEnemyActor(

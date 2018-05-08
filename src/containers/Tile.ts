@@ -1,6 +1,6 @@
+import deepEqual from "deep-equal";
 import { connect } from "react-redux";
-
-import { Tile } from "../components/tile/index";
+import { ITileProps, Tile } from "../components/tile/index";
 import * as mapDispatchToProps from "../effects/tile";
 
 interface IOwnProps {
@@ -8,6 +8,6 @@ interface IOwnProps {
   isFirst: boolean;
 }
 
-const mapStateToProps = (state: TState, ownProps: IOwnProps) => ({ ownProps });
+const mapStateToProps = (state: TState, ownProps: IOwnProps) => ({ ...ownProps });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Tile);

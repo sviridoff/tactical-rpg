@@ -1,4 +1,6 @@
 import clone from "clone";
+import produce from "immer";
+import getActorTile from "../library/getActorTile";
 import Tilemap from "../models/Tilemap";
 
 const tm = new Tilemap({
@@ -6,7 +8,7 @@ const tm = new Tilemap({
   width: 6,
 });
 
-const initialState: TTilemap = clone(tm.get());
+const initialState: TTilemap = tm.get();
 
 function getLiveActorsTiles(actors: TActors, tilemap: TTilemap) {
   return Object.keys(actors)
@@ -21,46 +23,49 @@ function getLiveActorsTiles(actors: TActors, tilemap: TTilemap) {
     });
 }
 
-function getActorTile(actor: TActor, tilemap: TTilemap) {
-  const {
-    originalPosition: { x, y },
-  } = actor;
-
-  return tilemap[y][x];
-}
-
 export function tilemap(state = initialState, action: any) {
-  switch (action.type) {
-    case "SHOW_ACTOR_AREA": {
-      const { actor, actors } = action.data;
-      const actorTiles = getLiveActorsTiles(actors, state);
-      const actorTile = getActorTile(actor, state);
+  return produce(state, (draft) => {
+    switch (action.type) {
+      case "SHOW_ACTOR_AREA": {
+        const { actor, actors } = action.data;
+        const actorTiles = getLiveActorsTiles(actors, state);
+        const actorTile = getActorTile(actor, state);
 
-      tm.removeAllAreas();
-      tm.addMoveArea(actorTile, 3);
-      tm.addAttackArea(actorTile, 4);
-      tm.addActorArea(actorTiles);
-      tm.addPathfindableArea();
+        tm.addMoveArea(draft, actorTile, 3);
 
-      return clone(tm.get());
+        /*
+        tm.removeAllAreas();
+        tm.addMoveArea(actorTile, 3);
+        tm.addAttackArea(actorTile, 4);
+        tm.addActorArea(actorTiles);
+        tm.addPathfindableArea();
+
+        return clone(tm.get());
+        */
+
+        break;
+      }
+      case "HIDE_ACTOR_AREA": {
+        // tm.removeAllAreas();
+
+        // return clone(tm.get());
+
+        break;
+      }
+      case "SHOW_SELECTED_AREA": {
+        /*
+        const { tile } = action.data;
+
+        tm.removeAllSelectedAreas();
+        tm.removeAllAttackRangeAreas();
+        tm.addSelectedArea(tile);
+        tm.addAttackRangeArea(tile, 2);
+
+        return clone(tm.get());
+        */
+
+        break;
+      }
     }
-    case "HIDE_ACTOR_AREA": {
-      tm.removeAllAreas();
-
-      return clone(tm.get());
-    }
-    case "SHOW_SELECTED_AREA": {
-      const { tile } = action.data;
-
-      tm.removeAllSelectedAreas();
-      tm.removeAllAttackRangeAreas();
-      tm.addSelectedArea(tile);
-      tm.addAttackRangeArea(tile, 2);
-
-      return clone(tm.get());
-    }
-    default: {
-      return state;
-    }
-  }
+  });
 }

@@ -47,16 +47,16 @@ export default class Tilemap {
     });
   }
 
-  public addMoveArea(tile: TTile, radius: number) {
-    this.setDiamondArea(tile, radius, { isMoveArea: true });
+  public addMoveArea(tilemap: TTilemap, tile: TTile, radius: number) {
+    this.setDiamondArea(tilemap, tile, radius, { isMoveArea: true });
   }
 
-  public addAttackArea(tile: TTile, radius: number) {
-    this.setDiamondArea(tile, radius, { isAttackArea: true });
+  public addAttackArea(tilemap: TTilemap, tile: TTile, radius: number) {
+    this.setDiamondArea(tilemap, tile, radius, { isAttackArea: true });
   }
 
-  public addAttackRangeArea(tile: TTile, radius: number) {
-    this.setDiamondArea(tile, radius, { isAttackRangeArea: true });
+  public addAttackRangeArea(tilemap: TTilemap, tile: TTile, radius: number) {
+    this.setDiamondArea(tilemap, tile, radius, { isAttackRangeArea: true });
   }
 
   public addActorArea(tiles: TTile[]) {
@@ -105,7 +105,7 @@ export default class Tilemap {
     });
   }
 
-  private setDiamondArea(tile: TTile, radius: number, params: any) {
+  private setDiamondArea(tilemap: TTilemap, tile: TTile, radius: number, params: any) {
     const diameter = radius * 2;
 
     times(diameter, (xx) => {
@@ -116,8 +116,8 @@ export default class Tilemap {
           const x = xx + tile.x - radius;
           const y = yy + tile.y - radius;
 
-          if (this.tilemap[y] && this.tilemap[y][x]) {
-            this.tilemap[y][x] = { ...this.tilemap[y][x], ...params };
+          if (tilemap[y] && tilemap[y][x]) {
+            tilemap[y][x] = { ...tilemap[y][x], ...params };
           }
         }
       });

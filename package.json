@@ -15,6 +15,7 @@
   "devDependencies": {
     "@types/classnames": "^2.2.3",
     "@types/clone": "^0.1.30",
+    "@types/deep-equal": "^1.0.1",
     "@types/delay": "^2.0.1",
     "@types/lodash-es": "^4.17.0",
     "@types/node": "^9.6.7",
@@ -27,6 +28,7 @@
     "classnames": "^2.2.5",
     "clone": "^1.0.4",
     "css-loader": "^0.28.11",
+    "deep-equal": "^1.0.1",
     "delay": "^2.0.0",
     "immer": "^1.2.1",
     "lodash-es": "^4.17.10",

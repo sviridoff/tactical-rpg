@@ -4,7 +4,7 @@ import React from "react";
 import tileArea from "../../library/tileArea";
 const styles = require("./index.css");
 
-interface ITileProps {
+export interface ITileProps {
   tile: TTile;
   isFirst: boolean;
   updateTile: (tile: TTile) => any;
