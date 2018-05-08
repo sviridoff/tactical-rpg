@@ -17,7 +17,6 @@ export const Tile = (props: ITileProps) => {
     isAttackArea,
     isActorArea,
     isSelectedArea,
-    isAttackRangeArea,
     x,
     y,
   } = tile;

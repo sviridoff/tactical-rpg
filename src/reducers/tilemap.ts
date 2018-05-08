@@ -1,4 +1,3 @@
-import clone from "clone";
 import produce from "immer";
 import getActorTile from "../library/getActorTile";
 import Tilemap from "../models/Tilemap";

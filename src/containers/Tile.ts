@@ -1,4 +1,3 @@
-import deepEqual from "deep-equal";
 import { connect } from "react-redux";
 import { ITileProps, Tile } from "../components/tile/index";
 import * as mapDispatchToProps from "../effects/tile";
