@@ -3,53 +3,30 @@ import React from "react";
 const styles = require("./index.css");
 
 interface IProfileProps {
-  player: TPlayer;
-  actors: TActors;
-  tilemap: TTilemap;
+  activeActor: TActor;
+  selectedActor: TActor;
+  showActiveActor: boolean;
+}
+
+function createActorElement(actor: TActor): JSX.Element {
+  return (
+    <ul className={styles.main}>
+      <li>Id: {actor.id}</li>
+      <li>
+        HP: {actor.healthPoints}/{actor.totalHealthPoints}
+      </li>
+      <li>Attack: {actor.damage}</li>
+    </ul>
+  );
 }
 
 export const Profile = (props: IProfileProps) => {
-  const { player, actors, tilemap } = props;
-  const { selectedActorId, activeActorId } = player;
-
-  let viewActorElements: JSX.Element;
-  if (selectedActorId) {
-    const viewActor = actors[selectedActorId];
-    viewActorElements = (
-      <ul className={styles.main}>
-        <li>Id: {selectedActorId}</li>
-        <li>
-          HP: {viewActor.healthPoints}/{viewActor.totalHealthPoints}
-        </li>
-        <li>Attack: {viewActor.damage}</li>
-      </ul>
-    );
-  }
-
-  let showSelectedActor: boolean = false;
-  let selectedActorElements: JSX.Element;
-  if (activeActorId) {
-    const selectedActor = actors[activeActorId];
-    selectedActorElements = (
-      <ul className={styles.main}>
-        <li>Id: {activeActorId}</li>
-        <li>
-          HP: {selectedActor.healthPoints}/{selectedActor.totalHealthPoints}
-        </li>
-        <li>Attack: {selectedActor.damage}</li>
-      </ul>
-    );
-
-    const { originalPosition: { x, y }, isEnemy } = actors[selectedActorId];
-    const isNotSameActor = selectedActorId !== activeActorId;
-    const { isAttackArea } = tilemap[y][x];
-    showSelectedActor = isAttackArea && isNotSameActor && isEnemy;
-  }
+  const { activeActor, selectedActor, showActiveActor } = props;
 
   return (
     <React.Fragment>
-      {showSelectedActor && selectedActorElements}
-      {viewActorElements}
+      {showActiveActor && activeActor && createActorElement(activeActor)}
+      {selectedActor && createActorElement(selectedActor)}
     </React.Fragment>
   );
 };

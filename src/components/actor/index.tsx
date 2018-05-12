@@ -6,7 +6,7 @@ import tileArea from "../../library/tileArea";
 
 interface IActorProps {
   actor: TActor;
-  updateActor: (actor: TActor) => void;
+  playerTurnHandler: (actor: TActor) => void;
 }
 
 function getPosition(actor: TActor, tileArea: any) {
@@ -23,10 +23,10 @@ function getHealthBarWidth(actor: TActor) {
 }
 
 export const Actor = (props: IActorProps) => {
-  const { actor, updateActor } = props;
+  const { actor, playerTurnHandler } = props;
   const position = getPosition(actor, tileArea);
   const healthBarWidth = getHealthBarWidth(actor);
-  const onClick = () => updateActor(actor);
+  const onClick = () => playerTurnHandler(actor);
   const className = classNames({
     [styles.main]: true,
     [styles.enemy]: actor.isEnemy,

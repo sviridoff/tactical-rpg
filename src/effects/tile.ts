@@ -6,14 +6,7 @@ import {
   updatePlayerActiveActorId,
   updatePlayerSelectedActorId,
 } from "../actions/index";
-
-function getActorTile(actor: TActor, tilemap: TTilemap) {
-  const {
-    originalPosition: { x, y },
-  } = actor;
-
-  return tilemap[y][x];
-}
+import getActorTile from "../library/getActorTile";
 
 function resetAll(dispatch: TDispatch) {
   dispatch(updatePlayerActiveActorId());

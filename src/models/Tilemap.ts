@@ -38,8 +38,8 @@ export default class Tilemap {
     return this.tilemap;
   }
 
-  public addPathfindableArea() {
-    this.tilemap.forEach((tiles) => {
+  public addPathfindableArea(tilemap: TTilemap) {
+    tilemap.forEach((tiles) => {
       tiles.forEach((tile) => {
         tile.isPathfindable =
           tile.isMoveArea && !tile.isActorArea ? true : false;
@@ -47,65 +47,69 @@ export default class Tilemap {
     });
   }
 
-  public addMoveArea(tile: TTile, radius: number) {
-    this.setDiamondArea(tile, radius, { isMoveArea: true });
+  public addMoveArea(tilemap: TTilemap, tile: TTile, radius: number) {
+    this.setDiamondArea(tilemap, tile, radius, { isMoveArea: true });
   }
 
-  public addAttackArea(tile: TTile, radius: number) {
-    this.setDiamondArea(tile, radius, { isAttackArea: true });
+  public addAttackArea(tilemap: TTilemap, tile: TTile, radius: number) {
+    this.setDiamondArea(tilemap, tile, radius, { isAttackArea: true });
   }
 
-  public addAttackRangeArea(tile: TTile, radius: number) {
-    this.setDiamondArea(tile, radius, { isAttackRangeArea: true });
+  public addAttackRangeArea(tilemap: TTilemap, tile: TTile, radius: number) {
+    this.setDiamondArea(tilemap, tile, radius, { isAttackRangeArea: true });
   }
 
-  public addActorArea(tiles: TTile[]) {
+  public addActorArea(tilemap: TTilemap, tiles: TTile[]) {
     tiles.forEach((tile) => {
       const { x, y } = tile;
 
-      this.tilemap[y][x].isActorArea = true;
+      tilemap[y][x].isActorArea = true;
     });
   }
 
-  public addSelectedArea(tile: TTile) {
+  public addSelectedArea(tilemap: TTilemap, tile: TTile) {
     const { x, y } = tile;
 
-    this.tilemap[y][x].isSelectedArea = true;
+    tilemap[y][x].isSelectedArea = true;
   }
 
-  public removeAllAreas() {
-    this.tilemap.forEach((tiles, y) => {
+  public removeAllAreas(tilemap: TTilemap) {
+    tilemap.forEach((tiles, y) => {
       tiles.forEach((tile, x) => {
-        this.tilemap[y][x] = {
-          ...tile,
+        Object.assign(tile, {
           isActorArea: false,
           isAttackArea: false,
           isAttackRangeArea: false,
           isMoveArea: false,
           isPathfindable: false,
           isSelectedArea: false,
-        };
+        });
       });
     });
   }
 
-  public removeAllSelectedAreas() {
-    this.tilemap.forEach((tiles, y) => {
-      tiles.forEach((tile, x) => {
-        this.tilemap[y][x].isSelectedArea = false;
+  public removeAllSelectedAreas(tilemap: TTilemap) {
+    tilemap.forEach((tiles) => {
+      tiles.forEach((tile) => {
+        tile.isSelectedArea = false;
       });
     });
   }
 
-  public removeAllAttackRangeAreas() {
-    this.tilemap.forEach((tiles, y) => {
-      tiles.forEach((tile, x) => {
-        this.tilemap[y][x].isAttackRangeArea = false;
+  public removeAllAttackRangeAreas(tilemap: TTilemap) {
+    tilemap.forEach((tiles) => {
+      tiles.forEach((tile) => {
+        tile.isAttackRangeArea = false;
       });
     });
   }
 
-  private setDiamondArea(tile: TTile, radius: number, params: any) {
+  private setDiamondArea(
+    tilemap: TTilemap,
+    tile: TTile,
+    radius: number,
+    params: any,
+  ) {
     const diameter = radius * 2;
 
     times(diameter, (xx) => {
@@ -116,8 +120,8 @@ export default class Tilemap {
           const x = xx + tile.x - radius;
           const y = yy + tile.y - radius;
 
-          if (this.tilemap[y] && this.tilemap[y][x]) {
-            this.tilemap[y][x] = { ...this.tilemap[y][x], ...params };
+          if (tilemap[y] && tilemap[y][x]) {
+            Object.assign(tilemap[y][x], params);
           }
         }
       });
