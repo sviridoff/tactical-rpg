@@ -63,7 +63,7 @@ async function match(dispatch: TDispatch, getState: TGetState) {
 
   if (isEnemyTurn(getState)) {
     await turnBanner(dispatch);
-    await enemyTurn();
+    await enemyTurn(dispatch, getState);
     endEnemyTurn(dispatch);
   }
 

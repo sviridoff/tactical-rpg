@@ -28,6 +28,7 @@ export function tilemap(state = initialState, action: any) {
         tm.addAttackArea(draft, actorTile, 4);
         tm.addActorArea(draft, actorTiles);
         tm.addPathfindableArea(draft);
+        tm.addAttackRangeArea(draft, actorTile, 2);
 
         break;
       }
