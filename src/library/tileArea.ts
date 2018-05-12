@@ -1,6 +1,8 @@
+const rootElement = document.getElementById("root");
+
 const style = {
-  height: screen.width / 6,
-  width: screen.width / 6,
+  height: rootElement.clientWidth / 6,
+  width: rootElement.clientWidth / 6,
 };
 
 export default style;

@@ -6,7 +6,7 @@
   "scripts": {
     "develop": "NODE_ENV=development webpack-dev-server --output-public-path dist",
     "build": "rm -rf dist && NODE_ENV=production webpack",
-    "build2": "rm -rf dist && NODE_ENV=development webpack",
+    "build:dev": "rm -rf dist && NODE_ENV=development webpack",
     "analyze": "rm -rf dist && WEBPACK_BUNDLE_ANALYZER=true NODE_ENV=production webpack"
   },
   "author": "",
