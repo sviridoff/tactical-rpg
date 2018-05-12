@@ -1,19 +1,17 @@
 import delay from "delay";
 import Pathfinding from "pathfinding";
-import getActorTile from "../library/getActorTile";
-
 import {
   attackEnemyActor,
   disableActor,
-  disablePlayerIsPlayerTurn,
+  disablePlayerTurn,
   flushActorsAttackTarget,
   hideActorArea,
-  hidePlayerBattleEndBanner,
+  hideMatchEndBanner,
   playerLose,
   playerWin,
   restartGame,
   showActorArea,
-  showPlayerBattleEndBanner,
+  showMatchEndBanner,
   showSelectedArea,
   updateActorAttackTarget,
   updateActorCurrentPosition,
@@ -21,7 +19,16 @@ import {
   updatePlayerActiveActorId,
   updatePlayerSelectedActorId,
 } from "../actions/index";
-import { updateEnemyActor } from "./enemyActor";
+import getActorTile from "../library/getActorTile";
+import { areAllEnemyActorsDead, areAllPlayerActorsDead } from "./match";
+
+let next: () => void;
+
+export default async function playerTurn() {
+  return new Promise((resolve) => {
+    next = resolve;
+  });
+}
 
 const finder = new Pathfinding.AStarFinder();
 
@@ -112,51 +119,15 @@ function checkDisableActors(
 ) {
   dispatch(disableActor(actor));
 
-  const { actors } = getState();
-  const areAllActorsDisabled = Object.values(actors)
-    .filter((a) => !a.isEnemy)
-    .every((a) => a.isDisable);
-
-  if (areAllActorsDisabled) {
-    dispatch(disablePlayerIsPlayerTurn());
+  if (areAllEnemyActorsDead(getState)) {
+    dispatch(playerWin());
   }
 
-  // Check win or lost.
-  const areAllEnemyActorsDead = Object.values(actors)
-    .filter((a) => a.isEnemy)
-    .every((a) => a.isDead);
-
-  if (areAllEnemyActorsDead) {
-    (async () => {
-      dispatch(playerWin());
-      dispatch(showPlayerBattleEndBanner());
-
-      await delay(1500);
-
-      dispatch(hidePlayerBattleEndBanner());
-      dispatch(restartGame());
-    })();
+  if (areAllPlayerActorsDead(getState)) {
+    dispatch(playerLose());
   }
 
-  const areAllActorsDead = Object.values(actors)
-    .filter((a) => !a.isEnemy)
-    .every((a) => a.isDead);
-
-  if (areAllActorsDead) {
-    (async () => {
-      dispatch(playerLose());
-      dispatch(showPlayerBattleEndBanner());
-
-      await delay(1500);
-
-      dispatch(hidePlayerBattleEndBanner());
-      dispatch(restartGame());
-    })();
-  }
-
-  if (areAllActorsDisabled && !areAllEnemyActorsDead && !areAllActorsDead) {
-    updateEnemyActor(dispatch, getState);
-  }
+  next();
 }
 
 function moveToActor(
@@ -186,12 +157,16 @@ function moveToActor(
   }
 }
 
-export function updateActor(actor: TActor) {
+export function playerTurnHandler(actor: TActor) {
   return (dispatch: TDispatch, getState: TGetState): void => {
     const { player, actors, tilemap } = getState();
     const { activeActorId, selectedActorId } = player;
     const selectedActor = actors[selectedActorId];
     const activeActor = actors[activeActorId];
+
+    if (!player.isPlayerTurn) {
+      return;
+    }
 
     if (!player.isPlayerTurn) {
       return;
@@ -223,7 +198,7 @@ export function updateActor(actor: TActor) {
 
     if (activeActor.isDisable || activeActor.isEnemy) {
       resetActor(dispatch);
-      dispatch(updateActor(actor));
+      dispatch(playerTurnHandler(actor));
 
       return;
     }

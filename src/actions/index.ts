@@ -73,11 +73,11 @@ export function showSelectedArea(tile: TTile) {
   };
 }
 
-export function disablePlayerIsPlayerTurn() {
+export function disablePlayerTurn() {
   return { type: "DISABLE_PLAYER_IS_PLAYER_TURN" };
 }
 
-export function enablePlayerIsPlayerTurn() {
+export function enablePlayerTurn() {
   return { type: "ENABLE_PLAYER_IS_PLAYER_TURN" };
 }
 
@@ -105,10 +105,10 @@ export function playerLose() {
   return { type: "PLAYER_LOSE" };
 }
 
-export function hidePlayerBattleEndBanner() {
+export function hideMatchEndBanner() {
   return { type: "HIDE_PLAYER_BATTLE_END_BANNER" };
 }
 
-export function showPlayerBattleEndBanner() {
+export function showMatchEndBanner() {
   return { type: "SHOW_PLAYER_BATTLE_END_BANNER" };
 }
