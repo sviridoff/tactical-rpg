@@ -168,10 +168,6 @@ export function playerTurnHandler(actor: TActor) {
       return;
     }
 
-    if (!player.isPlayerTurn) {
-      return;
-    }
-
     if (!activeActorId) {
       selectActor(dispatch, actor, actors);
 
