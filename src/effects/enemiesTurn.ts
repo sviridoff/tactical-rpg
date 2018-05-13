@@ -6,6 +6,7 @@ import {
   disableActor,
   hideActorArea,
   showActorArea,
+  showSelectedArea,
   updateActorCurrentPosition,
   updateActorOriginalPosition,
   updatePlayerActiveActorId,
@@ -68,7 +69,6 @@ function attackPlayerActor(
   playerActorToAttack: TActor,
 ) {
   dispatch(attackEnemyActor(enemyActor, playerActorToAttack));
-  resetActor(dispatch, enemyActor);
 }
 
 function getTilesPathToPlayerActor(
@@ -113,7 +113,7 @@ function moveToPlayerActor(
 
   dispatch(updateActorCurrentPosition(enemyActor, tile));
   dispatch(updateActorOriginalPosition(enemyActor));
-  resetActor(dispatch, enemyActor);
+  dispatch(showSelectedArea(tile));
 }
 
 function selectActor(
@@ -147,6 +147,8 @@ async function enemyTurn(dispatch: TDispatch, getState: TGetState) {
 
     attackPlayerActor(dispatch, enemyActor, playerActorToAttack);
 
+    resetActor(dispatch, enemyActor);
+
     await delay(1000);
 
     return;
@@ -156,9 +158,17 @@ async function enemyTurn(dispatch: TDispatch, getState: TGetState) {
 
   moveToPlayerActor(dispatch, getState, enemyActor, playerActor);
 
-  await delay(1000);
+  if (canAttackPlayerActor(getState)) {
+    await delay(500);
 
-  return;
+    const playerActorToAttack = getPlayerActorToAttack(getState);
+
+    attackPlayerActor(dispatch, enemyActor, playerActorToAttack);
+  }
+
+  resetActor(dispatch, enemyActor);
+
+  await delay(1000);
 }
 
 function areAllEnemyActorsDisabled(getState: TGetState) {
