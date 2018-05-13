@@ -112,6 +112,14 @@ function shouldEndMoveActor(actor: TActor, activeActor: TActor) {
   return Boolean(actor.id === activeActor.id);
 }
 
+function areAllPlayersActorsDisabled(getState: TGetState) {
+  const { actors } = getState();
+
+  return Object.values(actors)
+    .filter((actor) => !actor.isEnemy && !actor.isDead)
+    .every((actor) => actor.isDisable);
+}
+
 function checkDisableActors(
   dispatch: TDispatch,
   getState: TGetState,
@@ -121,13 +129,17 @@ function checkDisableActors(
 
   if (areAllEnemyActorsDead(getState)) {
     dispatch(playerWin());
+    return next();
   }
 
   if (areAllPlayerActorsDead(getState)) {
     dispatch(playerLose());
+    return next();
   }
 
-  next();
+  if (areAllPlayersActorsDisabled(getState)) {
+    return next();
+  }
 }
 
 function moveToActor(

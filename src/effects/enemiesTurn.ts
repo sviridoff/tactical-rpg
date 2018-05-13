@@ -15,23 +15,42 @@ import getActorTile from "../library/getActorTile";
 
 const finder = new Pathfinding.AStarFinder();
 
-function getPlayerActor(getState: TGetState): TActor {
-  const { actors } = getState();
+function getDistance(enemyActor: TActor, playerActor: TActor): number {
+  const enemyPosition = enemyActor.originalPosition;
+  const playerPosition = playerActor.originalPosition;
+  let distance = 0;
+  distance += Math.abs(enemyPosition.x - playerPosition.x);
+  distance += Math.abs(enemyPosition.y - playerPosition.y);
 
-  return Object.values(actors).filter((actor) => !actor.isEnemy)[0];
+  return distance;
+}
+
+function getPlayerActor(getState: TGetState, enemyActor: TActor): TActor {
+  const { actors } = getState();
+  const distances = Object.values(actors)
+    .filter((actor) => !actor.isEnemy && !actor.isDead)
+    .map((actor) => ({
+      distance: getDistance(enemyActor, actor),
+      id: actor.id,
+    }))
+    .sort((a, b) => a.distance - b.distance);
+
+  return actors[distances[0].id];
 }
 
 function getEnemyActor(getState: TGetState): TActor {
   const { actors } = getState();
 
-  return Object.values(actors).filter((actor) => actor.isEnemy)[0];
+  return Object.values(actors).find(
+    (actor) => actor.isEnemy && !actor.isDisable,
+  );
 }
 
 function canAttackPlayerActor(getState: TGetState): boolean {
   const { actors, tilemap } = getState();
 
   return Object.values(actors)
-    .filter((actor) => !actor.isEnemy)
+    .filter((actor) => !actor.isEnemy && !actor.isDead)
     .some((actor) => getActorTile(actor, tilemap).isAttackRangeArea);
 }
 
@@ -39,7 +58,7 @@ function getPlayerActorToAttack(getState: TGetState): TActor {
   const { actors, tilemap } = getState();
 
   return Object.values(actors)
-    .filter((actor) => !actor.isEnemy)
+    .filter((actor) => !actor.isEnemy && !actor.isDead)
     .find((actor) => getActorTile(actor, tilemap).isAttackRangeArea);
 }
 
@@ -49,8 +68,7 @@ function attackPlayerActor(
   playerActorToAttack: TActor,
 ) {
   dispatch(attackEnemyActor(enemyActor, playerActorToAttack));
-  dispatch(disableActor(enemyActor));
-  dispatch(hideActorArea());
+  resetActor(dispatch, enemyActor);
 }
 
 function getTilesPathToPlayerActor(
@@ -76,7 +94,7 @@ function getTilesPathToPlayerActor(
   return tiles.slice(0, tiles.length - 1);
 }
 
-function getTile(tiles: TTile[]): TTile {
+function getTilePath(tiles: TTile[]): TTile {
   return reverse(tiles).find((tile) => tile.isMoveArea);
 }
 
@@ -91,12 +109,11 @@ function moveToPlayerActor(
     enemyActor,
     playerActor,
   );
-  const tile = getTile(tilesPathToPlayerActor);
+  const tile = getTilePath(tilesPathToPlayerActor);
 
   dispatch(updateActorCurrentPosition(enemyActor, tile));
   dispatch(updateActorOriginalPosition(enemyActor));
-  dispatch(disableActor(enemyActor));
-  dispatch(hideActorArea());
+  resetActor(dispatch, enemyActor);
 }
 
 function selectActor(
@@ -111,10 +128,14 @@ function selectActor(
   dispatch(showActorArea(enemyActor, actors));
 }
 
-export default async function enemyTurn(
-  dispatch: TDispatch,
-  getState: TGetState,
-) {
+function resetActor(dispatch: TDispatch, enemyActor: TActor) {
+  dispatch(disableActor(enemyActor));
+  dispatch(hideActorArea());
+  dispatch(updatePlayerActiveActorId());
+  dispatch(updatePlayerSelectedActorId());
+}
+
+async function enemyTurn(dispatch: TDispatch, getState: TGetState) {
   await delay(500);
 
   const enemyActor = getEnemyActor(getState);
@@ -131,11 +152,32 @@ export default async function enemyTurn(
     return;
   }
 
-  const playerActor = getPlayerActor(getState);
+  const playerActor = getPlayerActor(getState, enemyActor);
 
   moveToPlayerActor(dispatch, getState, enemyActor, playerActor);
 
   await delay(1000);
 
   return;
+}
+
+function areAllEnemyActorsDisabled(getState: TGetState) {
+  const { actors } = getState();
+
+  return Object.values(actors)
+    .filter((actor) => actor.isEnemy)
+    .every((actor) => actor.isDisable);
+}
+
+export default async function enemiesTurn(
+  dispatch: TDispatch,
+  getState: TGetState,
+) {
+  for (;;) {
+    if (areAllEnemyActorsDisabled(getState)) {
+      break;
+    }
+
+    await enemyTurn(dispatch, getState);
+  }
 }

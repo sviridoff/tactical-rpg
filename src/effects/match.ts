@@ -4,7 +4,7 @@ import {
   enablePlayerTurn,
   restartGame,
 } from "../actions/index";
-import enemyTurn from "./enemyTurn";
+import enemiesTurn from "./enemiesTurn";
 import matchEndBanner from "./matchEndBanner";
 import playerTurn from "./playerTurn";
 import turnBanner from "./turnBanner";
@@ -39,13 +39,13 @@ function isPlayerTurn(getState: TGetState) {
   return player.isPlayerTurn && !isEndMatch(getState);
 }
 
-function isEnemyTurn(getState: TGetState) {
+function isEnemiesTurn(getState: TGetState) {
   const { player } = getState();
 
   return !player.isPlayerTurn && !isEndMatch(getState);
 }
 
-function endEnemyTurn(dispatch: TDispatch) {
+function endEnemiesTurn(dispatch: TDispatch) {
   dispatch(enablePlayerTurn());
   dispatch(enableAllActors());
 }
@@ -61,10 +61,10 @@ async function match(dispatch: TDispatch, getState: TGetState) {
     endPlayerTurn(dispatch);
   }
 
-  if (isEnemyTurn(getState)) {
+  if (isEnemiesTurn(getState)) {
     await turnBanner(dispatch);
-    await enemyTurn(dispatch, getState);
-    endEnemyTurn(dispatch);
+    await enemiesTurn(dispatch, getState);
+    endEnemiesTurn(dispatch);
   }
 
   if (isEndMatch(getState)) {

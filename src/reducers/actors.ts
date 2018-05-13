@@ -4,11 +4,11 @@ import Actor from "../models/Actors";
 const teams: any = [
   {
     isEnemy: false,
-    positions: [[2, 2]],
+    positions: [[2, 2], [3, 5]],
   },
   {
     isEnemy: true,
-    positions: [[5, 2]],
+    positions: [[5, 2], [5, 4]],
   },
 ];
 const initialState: TActors = new Actor(teams).get();
