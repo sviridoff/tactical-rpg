@@ -42,7 +42,7 @@ function getEnemyActor(getState: TGetState): TActor {
   const { actors } = getState();
 
   return Object.values(actors).find(
-    (actor) => actor.isEnemy && !actor.isDisable,
+    (actor) => actor.isEnemy && !actor.isDisable && !actor.isDead,
   );
 }
 
@@ -165,7 +165,7 @@ function areAllEnemyActorsDisabled(getState: TGetState) {
   const { actors } = getState();
 
   return Object.values(actors)
-    .filter((actor) => actor.isEnemy)
+    .filter((actor) => actor.isEnemy && !actor.isDead)
     .every((actor) => actor.isDisable);
 }
 
