@@ -16,10 +16,14 @@ module.exports = {
   },
   devtool: "source-map",
   resolve: {
-    extensions: [".ts", ".tsx", ".js", ".json"],
+    extensions: [".ts", ".tsx", ".js", ".json", ".gif"],
   },
   module: {
     rules: [
+      {
+        test: /\.(png|jpg|gif)$/,
+        use: ["file-loader"],
+      },
       {
         test: /\.tsx?$/,
         exclude: /node_modules/,

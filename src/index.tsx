@@ -4,12 +4,13 @@ import { Provider } from "react-redux";
 
 import Actors from "./containers/Actors";
 import BattleEndBanner from "./containers/BattleEndBanner";
-import GameRestartButton from "./containers/GameRestartButton";
 import Profile from "./containers/Profile";
 import Tilemap from "./containers/Tilemap";
 import TurnBanner from "./containers/TurnBanner";
 import { matchLoop } from "./effects/match";
 import store from "./store";
+
+const styles = require("./index.css");
 
 if (process.env.NODE_ENV !== "production") {
   // Too many warnings at the moment. It need be refactored farther.
@@ -18,15 +19,6 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 class App extends Component {
-  private rootStyle: {
-    float: "left";
-  };
-
-  private style: {
-    float: "left";
-    position: "relative";
-  };
-
   public componentDidMount() {
     matchLoop(store.dispatch, store.getState);
   }
@@ -34,15 +26,14 @@ class App extends Component {
   public render() {
     return (
       <Provider store={store}>
-        <div style={this.rootStyle}>
-          <div style={this.style}>
+        <div className={styles.main}>
+          <Profile />
+          <div className={styles.body}>
             <Actors />
             <Tilemap />
             <TurnBanner />
             <BattleEndBanner />
           </div>
-          <GameRestartButton />
-          <Profile />
         </div>
       </Provider>
     );

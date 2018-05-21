@@ -1,6 +1,6 @@
 :local .main {
-  outline: 1px solid white;
-  background: yellowgreen;
+  outline: 1px dashed rgba(0, 0, 0, 0.2);
+  background: #a5da99;
   float: left;
 }
 

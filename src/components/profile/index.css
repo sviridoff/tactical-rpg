@@ -1,4 +1,143 @@
 :local .main {
+  height: 90px;
+  color: #f6f6f6;
+}
+
+:local .actorsCard {
   float: left;
-  font-size: .8rem;
+  width: 100%;
+}
+
+:local .actorsName {
+  float: left;
+  width: 100%;
+}
+
+:local .actorsName > div {
+  float: left;
+  width: 50%;
+  text-align: center;
+  padding: 3px 5px 5px 5px;
+}
+
+:local .actorsHp {
+  float: left;
+  width: 100%;
+  padding: 3px 5px;
+  border-top: 1px solid #f6f6f6;
+}
+
+:local .actorsHp > div:nth-child(1) {
+  float: left;
+  width: 45%;
+  text-align: right;
+  color: #97d1df;
+  font-size: 25px;
+}
+
+:local .actorsHp > div:nth-child(2) {
+  float: left;
+  width: 10%;
+  text-align: center;
+  padding-top: 5px;
+}
+
+:local .actorsHp > div:nth-child(3) {
+  float: left;
+  width: 45%;
+  text-align: left;
+  color: #97d1df;
+  font-size: 25px;
+}
+
+:local .actorsAtk {
+  float: left;
+  width: 100%;
+  padding: 3px 5px;
+  border-top: 1px solid #f6f6f6;
+}
+
+:local .actorsAtk > div:nth-child(1) {
+  float: left;
+  width: 45%;
+  text-align: right;
+  color: #97d1df;
+  font-size: 20px;
+}
+
+:local .actorsAtk > div:nth-child(2) {
+  float: left;
+  width: 10%;
+  text-align: center;
+  padding-top: 5px;
+  font-size: 13px;
+}
+
+:local .actorsAtk > div:nth-child(3) {
+  float: left;
+  width: 45%;
+  text-align: left;
+  color: #97d1df;
+  font-size: 20px;
+}
+
+:local .actorCard {
+  float: left;
+  width: 50%;
+}
+
+:local .actorName {
+  float: left;
+  width: 100%;
+  padding: 3px 5px;
+  text-align: center;
+}
+
+:local .actorHp {
+  float: left;
+  width: 100%;
+  padding: 3px 5px;
+}
+
+:local .actorHpTitle {
+  display: inline-block;
+  font-size: 17px;
+}
+
+:local .actorHpCurrent {
+  display: inline-block;
+  color: #97d1df;
+  width: 80%;
+  text-align: center;
+  font-size: 13px;
+}
+
+:local .actorHpCurrent > div {
+  display: inline-block;
+  font-size: 15px;
+}
+
+:local .actorStats {
+  float: left;
+  width: 100%;
+}
+
+:local .actorStats > div {
+  float: left;
+  width: 100%;
+  border-top: 1px solid #f6f6f6;
+  padding: 3px 5px;
+}
+
+:local .actorStats > div > div {
+  float: left;
+  width: 50%;
+  font-size: 13px;
+}
+
+:local .actorStats > div > div > div {
+  display: inline-block;
+  color: #97d1df;
+  font-size: 15px;
+  padding-left: 10px;
 }

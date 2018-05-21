@@ -1,0 +1,10 @@
+:local .main {
+  float: left;
+  height: 100vh;
+  background: #212121;
+}
+
+:local .body {
+  float: left;
+  position: relative;
+}

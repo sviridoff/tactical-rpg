@@ -27,6 +27,7 @@
     "classnames": "^2.2.5",
     "css-loader": "^0.28.11",
     "delay": "^2.0.0",
+    "file-loader": "^1.1.11",
     "immer": "^1.2.1",
     "lodash-es": "^4.17.10",
     "pathfinding": "^0.4.18",
