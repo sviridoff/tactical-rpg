@@ -37,9 +37,9 @@ export function actors(state = initialState, action: any) {
         const actor = draft[action.data.actor.id];
         const enemyActor = draft[action.data.enemyActor.id];
 
-        enemyActor.healthPoints -= actor.damage;
+        enemyActor.hp -= actor.attack - enemyActor.defense;
 
-        if (enemyActor.healthPoints <= 0) {
+        if (enemyActor.hp <= 0) {
           enemyActor.isDead = true;
         }
 

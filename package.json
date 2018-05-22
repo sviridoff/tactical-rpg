@@ -26,6 +26,7 @@
     "awesome-typescript-loader": "^5.0.0",
     "classnames": "^2.2.5",
     "css-loader": "^0.28.11",
+    "cumberbatch-name": "^1.2.0",
     "delay": "^2.0.0",
     "file-loader": "^1.1.11",
     "immer": "^1.2.1",

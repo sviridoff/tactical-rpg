@@ -18,7 +18,7 @@ function getPosition(actor: TActor, tileArea: any) {
 
 function getHealthBarWidth(actor: TActor) {
   return {
-    width: `${actor.healthPoints * 100 / actor.totalHealthPoints}%`,
+    width: `${actor.hp * 100 / actor.totalHp}%`,
   };
 }
 

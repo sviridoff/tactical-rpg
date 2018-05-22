@@ -11,28 +11,28 @@ interface IProfileProps {
 function createActorElement(actor: TActor): JSX.Element {
   return (
     <div className={styles.actorCard}>
-      <div className={styles.actorName}>Cloud</div>
+      <div className={styles.actorName}>{actor.name}</div>
       <div className={styles.actorHp}>
         <div className={styles.actorHpTitle}>HP</div>
         <div className={styles.actorHpCurrent}>
-          <div>{actor.healthPoints}</div>/{actor.totalHealthPoints}
+          <div>{actor.hp}</div>/{actor.totalHp}
         </div>
       </div>
       <div className={styles.actorStats}>
         <div>
           <div>
-            Atk <div>{actor.damage}</div>
+            Atk <div>{actor.attack}</div>
           </div>
           <div>
-            Spd <div>10</div>
+            Spd <div>{actor.speed}</div>
           </div>
         </div>
         <div>
           <div>
-            Def <div>4</div>
+            Def <div>{actor.defense}</div>
           </div>
           <div>
-            Res <div>6</div>
+            Res <div>{actor.resistance}</div>
           </div>
         </div>
       </div>
@@ -47,16 +47,16 @@ function createActorsElement(
   return (
     <div className={styles.actorsCard}>
       <div className={styles.actorsName}>
-        <div>Cloud</div>
-        <div>Sephiroth</div>
+        <div>{activeActor.name}</div>
+        <div>{selectedActor.name}</div>
       </div>
       <div className={styles.actorsHp}>
-        <div>24</div>
+        <div>{activeActor.hp}</div>
         <div>HP</div>
-        <div>23</div>
+        <div>{selectedActor.hp}</div>
       </div>
       <div className={styles.actorsAtk}>
-        <div>8</div>
+        <div>{activeActor.attack - selectedActor.defense}</div>
         <div>Atk</div>
         <div>0</div>
       </div>

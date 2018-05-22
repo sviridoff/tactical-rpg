@@ -18,6 +18,9 @@
   width: 50%;
   text-align: center;
   padding: 3px 5px 5px 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 :local .actorsHp {
@@ -91,6 +94,9 @@
   width: 100%;
   padding: 3px 5px;
   text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 :local .actorHp {

@@ -1,4 +1,5 @@
-import { times } from "lodash-es";
+import cumberbatchName from "cumberbatch-name";
+import { random } from "lodash-es";
 import { v4 as uuidv4 } from "uuid";
 
 export default class Actors {
@@ -13,19 +14,24 @@ export default class Actors {
       positions.forEach((position: any) => {
         const id = uuidv4();
         const [x, y] = position;
+        const hp = random(10, 20);
 
         actors[id] = {
+          attack: random(7, 15),
           currentPosition: { x, y },
-          damage: 5,
-          healthPoints: 10,
+          defense: random(2, 7),
+          hp,
           id,
           isDead: false,
           isDisable: false,
           isEnemy,
           isGoingToAttack: false,
           isGoingToBeAttacked: false,
+          name: cumberbatchName(),
           originalPosition: { x, y },
-          totalHealthPoints: 10,
+          resistance: random(2, 8),
+          speed: random(2, 8),
+          totalHp: hp,
         };
       });
     });
