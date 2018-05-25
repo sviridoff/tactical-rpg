@@ -7,4 +7,5 @@
 :local .body {
   float: left;
   position: relative;
+  background: url("./images/subtle-grunge.png"), radial-gradient(at top left, #4cc98a, #99ddb5, #bbe2a3, #7ac94c);
 }

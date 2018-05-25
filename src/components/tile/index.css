@@ -1,6 +1,4 @@
 :local .main {
-  outline: 1px dashed rgba(0, 0, 0, 0.2);
-  background: #a5da99;
   float: left;
 }
 
@@ -9,28 +7,37 @@
 }
 
 :local .moveArea {
-  width: 100%;
-  height: 100%;
-  background: blue;
+  width: calc(100% - 4px);
+  height: calc(100% - 4px);
+  background: #36acef;
   opacity: 0.4;
+  margin: 2px;
+  border-radius: 4px;
 }
 
 :local .actorArea {
-  width: 100%;
-  height: 100%;
-  background: paleturquoise;
+  width: calc(100% - 4px);
+  height: calc(100% - 4px);
+  background: #454545;
   opacity: 0.4;
+  margin: 2px;
+  border-radius: 4px;
 }
 
 :local .attackArea {
-  width: 100%;
-  height: 100%;
-  background: red;
+  width: calc(100% - 4px);
+  height: calc(100% - 4px);
+  background: #ef852f;
   opacity: 0.4;
+  margin: 2px;
+  border-radius: 4px;
 }
 
 :local .selectedArea {
-  width: 100%;
-  height: 100%;
-  background: purple;
+  width: calc(100% - 4px);
+  height: calc(100% - 4px);
+  background: #454545;
+  opacity: 0.4;
+  margin: 2px;
+  border-radius: 4px;
 }
