@@ -1,5 +1,5 @@
 import delay from "delay";
-import { hidePlayerTurnBanner, showPlayerTurnBanner } from "../actions/index";
+import { hidePlayerTurnBanner, showMatchEndBanner, showPlayerTurnBanner } from "../actions/index";
 
 export default async function turnBanner(dispatch: TDispatch) {
   dispatch(showPlayerTurnBanner());

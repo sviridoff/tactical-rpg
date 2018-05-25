@@ -6,16 +6,49 @@
 }
 
 :local .main {
-  background: black;
+  background: #212121;
   width: 100%;
-  padding: 25px 0;
+  padding: 30px 0;
   top: 50%;
   transform: translateY(-50%);
   position: absolute;
 }
 
 :local .title {
-  color: white;
+  color: transparent;
   text-align: center;
-  font-size: 1.6rem;
+  font-size: 25px;
+  background: -webkit-linear-gradient(#f6f6f6, #69d7f1);
+  -webkit-background-clip: text;
+  padding-bottom: 5px;
+  position: relative;
+}
+
+:local .title:before,
+:local .title:after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  height: 1px;
+  width: 100%;
+  background-color: #f6f6f6;
+  animation: outwards 0.5s linear;
+}
+
+:local .title:before {
+  left: calc(50%);
+}
+
+:local .title:after {
+  right: calc(50%);
+}
+
+@keyframes :local(outwards) {
+  from {
+    width: 0%; 
+  }
+
+  to {
+    width: 100%;
+  }
 }
