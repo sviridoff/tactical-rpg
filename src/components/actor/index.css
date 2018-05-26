@@ -22,11 +22,22 @@
 }
 
 :local .attackTarget {
-  width: 50%;
-  height: 50%;
-  background: crimson;
+  width: 30px;
+  height: 30px;
+  background: url("../../images/fight.png") center center no-repeat white;
+  background-size: 16px;
   position: relative;
-  left: 25%;
-  top: -25%;
+  left: calc(50% - 15px);
   border-radius: 50%;
+  animation: bouncing 0.5s infinite alternate;
+}
+
+@keyframes :local(bouncing) {
+  from {
+    top: -15px; 
+  }
+
+  to {
+    top: -25px;
+  }
 }
