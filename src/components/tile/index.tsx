@@ -10,16 +10,9 @@ export interface ITileProps {
   updateTile: (tile: TTile) => any;
 }
 
-export const Tile = (props: ITileProps) => {
+function Tile(props: ITileProps) {
   const { tile, isFirst, updateTile } = props;
-  const {
-    isMoveArea,
-    isAttackArea,
-    isActorArea,
-    isSelectedArea,
-    x,
-    y,
-  } = tile;
+  const { isMoveArea, isAttackArea, isActorArea, isSelectedArea, x, y } = tile;
   const onClick = () => updateTile(tile);
   const className = classNames({
     [styles.first]: isFirst,
@@ -41,11 +34,13 @@ export const Tile = (props: ITileProps) => {
   return (
     <div
       onClick={onClick}
-      data-id={`${x}_${y}`}
+      data-id={`${y}_${x}`}
       className={className}
       style={tileArea}
     >
       {area}
     </div>
   );
-};
+}
+
+export default Tile;

@@ -64,7 +64,7 @@ function createActorsElement(
   );
 }
 
-export const Profile = (props: IProfileProps) => {
+function Profile(props: IProfileProps) {
   const { activeActor, selectedActor, showActiveActor } = props;
 
   return (
@@ -75,4 +75,6 @@ export const Profile = (props: IProfileProps) => {
         createActorsElement(selectedActor, activeActor)}
     </div>
   );
-};
+}
+
+export default Profile;

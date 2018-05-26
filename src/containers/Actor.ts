@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
-import { Actor } from "../components/actor/index";
+import Actor from "../components/actor/index";
 import { playerTurnHandler } from "../effects/playerTurn";
 
 interface IOwnProps {

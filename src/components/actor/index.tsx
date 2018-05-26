@@ -22,7 +22,7 @@ function getHealthBarWidth(actor: TActor) {
   };
 }
 
-export const Actor = (props: IActorProps) => {
+function Actor(props: IActorProps) {
   const { actor, playerTurnHandler } = props;
   const position = getPosition(actor, tileArea);
   const healthBarWidth = getHealthBarWidth(actor);
@@ -33,17 +33,21 @@ export const Actor = (props: IActorProps) => {
     [styles.disable]: actor.isDisable,
   });
 
+  if (actor.isDead) {
+    return null;
+  }
+
   return (
-    <React.Fragment>
-      <div
-        data-id={actor.id}
-        className={className}
-        style={{ ...position, ...tileArea }}
-        onClick={onClick}
-      >
-        {actor.isGoingToBeAttacked && <div className={styles.attackTarget} />}
-        <div className={styles.healthBar} style={healthBarWidth} />
-      </div>
-    </React.Fragment>
+    <div
+      data-id={actor.id}
+      className={className}
+      style={{ ...position, ...tileArea }}
+      onClick={onClick}
+    >
+      {actor.isGoingToBeAttacked && <div className={styles.attackTarget} />}
+      <div className={styles.healthBar} style={healthBarWidth} />
+    </div>
   );
-};
+}
+
+export default Actor;

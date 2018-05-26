@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 
-import { Profile } from "../components/profile/index";
+import Profile from "../components/profile/index";
 import getActorTile from "../library/getActorTile";
 
 const mapStateToProps = (state: TState) => {
@@ -19,4 +19,10 @@ const mapStateToProps = (state: TState) => {
   };
 };
 
-export default connect(mapStateToProps)(Profile);
+const options = {
+  areStatesEqual(next: TState, prev: TState) {
+    return prev.player.selectedActorId === next.player.selectedActorId;
+  },
+};
+
+export default connect(mapStateToProps, null, null, options)(Profile);

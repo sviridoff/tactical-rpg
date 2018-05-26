@@ -4,28 +4,20 @@ import Actor from "../containers/Actor";
 
 export interface IActorsProps {
   actors: TActors;
-  player: TPlayer;
 }
 
-export const Actors = (props: IActorsProps) => {
-  const { actors, player } = props;
+function Actors(props: IActorsProps) {
+  const { actors } = props;
 
   return (
     <React.Fragment>
       {Object.keys(actors).map((key) => {
         const actor = actors[key];
 
-        if (actor.isDead) {
-          return null;
-        }
-
-        return (
-          <Actor
-            key={actor.id}
-            actor={actor}
-          />
-        );
+        return <Actor key={actor.id} actor={actor} />;
       })}
     </React.Fragment>
   );
-};
+}
+
+export default Actors;

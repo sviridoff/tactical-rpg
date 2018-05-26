@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 
-import { Actors } from "../components/Actors";
+import Actors from "../components/Actors";
 
 const mapStateToProps = (state: TState) => state;
 
