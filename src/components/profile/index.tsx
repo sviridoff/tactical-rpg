@@ -11,28 +11,31 @@ interface IProfileProps {
 function createActorElement(actor: TActor): JSX.Element {
   return (
     <div className={styles.actorCard}>
-      <div className={styles.actorName}>{actor.name}</div>
-      <div className={styles.actorHp}>
-        <div className={styles.actorHpTitle}>HP</div>
-        <div className={styles.actorHpCurrent}>
-          <div>{actor.hp}</div>/{actor.totalHp}
-        </div>
-      </div>
-      <div className={styles.actorStats}>
-        <div>
-          <div>
-            Atk <div>{actor.attack}</div>
-          </div>
-          <div>
-            Spd <div>{actor.speed}</div>
+      <div className={[styles.avatar, styles[actor.image]].join(" ")} />
+      <div className={styles.content}>
+        <div className={styles.actorName}>{actor.name}</div>
+        <div className={styles.actorHp}>
+          <div className={styles.actorHpTitle}>HP</div>
+          <div className={styles.actorHpCurrent}>
+            <div>{actor.hp}</div>/{actor.totalHp}
           </div>
         </div>
-        <div>
+        <div className={styles.actorStats}>
           <div>
-            Def <div>{actor.defense}</div>
+            <div>
+              Atk <div>{actor.attack}</div>
+            </div>
+            <div>
+              Spd <div>{actor.speed}</div>
+            </div>
           </div>
           <div>
-            Res <div>{actor.resistance}</div>
+            <div>
+              Def <div>{actor.defense}</div>
+            </div>
+            <div>
+              Res <div>{actor.resistance}</div>
+            </div>
           </div>
         </div>
       </div>
@@ -46,19 +49,27 @@ function createActorsElement(
 ): JSX.Element {
   return (
     <div className={styles.actorsCard}>
-      <div className={styles.actorsName}>
-        <div>{activeActor.name}</div>
-        <div>{selectedActor.name}</div>
-      </div>
-      <div className={styles.actorsHp}>
-        <div>{activeActor.hp}</div>
-        <div>HP</div>
-        <div>{selectedActor.hp}</div>
-      </div>
-      <div className={styles.actorsAtk}>
-        <div>{activeActor.attack - selectedActor.defense}</div>
-        <div>Atk</div>
-        <div>0</div>
+      <div className={styles.background} />
+      <div className={styles.enemyBackground} />
+      <div className={[styles.avatar, styles[activeActor.image]].join(" ")} />
+      <div
+        className={[styles.enemyAvatar, styles[selectedActor.image]].join(" ")}
+      />
+      <div className={styles.actorsContent}>
+        <div className={styles.actorsName}>
+          <div>{activeActor.name}</div>
+          <div>{selectedActor.name}</div>
+        </div>
+        <div className={styles.actorsHp}>
+          <div>{activeActor.hp}</div>
+          <div>HP</div>
+          <div>{selectedActor.hp}</div>
+        </div>
+        <div className={styles.actorsAtk}>
+          <div>{activeActor.attack - selectedActor.defense}</div>
+          <div>Atk</div>
+          <div>0</div>
+        </div>
       </div>
     </div>
   );

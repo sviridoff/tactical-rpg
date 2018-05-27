@@ -43,11 +43,11 @@
 }
 
 @keyframes :local(pulse) {
-  0% {
+  from {
     background-color: #1aa9fb;
   }
 
-  100% {
+  to {
     background-color: #0d79b7;
   }
 }

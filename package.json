@@ -7,7 +7,7 @@
     "develop":
       "NODE_ENV=development webpack-dev-server --output-public-path dist",
     "build": "rm -rf dist && NODE_ENV=production webpack",
-    "docs": "npm run build && cp -R dist docs",
+    "docs": "npm run build && rm -rf docs/dist && cp -R dist docs",
     "build:dev": "rm -rf dist && NODE_ENV=development webpack",
     "analyze":
       "rm -rf dist && WEBPACK_BUNDLE_ANALYZER=true NODE_ENV=production webpack"
