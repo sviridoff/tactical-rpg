@@ -67,6 +67,23 @@
     </style>
 
     <script src="dist/bundle.js" defer></script>
+
+    <script>
+      var images = [];
+      function preload() {
+        for (var i = 0; i < arguments.length; i++) {
+          images[i] = new Image();
+          images[i].src = preload.arguments[i];
+        }
+      }
+
+      preload(
+        "https://sviridoff.github.io/tactical-rpg/dist/3c51f7bc3236ca166994b067ef49292c.png",
+        "https://sviridoff.github.io/tactical-rpg/dist/1e122db2ba99598a0578d306bd7f1723.png",
+        "https://sviridoff.github.io/tactical-rpg/dist/104b97bf67712ebf60683b8689877ed1.png",
+        "https://sviridoff.github.io/tactical-rpg/dist/d1951f2bf0cf1c0ec24229cafd6ced67.png",
+      )
+    </script>
 </head>
 
 <body>
