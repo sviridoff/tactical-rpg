@@ -4,11 +4,16 @@
   "description": "An attempt to make `Fire Emblem Heroes` clone in Javascript",
   "main": "index.js",
   "scripts": {
-    "develop": "NODE_ENV=development webpack-dev-server --output-public-path dist",
+    "develop":
+      "NODE_ENV=development webpack-dev-server --output-public-path dist",
     "build": "rm -rf dist && NODE_ENV=production webpack",
     "docs": "npm run build && cp -R dist docs",
     "build:dev": "rm -rf dist && NODE_ENV=development webpack",
-    "analyze": "rm -rf dist && WEBPACK_BUNDLE_ANALYZER=true NODE_ENV=production webpack"
+    "analyze":
+      "rm -rf dist && WEBPACK_BUNDLE_ANALYZER=true NODE_ENV=production webpack"
+  },
+  "engines": {
+    "node": ">=10.0.0"
   },
   "author": "",
   "license": "ISC",
