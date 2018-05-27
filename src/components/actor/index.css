@@ -1,35 +1,77 @@
 :local .main {
   position: absolute;
-  background: pink;
   transition: top .2s, left .2s;
   z-index: 2;
 }
 
-:local .enemy {
-  background: lightskyblue;
+:local .image {
+  width: 100%;
+  height: calc(100% - 7px);
+  position: relative;
+}
+
+:local .picachu {
+  background: url("../../images/pokemons/picachu.png") center center no-repeat;
+  background-size: contain;
+}
+
+:local .charmander {
+  background: url("../../images/pokemons/charmander.png") center center no-repeat;
+  background-size: contain;
+}
+
+:local .squirtle {
+  background: url("../../images/pokemons/squirtle.png") center center no-repeat;
+  background-size: contain;
+}
+
+:local .bulbasaur {
+  background: url("../../images/pokemons/bulbasaur.png") center center no-repeat;
+  background-size: contain;
 }
 
 :local .disable {
-  background: grey;
 }
 
-:local .healthBar {
-  background: crimson;
-  height: 20%;
-  width: 100%;
+:local .enemy {
+}
+
+:local .hpBarWrapper {
   bottom: 0;
   position: absolute;
+  border: 2px solid #f6f6f6;
+  width: calc(100% - 20px);
+  height: 10px;
+  right: 0;
+}
+
+:local .hpBar {
+  background: #f6f6f6;
+  width: 100%;
+  height: 100%;
+  transition: width .2s;
+}
+
+:local .hpNumber {
+  color: #f6f6f6;
+  font-size: 17px;
+  line-height: 10px;
+  position: absolute;
+  bottom: 0;
+  width: 20px;
+  text-align: center;
 }
 
 :local .attackTarget {
   width: 30px;
   height: 30px;
-  background: url("../../images/fight.png") center center no-repeat white;
+  background: url("../../images/attack-target.png") center center no-repeat #f6f6f6;
   background-size: 16px;
-  position: relative;
+  position: absolute;
   left: calc(50% - 15px);
   border-radius: 50%;
   animation: bouncing 0.5s infinite alternate;
+  z-index: 2;
 }
 
 @keyframes :local(bouncing) {

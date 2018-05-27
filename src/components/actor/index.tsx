@@ -16,7 +16,7 @@ function getPosition(actor: TActor, tileArea: any) {
   };
 }
 
-function getHealthBarWidth(actor: TActor) {
+function getHpBarWidth(actor: TActor) {
   return {
     width: `${actor.hp * 100 / actor.totalHp}%`,
   };
@@ -25,7 +25,7 @@ function getHealthBarWidth(actor: TActor) {
 function Actor(props: IActorProps) {
   const { actor, playerTurnHandler } = props;
   const position = getPosition(actor, tileArea);
-  const healthBarWidth = getHealthBarWidth(actor);
+  const hpBarWidth = getHpBarWidth(actor);
   const onClick = () => playerTurnHandler(actor);
   const className = classNames({
     [styles.main]: true,
@@ -45,7 +45,11 @@ function Actor(props: IActorProps) {
       onClick={onClick}
     >
       {actor.isGoingToBeAttacked && <div className={styles.attackTarget} />}
-      <div className={styles.healthBar} style={healthBarWidth} />
+      <div className={[styles.image, styles[actor.image]].join(" ")} />
+      <div className={styles.hpNumber}>{actor.hp}</div>
+      <div className={styles.hpBarWrapper}>
+        <div className={styles.hpBar} style={hpBarWidth} />
+      </div>
     </div>
   );
 }

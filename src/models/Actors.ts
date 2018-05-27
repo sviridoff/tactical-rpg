@@ -2,11 +2,14 @@ import cumberbatchName from "cumberbatch-name";
 import { random } from "lodash-es";
 import { v4 as uuidv4 } from "uuid";
 
+const images = ["picachu", "charmander", "squirtle", "bulbasaur"];
+
 export default class Actors {
   private actors: TActors;
 
   constructor(teams: any) {
     const actors: TActors = {};
+    let imageIndex = 0;
 
     teams.forEach((team: any) => {
       const { positions, isEnemy } = team;
@@ -22,6 +25,7 @@ export default class Actors {
           defense: random(2, 7),
           hp,
           id,
+          image: images[imageIndex],
           isDead: false,
           isDisable: false,
           isEnemy,
@@ -33,6 +37,8 @@ export default class Actors {
           speed: random(2, 8),
           totalHp: hp,
         };
+
+        imageIndex++;
       });
     });
 

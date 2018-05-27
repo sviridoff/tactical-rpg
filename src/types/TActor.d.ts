@@ -11,6 +11,7 @@ type TActor = {
   attack: number;
   defense: number;
   hp: number;
+  image: string;
   isDead: boolean;
   isDisable: boolean;
   isEnemy: boolean;
