@@ -30,7 +30,8 @@
   background-size: contain;
 }
 
-:local .disable {
+:local .disable .image {
+  filter: grayscale(100%) brightness(85%);
 }
 
 :local .enemy {

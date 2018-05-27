@@ -1,8 +1,8 @@
-import cumberbatchName from "cumberbatch-name";
 import { random } from "lodash-es";
 import { v4 as uuidv4 } from "uuid";
 
 const images = ["picachu", "charmander", "squirtle", "bulbasaur"];
+const names = ["Picachu", "Charmander", "Squirtle", "Bulbasaur"];
 
 export default class Actors {
   private actors: TActors;
@@ -31,7 +31,7 @@ export default class Actors {
           isEnemy,
           isGoingToAttack: false,
           isGoingToBeAttacked: false,
-          name: cumberbatchName(),
+          name: names[imageIndex],
           originalPosition: { x, y },
           resistance: random(2, 8),
           speed: random(2, 8),

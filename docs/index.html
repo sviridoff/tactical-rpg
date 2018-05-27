@@ -67,15 +67,20 @@
     </style>
 
     <style>
+      html {
+        background: url("./background.jpg");
+      }
+
       #root {
         width: 375px;
         height: 667px;
         position: relative;
         border: 5px solid black;
         margin: 20px;
+        overflow: hidden;
       }
 
-      @media all and (max-width: 768px) {
+      @media all and (max-width: 380px) {
         #root {
           border: none;
           width: 100vw;

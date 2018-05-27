@@ -22,7 +22,10 @@ module.exports = {
     rules: [
       {
         test: /\.(png|jpg|gif)$/,
-        use: ["file-loader"],
+        loader: 'file-loader',
+        options: {
+          publicPath: 'dist',
+        },
       },
       {
         test: /\.tsx?$/,
