@@ -24,7 +24,7 @@
   position: absolute;
   width: 50%;
   height: 90px;
-  background: url("../../images/speed.png") no-repeat, linear-gradient(to top, #279371, #4d907b);
+  background: radial-gradient(at top right, #219d76, #279371);
 }
 
 :local .enemyBackground {
@@ -32,7 +32,7 @@
   width: 50%;
   height: 90px;
   right: 0;
-  background: url("../../images/enemySpeed.png") right no-repeat, linear-gradient(to top, #a70b0b, #930a0a);
+  background: radial-gradient(at top right, #b14242, #bf6363);
 }
 
 :local .actorsContent {
@@ -41,8 +41,8 @@
   margin: 0 auto;
 }
 
-:local .picachu {
-  background:url("../../images/avatars/picachu.png");
+:local .pikachu {
+  background:url("../../images/avatars/pikachu.png");
 }
 
 :local .charmander {
@@ -149,7 +149,7 @@
   float: left;
   width: 100%;
   height: 90px;
-  background: url("../../images/speed.png") no-repeat, linear-gradient(to top, #279371, #4d907b);
+  background: radial-gradient(at top right, #63ba9f, #40ab89, #219d76, #279371);
 }
 
 :local .actorName {

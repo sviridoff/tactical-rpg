@@ -19,6 +19,7 @@ export default class Tilemap {
           isAttackRangeArea: false,
           isMoveArea: false,
           isPathfindable: false,
+          isPlayerActorArea: false,
           isSelectedArea: false,
           isWalkableArea: false,
           x,
@@ -82,6 +83,7 @@ export default class Tilemap {
           isAttackRangeArea: false,
           isMoveArea: false,
           isPathfindable: false,
+          isPlayerActorArea: false,
           isSelectedArea: false,
         });
       });

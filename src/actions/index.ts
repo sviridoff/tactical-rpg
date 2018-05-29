@@ -1,7 +1,7 @@
 export function showActorArea(actor: TActor, actors: TActors) {
   return {
     data: { actor, actors },
-    type: "SHOW_ACTOR_AREA",
+    type: "SHOW_ACTIVE_AREA",
   };
 }
 

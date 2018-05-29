@@ -10,8 +10,8 @@
   position: relative;
 }
 
-:local .picachu {
-  background: url("../../images/pokemons/picachu.png") center center no-repeat;
+:local .pikachu {
+  background: url("../../images/pokemons/pikachu.png") center center no-repeat;
   background-size: contain;
 }
 

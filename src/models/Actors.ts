@@ -1,8 +1,8 @@
 import { random } from "lodash-es";
 import { v4 as uuidv4 } from "uuid";
 
-const images = ["picachu", "charmander", "squirtle", "bulbasaur"];
-const names = ["Picachu", "Charmander", "Squirtle", "Bulbasaur"];
+const images = ["pikachu", "charmander", "squirtle", "bulbasaur"];
+const names = ["Pokachu", "Churmandel", "Squartule", "Balbasaur"];
 
 export default class Actors {
   private actors: TActors;

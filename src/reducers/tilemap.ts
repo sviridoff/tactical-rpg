@@ -18,7 +18,7 @@ function getLiveActorsTiles(actors: TActors, tilemap: TTilemap) {
 export function tilemap(state = initialState, action: any) {
   return produce(state, (draft) => {
     switch (action.type) {
-      case "SHOW_ACTOR_AREA": {
+      case "SHOW_ACTIVE_AREA": {
         const { actor, actors } = action.data;
         const actorTiles = getLiveActorsTiles(actors, state);
         const actorTile = getActorTile(actor, state);

@@ -21,7 +21,10 @@ const mapStateToProps = (state: TState) => {
 
 const options = {
   areStatesEqual(next: TState, prev: TState) {
-    return prev.player.selectedActorId === next.player.selectedActorId;
+    return (
+      prev.player.selectedActorId === next.player.selectedActorId &&
+      prev.player.activeActorId === next.player.activeActorId
+    );
   },
 };
 
