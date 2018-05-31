@@ -78,9 +78,11 @@ function shouldSelectActor(
   return Boolean(actor.id !== activeActor.id && actor.id !== selectedActor.id);
 }
 
-function resetActor(dispatch: TDispatch) {
+function resetActor(dispatch: TDispatch, getState: TGetState) {
+  const { actors } = getState();
+
   dispatch(flushActorsAttackTarget());
-  dispatch(hideActorArea());
+  dispatch(hideActorArea(actors));
   dispatch(updatePlayerActiveActorId());
   dispatch(updatePlayerSelectedActorId());
 }
@@ -205,7 +207,7 @@ export function playerTurnHandler(actor: TActor) {
     }
 
     if (activeActor.isDisable || activeActor.isEnemy) {
-      resetActor(dispatch);
+      resetActor(dispatch, getState);
       dispatch(playerTurnHandler(actor));
 
       return;
@@ -213,7 +215,7 @@ export function playerTurnHandler(actor: TActor) {
 
     if (shouldAttackEnemyActor(actor, activeActor, selectedActor, tilemap)) {
       attackEnemy(dispatch, getState, activeActor, actor);
-      resetActor(dispatch);
+      resetActor(dispatch, getState);
 
       return;
     }
@@ -234,7 +236,7 @@ export function playerTurnHandler(actor: TActor) {
     if (shouldEndMoveActor(actor, activeActor)) {
       dispatch(updateActorOriginalPosition(actor));
       checkDisableActors(dispatch, getState, actor);
-      resetActor(dispatch);
+      resetActor(dispatch, getState);
 
       return;
     }

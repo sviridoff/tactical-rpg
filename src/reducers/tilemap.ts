@@ -9,9 +9,15 @@ const tm = new Tilemap({
 
 const initialState: TTilemap = tm.get();
 
-function getLiveActorsTiles(actors: TActors, tilemap: TTilemap) {
+function getActorTiles(actors: TActors, tilemap: TTilemap) {
   return Object.keys(actors)
     .filter((key) => !actors[key].isDead)
+    .map((key) => getActorTile(actors[key], tilemap));
+}
+
+function getPlayerActorTiles(actors: TActors, tilemap: TTilemap) {
+  return Object.keys(actors)
+    .filter((key) => !actors[key].isDead && !actors[key].isEnemy)
     .map((key) => getActorTile(actors[key], tilemap));
 }
 
@@ -20,20 +26,26 @@ export function tilemap(state = initialState, action: any) {
     switch (action.type) {
       case "SHOW_ACTIVE_AREA": {
         const { actor, actors } = action.data;
-        const actorTiles = getLiveActorsTiles(actors, state);
+        const actorTiles = getActorTiles(actors, state);
         const actorTile = getActorTile(actor, state);
+        const playerActorTile = getPlayerActorTiles(actors, state);
 
         tm.removeAllAreas(draft);
         tm.addMoveArea(draft, actorTile, 3);
         tm.addAttackArea(draft, actorTile, 4);
         tm.addActorArea(draft, actorTiles);
+        tm.addPlayerActorArea(draft, playerActorTile);
         tm.addPathfindableArea(draft);
         tm.addAttackRangeArea(draft, actorTile, 2);
 
         break;
       }
       case "HIDE_ACTOR_AREA": {
+        const { actors } = action.data;
+        const playerActorTile = getPlayerActorTiles(actors, state);
+
         tm.removeAllAreas(draft);
+        tm.addPlayerActorArea(draft, playerActorTile);
 
         break;
       }

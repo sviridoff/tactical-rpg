@@ -48,6 +48,14 @@ export default class Tilemap {
     });
   }
 
+  public addPlayerActorArea(tilemap: TTilemap, tiles: TTile[]) {
+    tiles.forEach((tile) => {
+      const { x, y } = tile;
+
+      tilemap[y][x].isPlayerActorArea = true;
+    });
+  }
+
   public addMoveArea(tilemap: TTilemap, tile: TTile, radius: number) {
     this.setDiamondArea(tilemap, tile, radius, { isMoveArea: true });
   }

@@ -5,8 +5,9 @@ export function showActorArea(actor: TActor, actors: TActors) {
   };
 }
 
-export function hideActorArea() {
+export function hideActorArea(actors: TActors) {
   return {
+    data: { actors },
     type: "HIDE_ACTOR_AREA",
   };
 }

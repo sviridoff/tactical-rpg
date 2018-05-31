@@ -8,9 +8,11 @@ import {
 } from "../actions/index";
 import getActorTile from "../library/getActorTile";
 
-function resetAll(dispatch: TDispatch) {
+function resetAll(dispatch: TDispatch, getState: TGetState) {
+  const { actors } = getState();
+
   dispatch(updatePlayerActiveActorId());
-  dispatch(hideActorArea());
+  dispatch(hideActorArea(actors));
 }
 
 export function updateTile(tile: TTile) {
@@ -32,7 +34,7 @@ export function updateTile(tile: TTile) {
 
     // If `Actor` is disabled, we do nothing.
     if (activeActor.isDisable || activeActor.isEnemy) {
-      resetAll(dispatch);
+      resetAll(dispatch, getState);
 
       return;
     }
@@ -42,7 +44,7 @@ export function updateTile(tile: TTile) {
     // If NOT is in move area, set current position to the original position.
     if (!tile.isMoveArea) {
       dispatch(updateActorCurrentPosition(activeActor, activeActorTile));
-      resetAll(dispatch);
+      resetAll(dispatch, getState);
 
       return;
     }
@@ -54,7 +56,7 @@ export function updateTile(tile: TTile) {
 
     // If the `Actor` was back to the original position.
     if (activeActorTile === tile) {
-      resetAll(dispatch);
+      resetAll(dispatch, getState);
     }
 
     // Update current position.

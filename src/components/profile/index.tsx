@@ -10,7 +10,9 @@ interface IProfileProps {
 
 function createActorElement(actor: TActor): JSX.Element {
   return (
-    <div className={styles.actorCard}>
+    <div
+      className={[styles.actorCard, actor.isEnemy && styles.isEnemy].join(" ")}
+    >
       <div className={[styles.avatar, styles[actor.image]].join(" ")} />
       <div className={styles.content}>
         <div className={styles.actorName}>{actor.name}</div>

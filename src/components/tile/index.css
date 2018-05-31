@@ -39,12 +39,12 @@
   opacity: 0.6;
   margin: 2px;
   border-radius: 4px;
-  animation: pulse 1s linear infinite alternate;
+  animation: pulse 0.75s linear infinite alternate;
 }
 
 @keyframes :local(pulse) {
   from {
-    background-color: #1aa9fb;
+    background-color: #47bafc;
   }
 
   to {

@@ -152,6 +152,10 @@
   background: radial-gradient(at top right, #63ba9f, #40ab89, #219d76, #279371);
 }
 
+:local .isEnemy {
+  background: radial-gradient(at top right, #b14242, #bf6363, #d45656);
+}
+
 :local .actorName {
   float: left;
   width: 100%;

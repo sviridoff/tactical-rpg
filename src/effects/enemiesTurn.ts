@@ -128,9 +128,15 @@ function selectActor(
   dispatch(showActorArea(enemyActor, actors));
 }
 
-function resetActor(dispatch: TDispatch, enemyActor: TActor) {
+function resetActor(
+  dispatch: TDispatch,
+  getState: TGetState,
+  enemyActor: TActor,
+) {
+  const { actors } = getState();
+
   dispatch(disableActor(enemyActor));
-  dispatch(hideActorArea());
+  dispatch(hideActorArea(actors));
   dispatch(updatePlayerActiveActorId());
   dispatch(updatePlayerSelectedActorId());
 }
@@ -147,7 +153,7 @@ async function enemyTurn(dispatch: TDispatch, getState: TGetState) {
 
     attackPlayerActor(dispatch, enemyActor, playerActorToAttack);
 
-    resetActor(dispatch, enemyActor);
+    resetActor(dispatch, getState, enemyActor);
 
     await delay(1000);
 
@@ -166,7 +172,7 @@ async function enemyTurn(dispatch: TDispatch, getState: TGetState) {
     attackPlayerActor(dispatch, enemyActor, playerActorToAttack);
   }
 
-  resetActor(dispatch, enemyActor);
+  resetActor(dispatch, getState, enemyActor);
 
   await delay(1000);
 }

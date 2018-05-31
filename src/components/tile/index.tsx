@@ -12,7 +12,15 @@ export interface ITileProps {
 
 function Tile(props: ITileProps) {
   const { tile, isFirst, updateTile } = props;
-  const { isMoveArea, isAttackArea, isActorArea, isSelectedArea, x, y } = tile;
+  const {
+    isMoveArea,
+    isAttackArea,
+    isActorArea,
+    isSelectedArea,
+    isPlayerActorArea,
+    x,
+    y,
+  } = tile;
   const onClick = () => updateTile(tile);
   const className = classNames({
     [styles.first]: isFirst,
@@ -21,7 +29,9 @@ function Tile(props: ITileProps) {
 
   let area: JSX.Element;
 
-  if (isSelectedArea) {
+  if (isPlayerActorArea && !isMoveArea) {
+    area = <div className={styles.selectedArea} />;
+  } else if (isSelectedArea) {
     area = <div className={styles.selectedArea} />;
   } else if (isActorArea) {
     area = <div className={styles.actorArea} />;
