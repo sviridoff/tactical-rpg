@@ -57,7 +57,7 @@ function endPlayerTurn(dispatch: TDispatch) {
 async function match(dispatch: TDispatch, getState: TGetState) {
   if (isPlayerTurn(getState)) {
     await turnBanner(dispatch);
-    await playerTurn();
+    await playerTurn(dispatch, getState);
     endPlayerTurn(dispatch);
   }
 

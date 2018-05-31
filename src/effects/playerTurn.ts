@@ -24,7 +24,14 @@ import { areAllEnemyActorsDead, areAllPlayerActorsDead } from "./match";
 
 let next: () => void;
 
-export default async function playerTurn() {
+export default async function playerTurn(
+  dispatch: TDispatch,
+  getState: TGetState,
+) {
+  const { actors } = getState();
+
+  dispatch(hideActorArea(actors));
+
   return new Promise((resolve) => {
     next = resolve;
   });

@@ -11,9 +11,7 @@ function Actors(props: IActorsProps) {
 
   return (
     <React.Fragment>
-      {Object.keys(actors).map((key) => {
-        const actor = actors[key];
-
+      {Object.values(actors).map((actor) => {
         return <Actor key={actor.id} actor={actor} />;
       })}
     </React.Fragment>

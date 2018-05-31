@@ -14,7 +14,8 @@ const options = {
       prev.tile.isSelectedArea === next.tile.isSelectedArea &&
       prev.tile.isActorArea === next.tile.isActorArea &&
       prev.tile.isMoveArea === next.tile.isMoveArea &&
-      prev.tile.isAttackArea === next.tile.isAttackArea
+      prev.tile.isAttackArea === next.tile.isAttackArea &&
+      prev.tile.isPlayerActorArea === next.tile.isPlayerActorArea
     );
   },
 

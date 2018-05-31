@@ -7,16 +7,16 @@
   width: 70px;
   height: 90px;
   position: absolute;
-  left: 0;
-  animation: appearance 0.25s;
+  left: -70px;
+  animation: appearance 0.2s forwards;
 }
 
 :local .enemyAvatar {
   width: 70px;
   height: 90px;
   position: absolute;
-  right: 0;
-  animation: enemyAppearance 0.25s;
+  right: -70px;
+  animation: enemyAppearance 0.2s forwards;
   transform: scaleX(-1);
 }
 
@@ -216,7 +216,7 @@
 
 @keyframes :local(appearance) {
   from {
-    left: -30px; 
+    left: -70px; 
   }
 
   to {
@@ -226,7 +226,7 @@
 
 @keyframes :local(enemyAppearance) {
   from {
-    right: -30px; 
+    right: -70px; 
   }
 
   to {

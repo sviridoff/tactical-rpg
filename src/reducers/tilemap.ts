@@ -17,7 +17,10 @@ function getActorTiles(actors: TActors, tilemap: TTilemap) {
 
 function getPlayerActorTiles(actors: TActors, tilemap: TTilemap) {
   return Object.keys(actors)
-    .filter((key) => !actors[key].isDead && !actors[key].isEnemy)
+    .filter(
+      (key) =>
+        !actors[key].isDead && !actors[key].isEnemy && !actors[key].isDisable,
+    )
     .map((key) => getActorTile(actors[key], tilemap));
 }
 
