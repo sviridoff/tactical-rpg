@@ -7,17 +7,20 @@
   width: 70px;
   height: 90px;
   position: absolute;
-  left: -70px;
-  animation: appearance 0.2s forwards;
+  left: 0;
 }
 
 :local .enemyAvatar {
   width: 70px;
   height: 90px;
   position: absolute;
-  right: -70px;
-  animation: enemyAppearance 0.2s forwards;
+  right: 0;
+  animation: enemyAppearance 0.2s;
   transform: scaleX(-1);
+}
+
+:local .avatarAnimation {
+  animation: appearance 0.2s;
 }
 
 :local .background {

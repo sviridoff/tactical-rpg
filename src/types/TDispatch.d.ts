@@ -1,1 +1,1 @@
-type TDispatch = (parmas: any) => void;
+type TDispatch = (parmas: any) => any;

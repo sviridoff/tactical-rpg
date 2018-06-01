@@ -8,12 +8,22 @@ interface IProfileProps {
   showActiveActor: boolean;
 }
 
-function createActorElement(actor: TActor): JSX.Element {
+function createActorElement(
+  actor: TActor,
+  avatarRef: React.RefObject<HTMLDivElement>,
+): JSX.Element {
   return (
     <div
       className={[styles.actorCard, actor.isEnemy && styles.isEnemy].join(" ")}
     >
-      <div className={[styles.avatar, styles[actor.image]].join(" ")} />
+      <div
+        ref={avatarRef}
+        className={[
+          styles.avatarAnimation,
+          styles.avatar,
+          styles[actor.image],
+        ].join(" ")}
+      />
       <div className={styles.content}>
         <div className={styles.actorName}>{actor.name}</div>
         <div className={styles.actorHp}>
@@ -53,7 +63,13 @@ function createActorsElement(
     <div className={styles.actorsCard}>
       <div className={styles.background} />
       <div className={styles.enemyBackground} />
-      <div className={[styles.avatar, styles[activeActor.image]].join(" ")} />
+      <div
+        className={[
+          styles.avatarAnimation,
+          styles.avatar,
+          styles[activeActor.image],
+        ].join(" ")}
+      />
       <div
         className={[styles.enemyAvatar, styles[selectedActor.image]].join(" ")}
       />
@@ -79,10 +95,19 @@ function createActorsElement(
 
 function Profile(props: IProfileProps) {
   const { activeActor, selectedActor, showActiveActor } = props;
+  const avatarRef: React.RefObject<HTMLDivElement> = React.createRef();
+  const timer = setTimeout(() => {
+    // tslint:disable-next-line no-unused-expression
+    avatarRef.current &&
+      avatarRef.current.classList.remove(styles.avatarAnimation);
+    clearTimeout(timer);
+  }, 200);
 
   return (
     <div className={styles.main}>
-      {!showActiveActor && selectedActor && createActorElement(selectedActor)}
+      {!showActiveActor &&
+        selectedActor &&
+        createActorElement(selectedActor, avatarRef)}
       {showActiveActor &&
         activeActor &&
         createActorsElement(selectedActor, activeActor)}

@@ -9,10 +9,12 @@ interface IOwnProps {
 }
 
 const mapStateToProps = (state: TState, ownProps: IOwnProps) => ownProps;
-const mapDispatchToProps = (dispatch: TDispatch) => {
-  return {
-    playerTurnHandler: bindActionCreators(playerTurnHandler, dispatch),
-  };
-};
+const mapDispatchToProps = (dispatch: TDispatch) =>
+  bindActionCreators(
+    {
+      playerTurnHandler,
+    },
+    dispatch,
+  );
 
 export default connect(mapStateToProps, mapDispatchToProps)(Actor);
