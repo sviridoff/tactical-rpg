@@ -22,9 +22,9 @@ module.exports = {
     rules: [
       {
         test: /\.(png|jpg|gif)$/,
-        loader: 'file-loader',
+        loader: "file-loader",
         options: {
-          publicPath: 'dist',
+          publicPath: "dist",
         },
       },
       {
@@ -34,7 +34,18 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ["style-loader", "css-loader"],
+        use: [
+          "style-loader",
+          {
+            loader: "css-loader",
+            options: {
+              localIdentName:
+                process.env.NODE_ENV === "production"
+                  ? "[hash:base64]"
+                  : "[path][name]__[local]--[hash:base64:5]",
+            },
+          },
+        ],
       },
     ],
   },
