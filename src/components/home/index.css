@@ -1,0 +1,17 @@
+:local .main {
+  float: left;
+  height: 100vh;
+  width: 100%;
+  background: #212121;
+  color: #f6f6f6;
+  text-align: center;
+}
+
+:local .button {
+  border: 1px solid #f6f6f6;
+  padding: 10px 20px;
+  margin: 50px 0 0 0;
+  display: inline-block;
+  color: #f6f6f6;
+  text-decoration: none;
+}

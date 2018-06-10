@@ -1,7 +1,9 @@
-import React, { Component } from "react";
+import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
+import { BrowserRouter as Router, Link, Route } from "react-router-dom";
 
+import Home from "./components/home";
 import Match from "./components/match";
 import { matchLoop } from "./effects/match";
 import store from "./store";
@@ -15,7 +17,12 @@ if (process.env.NODE_ENV !== "production") {
 function App() {
   return (
     <Provider store={store}>
-      <Match />
+      <Router>
+        <React.Fragment>
+          <Route exact={true} path="/" component={Home} />
+          <Route path="/match" component={Match} />
+        </React.Fragment>
+      </Router>
     </Provider>
   );
 }
