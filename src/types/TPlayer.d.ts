@@ -5,4 +5,5 @@ type TPlayer = {
   showTurnBanner: boolean;
   showBattleEndBanner: boolean;
   isBattleWon: boolean;
+  selectedActors: TActors;
 };

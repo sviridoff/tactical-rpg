@@ -6,6 +6,7 @@ const initialState: TPlayer = {
   isBattleWon: false,
   isPlayerTurn: true,
   selectedActorId: null,
+  selectedActors: {},
   showBattleEndBanner: false,
   showTurnBanner: false,
 };
@@ -61,6 +62,16 @@ export function player(state = initialState, action: any) {
       case "HIDE_PLAYER_BATTLE_END_BANNER": {
         draft.showBattleEndBanner = false;
 
+        break;
+      }
+      case "ADD_SELECTED_ACTOR": {
+        draft.selectedActors[action.data.actor.id] = action.data.actor;
+
+        break;
+      }
+      case "REMOVE_SELECTED_ACTOR": {
+        delete draft.selectedActors[action.data.actor.id];
+        
         break;
       }
     }

@@ -3,8 +3,8 @@ import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { HashRouter as Router, Link, Route } from "react-router-dom";
 
-import Home from "./components/home";
 import Match from "./components/match";
+import Home from "./containers/Home";
 import { matchLoop } from "./effects/match";
 import store from "./store";
 
