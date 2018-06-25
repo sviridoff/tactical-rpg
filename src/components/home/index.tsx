@@ -17,15 +17,23 @@ function Home(props: IHomeProps) {
     player: { selectedActors },
     removeSelectedActor
   } = props;
+  const addSelectedActorHandler = (actor: TActor) => () => {
+    if (Object.keys(selectedActors).length < 2) {
+      addSelectedActor(actor);
+    }
+  };
 
   return (
     <div className={styles.main}>
       <h1>Selected characters</h1>
-      <ul>
+      <ul className={styles.portraits}>
         {Object.values(selectedActors).map(actor => {
           return (
             <li key={actor.id}>
-              <a onClick={removeSelectedActor.bind(this, actor)}>
+              <a
+                className={styles.portrait}
+                onClick={removeSelectedActor.bind(this, actor)}
+              >
                 {actor.name}
               </a>
             </li>
@@ -33,11 +41,16 @@ function Home(props: IHomeProps) {
         })}
       </ul>
       <h1>Select character</h1>
-      <ul>
+      <ul className={styles.portraits}>
         {Object.values(actors).map(actor => {
           return (
             <li key={actor.id}>
-              <a onClick={addSelectedActor.bind(this, actor)}>{actor.name}</a>
+              <a
+                className={styles.portrait}
+                onClick={addSelectedActorHandler(actor)}
+              >
+                {actor.name}
+              </a>
             </li>
           );
         })}
